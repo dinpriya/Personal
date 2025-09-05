@@ -1,0 +1,52 @@
+1) Withdraw the EID for hklvdpapp084
+2) Login to DB POHK1PBR CDB PDBP_PBR
+3) Capture the below user details
+   select username,account_status,profile,default_tablespace,con_id from cdb_users where username in('SIGCAPAO');
+   select owner,segment_type,count(*) from dba_segments where owner in('SIGCAPAO') group by owner,segment_type;
+   select owner,sum(bytes/1024/1024/1024) from dba_segments where owner in('SIGCAPAO') group by owner;
+4) Take the export backup of schema from CDB and PDB.
+   create directory DUMP_DIR_DATA as '/oradump/CHG0000';
+   nohup expdp userid="'/ as sysdba' " directory=DUMP_DIR_DATA schemas=SIGCAPAO logfile=Exp_SIGCAPAO_SCHEMA_bkp.log dumpfile=Schema_SIGCAPAO_bkp_%U.dmp parallel=6 compress=y &
+
+5) Provide the dumpfile detail to backup team to take dumpfile backup on tape ==> Backup Team
+ 
+6) Drop all objects from schema SIGCAPAO from CDB and PDB
+   SET SERVEROUTPUT ON SIZE 1000000
+   set verify off
+   BEGIN
+   FOR c1 IN (SELECT OWNER,table_name, constraint_name FROM dba_constraints 
+   WHERE constraint_type = 'R' and owner=upper('&shema_name')) LOOP
+   EXECUTE IMMEDIATE 'ALTER TABLE '||' "'||c1.owner||'"."'||c1.table_name||'" DROP CONSTRAINT ' || c1.constraint_name;
+   END LOOP;
+   FOR c1 IN (SELECT owner,object_name,object_type FROM dba_objects where owner=upper('&shema_name')) LOOP
+   BEGIN
+   IF c1.object_type = 'TYPE' THEN
+   EXECUTE IMMEDIATE 'DROP '||c1.object_type||' "'||c1.owner||'"."'||c1.object_name||'" FORCE';
+   END IF;
+   IF c1.object_type != 'DATABASE LINK' THEN
+   EXECUTE IMMEDIATE 'DROP '||c1.object_type||' "'||c1.owner||'"."'||c1.object_name||'"';
+   END IF;
+   EXCEPTION
+   WHEN OTHERS THEN
+   NULL;
+   END;
+   END LOOP;
+   EXECUTE IMMEDIATE('purge dba_recyclebin');
+   END;
+  /
+7) Capture the below user details
+   select username,account_status,profile,default_tablespace,con_id from cdb_users where username in('SIGCAPAO');
+   select owner,segment_type,count(*) from dba_segments where owner in('SIGCAPAO') group by owner,segment_type;
+   select owner,sum(bytes/1024/1024/1024) from dba_segments where owner in('SIGCAPAO') group by owner;
+8) Drop the user
+   drop user SIGCAPAO;
+9) Provide the logs to PSS
+10) PSS verification.
+
+Rollback :-
+
+1) Import the schema using the backup taken dumfiles in CDB and PDB.
+   nohup impdp userid="'/ as sysdba' " directory=DUMP_DIR_DATA schemas=SIGCAPAO logfile=Imp_SIGCAPAO_SCHEMA_bkp.log dumpfile=Schema_SIGCAPAO_bkp_%U.dmp parallel=6 &
+
+2) Provide the log to PSS
+3) PSS veriication
