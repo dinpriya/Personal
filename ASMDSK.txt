@@ -1,0 +1,142 @@
+
+
+set lines 200 pages 100 long 20000000
+col name for a15 tru
+col path for a50 tru
+col failgroup for a15 tru
+
+SELECT GROUP_NUMBER, DISK_NUMBER, MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, OS_MB, TOTAL_MB, FREE_MB, NAME, PATH, FAILGROUP
+FROM V$ASM_DISK ORDER BY NAME;
+
+
+
+SELECT GROUP_NUMBER, DISK_NUMBER, MOUNT_STATUS, HEADER_STATUS, MODE_STATUS, STATE, OS_MB, TOTAL_MB, FREE_MB, NAME, PATH, FAILGROUP
+FROM V$ASM_DISK ORDER BY NAME;
+
+
+
+
+SELECT GROUP_NUMBER, DISK_NUMBER, MOUNT_STATUS, HEADER_STATUS OS_MB, TOTAL_MB, FREE_MB, NAME, PATH, FAILGROUP FROM V$ASM_DISK  where NAME='FRA_0033' ORDER BY NAME;
+
+set lines 999;
+col diskgroup for a15
+col diskname for a15
+col path for a70
+select a.name DiskGroup,b.name DiskName, b.total_mb, (b.total_mb-b.free_mb) Used_MB, b.free_mb,b.path,b.header_status
+from v$asm_disk b, v$asm_diskgroup a
+where a.group_number (+) =b.group_number and a.name='DATA_CCD05'
+order by b.group_number,b.name ;
+
+
+
+Vilas:
+======
+
+set lines 255
+col path for a35
+col Diskgroup for a15
+col DiskName for a20
+col disk# for 999
+col total_mb for 999,999,999
+col free_mb for 999,999,999
+compute sum of total_mb on DiskGroup
+compute sum of free_mb on DiskGroup
+break on DiskGroup skip 1 on report -
+set pages 255
+
+select a.name DiskGroup, b.disk_number Disk#, b.name DiskName, b.total_mb, b.free_mb, b.path, b.header_status
+from v$asm_disk b, v$asm_diskgroup a
+where a.group_number (+) =b.group_number
+order by b.group_number, b.disk_number, b.name
+/
+
+
+
+set lines 255
+col path for a35
+col Diskgroup for a15
+col DiskName for a20
+col disk# for 999
+col total_mb for 999,999,999
+col free_mb for 999,999,999
+compute sum of total_mb on DiskGroup
+compute sum of free_mb on DiskGroup
+break on DiskGroup skip 1 on report -
+
+ 
+
+set pages 255
+
+ 
+
+select a.name DiskGroup, b.disk_number Disk#, b.name DiskName, b.total_mb, b.free_mb, b.path, b.header_status
+from v$asm_disk b, v$asm_diskgroup a
+where a.group_number (+) =b.group_number
+order by b.group_number, b.disk_number, b.name
+/
+select a.name DiskGroup, b.disk_number Disk#, b.name DiskName, b.total_mb, b.free_mb, b.path, b.header_status
+from v$asm_disk b, v$asm_diskgroup a
+where a.group_number (+) =b.group_number
+order by b.group_number, b.disk_number, b.name
+/
+
+
+=======================================================================
+
+
+set lines 255
+col path for a35
+col Diskgroup for a15
+col DiskName for a20
+col disk# for 999
+col total_mb for 999,999,999
+col free_mb for 999,999,999
+compute sum of total_mb on DiskGroup
+compute sum of free_mb on DiskGroup
+break on DiskGroup skip 1 on report -
+set pages 255
+
+select a.name DiskGroup, b.disk_number Disk#, b.name DiskName, b.total_mb, b.free_mb, b.path, b.header_status
+from v$asm_disk b, v$asm_diskgroup a
+where a.group_number (+) =b.group_number and a.name='FRA' 
+order by b.group_number, b.disk_number, b.name
+/
+
+
+
+
+A) Backup ASM metadata /  ASM information
+md_backup /home/grid/asmmeta_bkp_HKLPDSS2B001
+md_backup /home/grid/asmmeta_bkp_HKLPDSS2B002
+md_backup /home/grid/asmmeta_bkp_HKLPDSS2B003
+chk_asm/chk_lun
+
+B) add new disks/ delete old disks
+1) FRA
+alter diskgroup FRA add  disk '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_084' rebalance power 100;
+
+- wait for rebalance to complete
+
+alter diskgroup FRA drop disk FRA_0022 rebalance power 100;
+
+select * from v$asm_operation;
+
+-- wait for rebalance to complete
+
+
+alter diskgroup DATA ADD disk  
+'/dev/oracleasm/disks/asm_disk_hds_allflash_fra_023','/dev/oracleasm/disks/asm_disk_hds_allflash_fra_024','/dev/oracleasm/disks/asm_disk_hds_allflash_fra_025','/dev/oracleasm/disks/asm_disk_hds_allflash_fra_026' rebalance power 100;
+
+
+SELECT DISK_NUMBER,NAME,HEADER_STATUS,PATH FROM V$ASM_DISK;
+
+--------- ------------------------------ ------------------------------------ --------------------------------------------------------------
+        0                                FORMER                               /dev/oracleasm/disks/asm_disk_hds_allflash_fra_024
+        1                                FORMER                               /dev/oracleasm/disks/asm_disk_hds_allflash_fra_023
+        2                                FORMER                               /dev/oracleasm/disks/asm_disk_hds_allflash_fra_025
+        3                                FORMER                               /dev/oracleasm/disks/asm_disk_hds_allflash_fra_026
+		  
+		  
+
+
+

@@ -1,0 +1,5 @@
+
+07:44:26 SYS @ POHK3CCD2:CDB$ROOT:>exec dbms_service.stop_service('svc_pohk3ccd_tng_gl_onl','POHK3CCD2');
+
+ 
+PL/SQL procedure successfully completed.

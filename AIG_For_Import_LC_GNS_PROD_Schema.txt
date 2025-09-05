@@ -1,0 +1,49 @@
+1) Withdrwa the EID for Hostname ==> hklvdpapp126
+2) Login to Instance ==> POHK1GNS PDB ==> PDBP_GNS_PRD
+
+3) Capture the below details
+   set lines 200
+   set pages 200
+   col owner for a20
+   col username for a20
+   col profile for a30
+   select username,account_status,default_tablespace,profile,temporary_tablespace from dba_users where username in ('LC_GNS_ETL','LC_GNS_WEB');
+
+   col segment_name for a30
+   select owner,segment_name,segment_type,bytes/1024/1024 from dba_segments where owner='LC_GNS_ETL' and segment_name='CBS_HISTBATCH';
+   select owner,segment_name,segment_type,bytes/1024/1024 from dba_segments where owner='LC_GNS_WEB' and segment_name     in('FFF_HISTBATCH','FFF_RECORDS','FFF_HITS_DETAILS','FFF_DECISIONS');
+   select owner,segment_name,segment_type,bytes/1024/1024 from dba_segments where owner='LC_GNS_ETL' and segment_name='CBS_CONFIG';
+
+4) Create import related new tables
+
+CREATE TABLE LC_GNS_ETL.CBS_HISTBATCH_JUL_AUG_24 AS SELECT * FROM LC_GNS_ETL.CBS_HISTBATCH WHERE 1=2;
+CREATE TABLE LC_GNS_WEB.FFF_HISTBATCH_JUL_AUG_24 AS SELECT * FROM LC_GNS_WEB.FFF_HISTBATCH WHERE 1=2;
+CREATE TABLE LC_GNS_WEB.FFF_RECORDS_JUL_AUG_24 AS SELECT * FROM LC_GNS_WEB.FFF_RECORDS WHERE 1=2;
+CREATE TABLE LC_GNS_WEB.FFF_HITS_DETAILS_JUL_AUG_24 AS SELECT * FROM LC_GNS_WEB.FFF_HITS_DETAILS WHERE 1=2;
+CREATE TABLE LC_GNS_WEB.FFF_DECISIONS_JUL_AUG_24 AS SELECT * FROM LC_GNS_WEB.FFF_DECISIONS WHERE 1=2;
+CREATE TABLE LC_GNS_ETL.CBS_CONFIG_13DEC24 AS SELECT * FROM LC_GNS_ETL.CBS_CONFIG WHERE 1=2;
+
+
+4) Make a directory and copy dumpfiles.
+   mkdir -p /oradump/CHG0647150
+   cp /shared2/ora_dump/* /oradump/CHG0647150/
+
+   export ORACLE_PDB_SID=PDBP_GNS_PRD
+   sqlplus '/as sysdba'
+   create directory Import_dumps as '/oradump/CHG0647150';
+
+5) import the tables
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=CBS_HISTBATCH:CBS_HISTBATCH_JUL_AUG_24 dumpfile=expdp_LC_GNS_ETL_CBS_HISTBATCH_%U.dmp logfile=impdp_LC_GNS_ETL_CBS_HISTBATCH.log TABLE_EXISTS_ACTION=APPEND &
+
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=FFF_HISTBATCH:FFF_HISTBATCH_JUL_AUG_24 dumpfile=expdp_LC_GNS_WEB_FFF_HISTBATCH_%U.dmp logfile=impdp_LC_GNS_WEB_FFF_HISTBATCH.log TABLE_EXISTS_ACTION=APPEND &
+
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=FFF_RECORDS:FFF_RECORDS_JUL_AUG_24 dumpfile=expdp_LC_GNS_WEB_FFF_FFF_RECORDS_%U.dmp logfile=impdp_LC_GNS_WEB_FFF_FFF_RECORDS.log TABLE_EXISTS_ACTION=APPEND &
+
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=FFF_HITS_DETAILS:FFF_HITS_DETAILS_JUL_AUG_24 dumpfile=expdp_LC_GNS_WEB_FFF_HITS_DETAILS_%U.dmp logfile=impdp_LC_GNS_WEB_FFF_HITS_DETAILS.log TABLE_EXISTS_ACTION=APPEND &
+
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=FFF_DECISIONS:FFF_DECISIONS_JUL_AUG_24 dumpfile=expdp_LC_GNS_WEB_FFF_DECISIONS_%U.dmp logfile=impdp_LC_GNS_WEB_FFF_DECISIONS.log TABLE_EXISTS_ACTION=APPEND &
+
+   nohup impdp userid="'/ as sysdba' " directory=Import_dumps REMAP_TABLE=CBS_CONFIG:CBS_CONFIG_13DEC24 dumpfile=expdp_LC_GNS_ETL_cbs_config_%U.dmp logfile=impdp_LC_GNS_ETL_cbs_config.log TABLE_EXISTS_ACTION=APPEND &
+
+6) Provide the import log to PSS for verification
+7) PSS verification

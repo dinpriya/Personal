@@ -1,0 +1,157 @@
+PRIMARY:
+
+select status,instance_name,database_role from v$database,v$instance;
+
+select group#,sum(bytes/1024/1024)"Size in MB" from v$log group by group#;
+ 
+select group#,sum(bytes/1024/1024)"Size in MB" from v$standby_log group by group#;
+
+  THREAD#     GROUP# Size in MB
+---------- ---------- ----------
+         3          6       1024
+         1          2       1024
+         2          4       1024
+         2          3       1024
+         3          5       1024
+         1          1       1024
+
+ THREAD#     GROUP# Size in MB
+---------- ---------- ----------
+         1          8       1024
+         2         10       1024
+         2         11       1024
+         2         12       1024
+         3         13       1024
+         3         15       1024
+         1          7       1024
+         3         14       1024
+         1          9       1024
+
+    GROUP# MEMBER                                                                 SIZE_IN_MB TYPE    STATUS
+---------- ---------------------------------------------------------------------- ---------- ------- ----------------
+         1 +REDO1/POHK1CCD/ONLINELOG/group_1.290.1053621425                             1024 ONLINE  CURRENT
+         1 +REDO2/POHK1CCD/ONLINELOG/group_1.290.1053621427                             1024 ONLINE  CURRENT
+         2 +REDO1/POHK1CCD/ONLINELOG/group_2.289.1053621425                             1024 ONLINE  ACTIVE
+         2 +REDO2/POHK1CCD/ONLINELOG/group_2.289.1053621427                             1024 ONLINE  ACTIVE
+         3 +REDO1/POHK1CCD/ONLINELOG/group_3.288.1053622347                             1024 ONLINE  CURRENT
+         3 +REDO2/POHK1CCD/ONLINELOG/group_3.288.1053622347                             1024 ONLINE  CURRENT
+         4 +REDO1/POHK1CCD/ONLINELOG/group_4.287.1053622347                             1024 ONLINE  ACTIVE
+         4 +REDO2/POHK1CCD/ONLINELOG/group_4.287.1053622349                             1024 ONLINE  ACTIVE
+         5 +REDO1/POHK1CCD/ONLINELOG/group_5.286.1053622349                             1024 ONLINE  CURRENT
+         5 +REDO2/POHK1CCD/ONLINELOG/group_5.286.1053622351                             1024 ONLINE  CURRENT
+         6 +REDO1/POHK1CCD/ONLINELOG/group_6.285.1053622351                             1024 ONLINE  ACTIVE
+         6 +REDO2/POHK1CCD/ONLINELOG/group_6.285.1053622351                             1024 ONLINE  ACTIVE
+         7 +REDO1/POHK1CCD/ONLINELOG/group_7.291.1053708487                             1024 STANDBY UNASSIGNED
+         8 +REDO1/POHK1CCD/ONLINELOG/group_8.292.1053708493                             1024 STANDBY UNASSIGNED
+         9 +REDO1/POHK1CCD/ONLINELOG/group_9.293.1053708497                             1024 STANDBY UNASSIGNED
+        10 +REDO1/POHK1CCD/ONLINELOG/group_10.294.1053708503                            1024 STANDBY UNASSIGNED
+        11 +REDO1/POHK1CCD/ONLINELOG/group_11.295.1053708507                            1024 STANDBY UNASSIGNED
+        12 +REDO1/POHK1CCD/ONLINELOG/group_12.296.1053708513                            1024 STANDBY UNASSIGNED
+        13 +REDO1/POHK1CCD/ONLINELOG/group_13.297.1053708519                            1024 STANDBY UNASSIGNED
+        14 +REDO1/POHK1CCD/ONLINELOG/group_14.298.1053708523                            1024 STANDBY UNASSIGNED
+        15 +REDO1/POHK1CCD/ONLINELOG/group_15.299.1053708529                            1024 STANDBY UNASSIGNED
+
+21 rows selected.
+
+
+
+STANDBY:
+
+select status,instance_name,database_role from v$database,v$Instance;
+
+select group#, sum(bytes/1024/1024)"Size in MB" from v$log group by group#;
+
+select group#,sum(bytes/1024/1024)"Size in MB" from v$standby_log group by group#;
+
+
+PRIMARY:
+
+Check the status of the Online Redo Logs and resize them by dropping the INACTIVE redo logs and re-creating them with the new size.
+
+select group#,status from gv$log;
+
+Drop and recreate. Redo group Numbers can be vary, please perform accordingly
+
+ALTER DATABASE ADD LOGFILE THREAD 1 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 1 GROUP X ('+REDO1','+REDO2') size 3G;
+
+ALTER DATABASE ADD LOGFILE THREAD 2 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 2 GROUP X ('+REDO1','+REDO2') size 3G;
+
+ALTER DATABASE ADD LOGFILE THREAD 3 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 3 GROUP X ('+REDO1','+REDO2') size 3G;
+
+drop old inactive groups by switching log file
+
+alter database drop logfile group X;
+
+Moving on to the Standby Redo Logs on the Primary Database:
+
+select group#,sum(bytes/1024/1024)"size in MB" from v$standby_log group by group#;
+ 
+select group#,status from v$standby_log;
+
+All file status should be unassignd, add and drop the files 
+
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+
+drop old inactive groups for standby logfile
+
+alter database drop standby logfile group X;
+
+STANDBY:
+
+alter database recover managed standby database cancel;
+
+alter system set standby_file_management=manual scope=both sid='*';
+
+select group#,status,thread# from v$log;
+
+ALTER DATABASE ADD LOGFILE THREAD 1 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 1 GROUP X ('+REDO1','+REDO2') size 3G;
+
+ALTER DATABASE ADD LOGFILE THREAD 2 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 2 GROUP X ('+REDO1','+REDO2') size 3G;
+
+ALTER DATABASE ADD LOGFILE THREAD 3 GROUP X ('+REDO1','+REDO2') size 3G;
+ALTER DATABASE ADD LOGFILE THREAD 3 GROUP X ('+REDO1','+REDO2') size 3G;
+
+drop old inactive groups
+
+alter database drop logfile group X;
+
+Moving on to the Standby Redo Logs on the standby Database:
+
+select group#,sum(bytes/1024/1024)"size in MB" from v$standby_log group by group#;
+
+select * from v$standby_log;
+
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 1 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 2 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+alter database add standby logfile thread 3 group xx ('+REDO1') SIZE 3G;
+
+Clear the SRL group whose status is ACTIVE as done earlier, drop the group and re-create them with the size same as that of the Online Redo Logs.
+
+alter database clear logfile group XX;
+
+alter database drop logfile group Xx;
+
+alter system set standby_file_management=auto sid='*';
+
+alter database recover managed standby database disconnect from session using current logfile;
+
+Finally check the DR sync check

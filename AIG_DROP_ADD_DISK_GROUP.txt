@@ -1,0 +1,55 @@
+DR:
+===
+
+10:26:09 SYS @ POHK1RCT_DG1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+NAME                           PATH                                                                             HEADER_STATU
+------------------------------ -------------------------------------------------------------------------------- ------------
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_089                               MEMBER
+FRA_IMP_0001                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_074                               MEMBER
+
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0001 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_074%'; --> Status should be candidate or former
+
+ALTER DISKGROUP DATA_CCD01 ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_074' NAME DATA_CCD01_0008 rebalance power 100;
+
+Verify:
+
+select NAME,path,header_status from v$asm_disk where name like '%DATA_CCD01%';
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+
+PROD:
+=====
+
+
+10:30:19 SYS @ POHK1API1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+NAME                           PATH                                                                             HEADER_STATU
+------------------------------ -------------------------------------------------------------------------------- ------------
+FRA_IMP_0001                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_074                               MEMBER
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_089                               MEMBER
+
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0001 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_074%'; --> Status should be candidate or former
+
+ALTER DISKGROUP DATA_CCD01 ADD  DISK '/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_074' NAME DATA_CCD01_0012 rebalance power 100;
+
+Verify:
+
+select NAME,path,header_status from v$asm_disk where name like '%DATA_CCD01%';
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';

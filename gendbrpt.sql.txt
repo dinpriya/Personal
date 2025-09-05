@@ -1,0 +1,143 @@
+/**********************************************************
+How to use:-
+@gendbrpt.sql '<start_time>' '<end_time>'
+Example:-
+@gendbrpt.sql '2021-02-26 15:00:00' '2021-02-26 16:00:00'
+**********************************************************/
+/**********************************************************
+To know the snap interval and retention, use this query:-
+select s.snap_interval,s.retention
+from dba_hist_wr_control s
+inner join v$database d
+on s.dbid=d.dbid;
+**********************************************************/
+--select &1,&2 from dual;
+var v_ts_begin varchar2(50);
+var v_ts_end varchar2(50);
+var v_instance_name varchar2(50);
+var v_begin_snap_id number;
+var v_end_snap_id number;
+begin
+	select instance_name into :v_instance_name from v$instance;
+	if '&1' is null then
+		select min(snap_id) into :v_begin_snap_id from dba_hist_snapshot;
+		select to_char(min(begin_interval_time),'YYYY-MM-DD HH24:MI:SS') into :v_ts_begin from dba_hist_snapshot;
+	else
+		select max(snap_id) into :v_begin_snap_id from dba_hist_snapshot where begin_interval_time<=to_timestamp('&1','YYYY-MM-DD HH24:MI:SS');
+		:v_ts_begin := '&1';
+	end if;
+	
+	if '&2' is null then
+		select max(snap_id) into :v_end_snap_id from dba_hist_snapshot;
+		select to_char(max(end_interval_time),'YYYY-MM-DD HH24:MI:SS') into :v_ts_end from dba_hist_snapshot;
+	else
+		select min(snap_id) into :v_end_snap_id from dba_hist_snapshot where end_interval_time>=to_timestamp('&2','YYYY-MM-DD HH24:MI:SS');
+		:v_ts_end := '&2';
+	end if;
+end;
+/
+set feedback off;
+set echo off;
+set term off;
+set linesize 1000;
+set serveroutput on size unlimited;
+var ohp varchar2(1000);
+exec dbms_system.get_env('ORACLE_HOME',:ohp);
+spool genawrrpt.sql
+begin
+	for c in (
+		select
+		'define report_type=''html'';'|| chr(10)||
+		'define num_days=0;'|| chr(10)||
+		'define begin_snap='||bs.snap_id||';'|| chr(10)||
+		'define end_snap='||es.snap_id||';'|| chr(10)||
+		'define report_name=''awrrpt_'||i.instance_name||'_'||bs.snap_id||'_'||es.snap_id||'.html'';'|| chr(10)||
+		'@'||:ohp||'/rdbms/admin/awrrpt.sql;' script
+		from dba_hist_snapshot bs
+		inner join dba_hist_snapshot es
+		on bs.snap_id=es.snap_id-1
+		and bs.dbid=es.dbid
+		and bs.instance_number=es.instance_number
+		inner join v$instance i
+		on i.instance_number=bs.instance_number
+		where bs.startup_time=es.startup_time
+		and bs.snap_id>=:v_begin_snap_id
+		and es.snap_id<=:v_end_snap_id
+		order by bs.snap_id)
+	loop
+		dbms_output.put_line(c.script);
+	end loop;
+end;
+/
+spool off;
+spool genawrsqlrpt.sql
+begin
+	for c in (
+		select
+		'define report_type=''html'';'|| chr(10)||
+		'define num_days=0;'|| chr(10)||
+		'define begin_snap='||v.bs_snap_id||';'|| chr(10)||
+		'define end_snap='||v.es_snap_id||';'|| chr(10)||
+		'define sql_id='''||v.sql_id||''';'|| chr(10)||
+		'define report_name=''awrsqlrpt_'||v.instance_name||'_'||v.sql_id||'_'||v.bs_snap_id||'_'||v.es_snap_id||'.html'';'|| chr(10)||
+		'@'||:ohp||'/rdbms/admin/awrsqrpt.sql;' script
+		from (
+		select distinct
+			bs.snap_id bs_snap_id,
+			es.snap_id es_snap_id,
+			s.sql_id,
+			i.instance_name
+		from dba_hist_snapshot bs
+		inner join dba_hist_snapshot es
+		on bs.snap_id=es.snap_id-1
+		and bs.dbid=es.dbid
+		and bs.instance_number=es.instance_number
+		inner join v$instance i
+		on i.instance_number=bs.instance_number
+		inner join dba_hist_sqlstat s
+		on s.snap_id=es.snap_id
+		and s.dbid=es.dbid
+		and s.instance_number=es.instance_number
+		where bs.startup_time=es.startup_time
+		and bs.snap_id>=:v_begin_snap_id
+		and es.snap_id<=:v_end_snap_id
+		) v
+		order by v.bs_snap_id,v.sql_id)
+	loop
+		dbms_output.put_line(c.script);
+	end loop;
+end;
+/
+spool off;
+spool genashrpt.sql
+declare
+	v_ts timestamp;
+	v_ts_b timestamp := to_timestamp(:v_ts_begin,'YYYY-MM-DD HH24:MI:SS');
+	v_ts_e timestamp := to_timestamp(:v_ts_end,'YYYY-MM-DD HH24:MI:SS');
+begin
+	v_ts := v_ts_b;
+	while v_ts<v_ts_e
+	loop
+		dbms_output.put_line(
+		'define report_type=''html'';'|| chr(10)||
+		'define begin_time='''||to_char(v_ts,'MM/DD/YY HH24:MI:SS')||''';'|| chr(10)||
+		'define duration=10;'|| chr(10)||
+		'define report_name=''ashrpt_'||:v_instance_name||'_'||to_char(v_ts,'YYYYMMDD_HH24MISS')||'.html'';'|| chr(10)||
+		'@'||:ohp||'/rdbms/admin/ashrpt.sql;'
+		);
+		v_ts := v_ts + interval '10' minute;
+	end loop;
+	dbms_output.put_line(
+	'define report_type=''html'';'|| chr(10)||
+	'define begin_time='''||to_char(v_ts,'MM/DD/YY HH24:MI:SS')||''';'|| chr(10)||
+	'define duration=10;'|| chr(10)||
+	'define report_name=''ashrpt_'||:v_instance_name||'_'||to_char(v_ts,'YYYYMMDD_HH24MISS')||'.html'';'|| chr(10)||
+	'@'||:ohp||'/rdbms/admin/ashrpt.sql;'
+	);
+end;
+/
+spool off;
+@genawrrpt.sql
+@genawrsqlrpt.sql
+@genashrpt.sql
+quit;

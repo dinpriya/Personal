@@ -1,0 +1,9 @@
+Cd /u01/app/grid/local/ahf_data/oracle.ahf/data/repository/suptools/hklpdds2b002/oswbb/grid/oswbb
+
+To start OSwatcher
+
+nohup startOSWbb.sh 30 48 &
+
+To collect OSwatcher data
+
+/u01/app/grid/product/19c/OPatch/OPatch/jre/bin/java -jar oswbba.jar -I /u01/app/grid/local/ahf_data/oracle.ahf/data/repository/suptools/hklpdds2b002/oswbb/grid/oswbb/archive -B Feb 09 22:00:00 2023 -E Feb 09 23:00:00 2023

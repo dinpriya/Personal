@@ -1,0 +1,44 @@
+
+
+1) Withdraw the EID for HKLPDPMTC01/02/03/04 and hklpdsmtc01/02/03/04 CHG0283802
+2) Capture the /ora_fra and ASM diskgroup utilization
+3) Disable the flashback database
+   alter database flashback off;
+   Select flashback_on from gv$database;
+4) Change the DB_RECOVERY_FILE_DEST locationton to +DATA
+   verify the archivefiles generating
+5) Take the /ora_fra file system backup ==> NBU Team
+6) Follow the below steps to drop ACFS filesystem /ora_fra
+   1) Dismount the file system from all node. <== DB Team
+      /bin/umount /ora_fra  or srvctl stop filesystem -d <volumn_name>
+      Remove the /ora_fra acfs resource from cluster
+      crsctl delete res <acfs_resource_name>
+   2) Deregister the file system  <== Linux team
+      /sbin/acfsutil registry -d /ora_fra
+   3) Remove the file system <== Linux team
+      /sbin/acfsutil rmfs /dev/asm/ora_fra-408
+   4) Delete the volume with the ASMCMD voldelete command.  <== DBA team.
+      ASMCMD> voldelete -G FRA ORA_FRA
+7) Verify the FRA diskgroup utilization
+8) Change the DB_RECOVERY_FILE_DEST locationton to +FRA 
+   verify the archivefiles generating
+9) Enable the flashback database
+   alter database flashback on;
+   verify the flashback generating
+10) Copy archive files from +DATA diskgroup to +FRA
+11) Also change the snapshot controlfile location as +FRA
+   Connect rman using recovery catalog
+   export TNS_ADMIN=/u01/app/oracle/global/network/admin
+   rman target /@POHK1MTC catalog /@PRODRCAT
+   CONFIGURE SNAPSHOT CONTROLFILE NAME TO '+FRA/POHK1MTC/snapcf_POHK1MTC.f';
+   rman target /@POHK1MTC_DG catalog /@PRODRCAT
+   CONFIGURE SNAPSHOT CONTROLFILE NAME TO '+FRA/POHK1MTC_DG/snapcf_POHK1MTC_DG.f';
+12) Provide the log to PSS
+13) PSS verification
+
+
+
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE=34900803584 SCOPE=BOTH;
+
+
+HO: SR tracker updated. 

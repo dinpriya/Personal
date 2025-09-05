@@ -1,0 +1,215 @@
+RMAN Commands, All you want to know about RMAN!!!
+==================================================
+
+Backup Commands:
+================
+
+Backup database and archivelog into FRA location
+
+RMAN> backup database;
+RMAN> backup database plus archivelog;
+RMAN> backup archivelog all;
+
+Backup database and archivelog into backup location
+
+RMAN> backup database format '/u01/backup/DB_Full_%d_%T_%U';
+RMAN> backup database format '/u01/backup/DB_Full_%d_%T_%U' plus archivelog format '/u01/backup/Archive_%d_%T_%U';
+RMAN> backup archivelog all format '/u01/backup/Archivelog_%d_%T_%U';
+
+Backup spfile and controlfile into FRA location
+
+RMAN> backup spfile;
+RMAN> backup current controlfile;
+
+Backup spfile and controlfile into backup location
+
+RMAN> backup spfile format '/u01/backup/spfile_%d_%T_%U';
+RMAN> backup current controlfile format '/u01/backup/controlfile_%d_%T_%U';
+
+Backup standby controlfile
+
+
+RMAN> backup current controlfile for standby;
+RMAN> backup current controlfile for standby format '/u01/backup/standby_controlfile_%d_%T_%U';
+
+Backup Archivelog
+
+
+RMAN> backup database plus archivelog delete input;
+RMAN> backup database plus archivelog delete all input;
+
+List Commands:
+==============
+
+List all datafiles and all archivelogs of a database
+
+RMAN> REPORT SCHEMA;
+RMAN> list archivelog all;
+
+List everything, list of backupsets of everything
+
+RMAN> LIST BACKUP SUMMARY;
+RMAN> list backup;
+
+List of backupset of spfile and controlfile
+
+RMAN> list backup of spfile;
+RMAN> list backup of controlfile;
+
+List of copy of controlfile
+
+RMAN> list copy of controlfile;
+RMAN> LIST CONTROLFILECOPY <key>;
+RMAN> LIST CONTROLFILECOPY 3333;
+
+List of backupset of databse
+
+RMAN> list backup of database summary;
+RMAN> list backup of database;
+
+List of copy of databse
+
+RMAN> list copy of database;
+
+List of backupset of archivelog all
+
+RMAN> list backup of archivelog all summary;
+RMAN> list backup of archivelog all;
+
+List of copy of archivelog all
+
+RMAN> list copy of archivelog all;
+
+List specific datafile backup as backupset
+
+RMAN> LIST BACKUP OF DATAFILE 4;
+RMAN> LIST BACKUP OF DATAFILE '/u01/app/oradata/TEST/users01.dbf';
+
+List a specific copy of datafile or all datafile or specific backup key of a datafile
+
+RMAN> LIST DATAFILECOPY ALL;
+RMAN> list copy of datafile 4;
+RMAN> LIST DATAFILECOPY '/u01/app/oracle/copy/users01.dbf';
+RMAN> LIST DATAFILECOPY <Key>;
+RMAN> LIST DATAFILECOPY 2222;
+
+List specific backupset
+
+RMAN> LIST BACKUPSET <key>;
+RMAN> LIST BACKUPSET 1111;
+
+List backupset or copy of a specific tablespace
+
+RMAN> list backup of tablespace users;
+RMAN> list copy of tablespace users;
+
+List expired backupset and copy of everything
+
+RMAN> LIST EXPIRED BACKUP;
+RMAN> list expired backup of database;
+RMAN> list EXPIRED archivelog all;
+RMAN> list EXPIRED backup of archivelog all;
+RMAN> list EXPIRED copy of archivelog all;
+RMAN> LIST EXPIRED DATAFILECOPY ALL;
+RMAN> LIST EXPIRED copy of datafile 4;
+RMAN> LIST EXPIRED DATAFILECOPY '/u01/app/oracle/copy/users01.dbf';
+RMAN> list expired BACKUP OF DATAFILE 4;
+RMAN> list expired BACKUP OF DATAFILE '/u01/app/oradata/TEST/users01.dbf';
+RMAN> LIST EXPIRED BACKUP OF TABLESPACE USERS;
+RMAN> LIST EXPIRED copy OF TABLESPACE USERS;
+
+Expired Backups
+================
+
+Handling expired backups
+
+RMAN> LIST EXPIRED BACKUP;
+RMAN> list expired backup of database;
+
+RMAN> crosscheck BACKUP;
+RMAN> crosscheck backup of database;
+
+RMAN> delete noprompt EXPIRED BACKUP;
+RMAN> delete noprompt expired backup of database;
+
+Handling expired Archivelogs
+
+RMAN> list EXPIRED archivelog all;
+RMAN> list EXPIRED backup of archivelog all;
+RMAN> list EXPIRED copy of archivelog all;
+
+RMAN> crosscheck archivelog all;
+RMAN> crosscheck backup of archivelog all;
+RMAN> crosscheck copy of archivelog all;
+
+RMAN> delete noprompt EXPIRED archivelog all;
+RMAN> delete noprompt EXPIRED backup of archivelog all;
+RMAN> delete noprompt EXPIRED copy of archivelog all;
+
+Handling expired datafiles
+
+RMAN> LIST DATAFILECOPY ALL;
+RMAN> LIST copy of datafile 4;
+RMAN> LIST DATAFILECOPY '/u01/app/oracle/copy/users01.dbf';
+RMAN> list BACKUP OF DATAFILE 4;
+RMAN> list BACKUP OF DATAFILE '/u01/app/oradata/TEST/users01.dbf';
+
+RMAN> LIST EXPIRED DATAFILECOPY ALL;
+RMAN> LIST EXPIRED copy of datafile 4;
+RMAN> LIST EXPIRED DATAFILECOPY '/u01/app/oracle/copy/users01.dbf';
+RMAN> list expired BACKUP OF DATAFILE 4;
+RMAN> list expired BACKUP OF DATAFILE '/u01/app/oradata/TEST/users01.dbf';
+
+RMAN> crosscheck DATAFILECOPY ALL;
+RMAN> crosscheck copy of datafile 4;
+RMAN> crosscheck DATAFILECOPY '/u01/app/oracle/copy/users01.dbf';
+RMAN> crosscheck BACKUP OF DATAFILE 4;
+RMAN> crosscheck BACKUP OF DATAFILE '/u01/app/oradata/TEST/users01.dbf';
+
+Handling expired TABLESPACE
+
+RMAN> LIST EXPIRED BACKUP OF TABLESPACE USERS;
+RMAN> CROSSCHECK BACKUP OF TABLESPACE USERS;
+RMAN> DELETE EXPIRED BACKUP OF TABLESPACE USERS;
+
+===============================================================================================
+
+To query details about past and current RMAN jobs:
+
+COL STATUS FORMAT a9
+COL hrs    FORMAT 999.99
+SELECT SESSION_KEY, INPUT_TYPE, STATUS,
+       TO_CHAR(START_TIME,'mm/dd/yy hh24:mi') start_time,
+       TO_CHAR(END_TIME,'mm/dd/yy hh24:mi')   end_time,
+       ELAPSED_SECONDS/3600                   hrs
+FROM V$RMAN_BACKUP_JOB_DETAILS
+ORDER BY SESSION_KEY;
+
+The following sample output shows the backup job history:
+
+SESSION_KEY INPUT_TYPE    STATUS    START_TIME     END_TIME           HRS
+
+----------- ------------- --------- -------------- -------------- -------
+          9 DATAFILE FULL COMPLETED 04/18/07 18:14 04/18/07 18:15     .02
+         16 DB FULL       COMPLETED 04/18/07 18:20 04/18/07 18:22     .03
+        113 ARCHIVELOG    COMPLETED 04/23/07 16:04 04/23/07 16:05     .01
+
+COL in_sec FORMAT a10
+COL out_sec FORMAT a10
+COL TIME_TAKEN_DISPLAY FORMAT a10
+SELECT SESSION_KEY, 
+       OPTIMIZED, 
+       COMPRESSION_RATIO, 
+       INPUT_BYTES_PER_SEC_DISPLAY in_sec,
+       OUTPUT_BYTES_PER_SEC_DISPLAY out_sec, 
+       TIME_TAKEN_DISPLAY
+FROM   V$RMAN_BACKUP_JOB_DETAILS
+ORDER BY SESSION_KEY;
+
+The following sample output shows the speed of the backup jobs:
+
+SESSION_KEY OPT COMPRESSION_RATIO IN_SEC     OUT_SEC    TIME_TAKEN
+----------- --- ----------------- ---------- ---------- ----------
+          9 NO                  1     8.24M      8.24M  00:01:14
+         16 NO         1.32732239     6.77M      5.10M  00:01:45
+        113 NO                  1     2.99M      2.99M  00:00:44

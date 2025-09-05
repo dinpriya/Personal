@@ -1,0 +1,28 @@
+rman target=/ << EOF
+run
+{
+allocate channel CH1 type 'SBT_TAPE';
+allocate channel CH2 type 'SBT_TAPE';
+allocate channel CH3 type 'SBT_TAPE';
+allocate channel CH4 type 'SBT_TAPE';
+allocate channel CH5 type 'SBT_TAPE';
+allocate channel CH6 type 'SBT_TAPE';
+allocate channel CH7 type 'SBT_TAPE';
+allocate channel CH8 type 'SBT_TAPE';
+send 'NSR_ENV=(NSR_SERVER=HKLVIPAPP021,NSR_CLIENT=KLPDSS2B002,NSR_RECOVER_POOL="DC1 DB Clone DD11",NSR_DEBUG_LEVEL=1,NSR_DPRINTF=TRUE,NSR_DIAGNOSTIC_DEST=/oradump/POHK2CCD_19c/nsr/apps/logs)';
+Set Until Sequence 62780 Thread 2; 
+RESTORE DATABASE ;
+switch datafile all;
+switch tempfile all;
+RECOVER DATABASE ;
+release channel CH1;
+release channel CH2;
+release channel CH3;
+release channel CH4;
+release channel CH5;
+release channel CH6;
+release channel CH7;
+release channel CH8;
+}
+EXIT
+EOF

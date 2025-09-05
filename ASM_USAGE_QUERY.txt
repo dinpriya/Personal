@@ -1,0 +1,2 @@
+SELECT name, total_mb/1024 total_gb, free_mb/1024 free_gb, (total_mb-free_mb)/total_mb*100 as "Used percentage" 
+FROM v$asm_diskgroup;

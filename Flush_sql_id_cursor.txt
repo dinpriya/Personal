@@ -1,0 +1,6 @@
+begin
+for c_i in (select address, hash_value from v$sql where sql_id='faxc95bm5rw84') loop
+  dbms_shared_pool.purge(c_i.address||','||c_i.hash_value,'c');
+end loop;
+end;
+/

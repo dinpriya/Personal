@@ -1,0 +1,429 @@
+PROD ::HKLPDPS2b001/002/003
+
+ASMCMD> lsdg
+State    Type    Rebal  Sector  Logical_Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  EXTERN  N         512             512   4096  1048576   4096496   141701                0          141701              0             N  DATA_API01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   2560300   551316                0          551316              0             N  DATA_CCD01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   9729140   185652                0          185652              0             N  DATA_CCD02/
+MOUNTED  EXTERN  N         512             512   4096  4194304   4096480  2305548                0         2305548              0             N  DATA_CCD03/
+MOUNTED  EXTERN  N         512             512   4096  4194304   3072360   279880                0          279880              0             N  DATA_CCD04/
+MOUNTED  EXTERN  N         512             512   4096  4194304  15873860  5081144                0         5081144              0             N  DATA_CCD05/
+MOUNTED  EXTERN  N         512             512   4096  1048576    512062   491427                0          491427              0             N  FRA/
+MOUNTED  EXTERN  N         512             512   4096  1048576   1024124   526355                0          526355              0             N  FRA_API01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   430096                0          430096              0             N  FRA_CCD01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   3072360  1240756                0         1240756              0             N  FRA_CCD02/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   792892                0          792892              0             N  FRA_CCD03/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   734876                0          734876              0             N  FRA_CCD04/
+MOUNTED  EXTERN  N         512             512   4096  4194304   7680900  4482564                0         4482564              0             N  FRA_CCD05/
+MOUNTED  EXTERN  N         512             512   4096  1048576   2048248  2048058                0         2048058              0             N  FRA_IMP/
+MOUNTED  EXTERN  N         512             512   4096  4194304    102412    69728                0           69728              0             N  GIMR/
+MOUNTED  NORMAL  N         512             512   4096  4194304    153612   152420            51204           50608              0             Y  INTERNAL/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120    10156                0           10156              0             N  ORADUMP/
+MOUNTED  EXTERN  N         512             512   4096  4194304    204824    95916                0           95916              0             N  REDO1/
+MOUNTED  EXTERN  N         512             512   4096  4194304    204824   160932                0          160932              0             N  REDO2/
+ASMCMD>
+
+Disk Group Name      Path              File Name            Fail Group           File Size (MB) Used Size (MB)
+-------------------- ----------------- -------------------- -------------------- -------------- --------------
+DATA_CCD02           /dev/oracleasm/di DATA_CCD02_0012A     DATA_CCD02_0012A            512,060        502,288
+                     sks/asm_disk_MVSP
+                     5500-A_flash_012
+
+                     /dev/oracleasm/di DATA_CCD02_0013A     DATA_CCD02_0013A            512,060        502,276
+                     sks/asm_disk_MVSP
+                     5500-A_flash_013
+
+                     /dev/oracleasm/di DATA_CCD02_0014A     DATA_CCD02_0014A            512,060        502,288
+                     sks/asm_disk_MVSP
+                     5500-A_flash_014
+
+                     /dev/oracleasm/di DATA_CCD02_0015A     DATA_CCD02_0015A            512,060        502,288
+                     sks/asm_disk_MVSP
+                     5500-A_flash_015
+
+                     /dev/oracleasm/di DATA_CCD02_0016A     DATA_CCD02_0016A            512,060        502,280
+                     sks/asm_disk_MVSP
+                     5500-A_flash_016
+
+                     /dev/oracleasm/di DATA_CCD02_0017A     DATA_CCD02_0017A            512,060        502,288
+                     sks/asm_disk_MVSP
+                     5500-A_flash_017
+
+                     /dev/oracleasm/di DATA_CCD02_0018      DATA_CCD02_0018             512,060        502,296
+                     sks/asm_disk_MVSP
+                     5500-A_flash_018
+
+                     /dev/oracleasm/di DATA_CCD02_0019      DATA_CCD02_0019             512,060        502,300
+                     sks/asm_disk_MVSP
+                     5500-A_flash_019
+
+                     /dev/oracleasm/di DATA_CCD02_0020      DATA_CCD02_0020             512,060        502,264
+                     sks/asm_disk_MVSP
+                     5500-A_flash_020
+
+                     /dev/oracleasm/di DATA_CCD02_0021      DATA_CCD02_0021             512,060        502,276
+                     sks/asm_disk_MVSP
+                     5500-A_flash_021
+
+                     /dev/oracleasm/di DATA_CCD02_0022      DATA_CCD02_0022             512,060        502,296
+                     sks/asm_disk_MVSP
+                     5500-A_flash_022
+
+                     /dev/oracleasm/di DATA_CCD02_0023      DATA_CCD02_0023             512,060        502,300
+                     sks/asm_disk_MVSP
+                     5500-A_flash_023
+
+                     /dev/oracleasm/di DATA_CCD02_0024      DATA_CCD02_0024             512,060        502,280
+                     sks/asm_disk_MVSP
+                     5500-A_flash_024
+
+                     /dev/oracleasm/di DATA_CCD02_0025      DATA_CCD02_0025             512,060        502,296
+                     sks/asm_disk_MVSP
+                     5500-A_flash_025
+
+                     /dev/oracleasm/di DATA_CCD02_0026      DATA_CCD02_0026             512,060        502,296
+                     sks/asm_disk_MVSP
+                     5500-A_flash_026
+
+                     /dev/oracleasm/di DATA_CCD02_0027      DATA_CCD02_0027             512,060        502,292
+                     sks/asm_disk_MVSP
+                     5500-A_flash_027
+
+                     /dev/oracleasm/di DATA_CCD02_0028      DATA_CCD02_0028             512,060        502,288
+                     sks/asm_disk_MVSP
+                     5500-A_flash_028
+
+                     /dev/oracleasm/di DATA_CCD02_0029      DATA_CCD02_0029             512,060        502,304
+                     sks/asm_disk_MVSP
+                     5500-A_flash_029
+
+                     /dev/oracleasm/di DATA_CCD02_094       DATA_CCD02_094              512,060        502,292
+                     sks/asm_disk_MVSP
+                     5500-A_flash_094
+
+********************                                                             -------------- --------------
+                                                                                      9,729,140      9,543,488
+
+DATA_CCD04           /dev/oracleasm/di DATA_CCD04_0038      DATA_CCD04_0038             512,060        465,436
+                     sks/asm_disk_MVSP
+                     5500-A_flash_038
+
+                     /dev/oracleasm/di DATA_CCD04_0039      DATA_CCD04_0039             512,060        465,392
+                     sks/asm_disk_MVSP
+                     5500-A_flash_039
+
+                     /dev/oracleasm/di DATA_CCD04_0040      DATA_CCD04_0040             512,060        465,416
+                     sks/asm_disk_MVSP
+                     5500-A_flash_040
+
+                     /dev/oracleasm/di DATA_CCD04_0041      DATA_CCD04_0041             512,060        465,440
+                     sks/asm_disk_MVSP
+                     5500-A_flash_041
+
+                     /dev/oracleasm/di DATA_CCD04_0042      DATA_CCD04_0042             512,060        465,408
+                     sks/asm_disk_MVSP
+                     5500-A_flash_042
+
+                     /dev/oracleasm/di DATA_CCD04_0043      DATA_CCD04_0043             512,060        465,388
+                     sks/asm_disk_MVSP
+                     5500-A_flash_043
+
+********************                                                             -------------- --------------
+                                                                                      3,072,360      2,792,480
+
+FRA_IMP              /dev/oracleasm/di FRA_IMP_0008         FRA_IMP_0008                512,062             47
+                     sks/asm_disk_MVSP
+                     5500-A_flash_086
+
+                     /dev/oracleasm/di FRA_IMP_0009         FRA_IMP_0009                512,062             48
+                     sks/asm_disk_MVSP
+                     5500-A_flash_087
+
+                     /dev/oracleasm/di FRA_IMP_0010         FRA_IMP_0010                512,062             47
+                     sks/asm_disk_MVSP
+                     5500-A_flash_088
+
+                     /dev/oracleasm/di FRA_IMP_0011         FRA_IMP_0011                512,062             48
+                     sks/asm_disk_MVSP
+                     5500-A_flash_089
+
+********************                                                             -------------- --------------
+                                                                                      2,048,248            190
+
+                                                                                 -------------- --------------
+Grand Total:                                                                         14,849,748     12,336,158
+
+AS +ASM instance
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%'
+NAME                           PATH                                                                   HEADER_STATU
+------------------------------ ---------------------------------------------------------------------- ------------
+FRA_IMP_0009                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087                     MEMBER
+FRA_IMP_0008                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_086                     MEMBER
+FRA_IMP_0010                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_088                     MEMBER
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_089                     MEMBER
+
+
+
+AS +ASM instance 
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0008 rebalance power 10;
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0009 rebalance power 10;
+
+
+
+DATA_CCD04
+
+/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_086
+
+ALTER DISKGROUP DATA_CCD04 ADD  DISK '/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_086' NAME DATA_CCD04_0086 rebalance power 10;
+
+
+DATA_CCD02
+
+/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087
+
+
+ALTER DISKGROUP DATA_CCD02 ADD  DISK '/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087' NAME DATA_CCD02_0087 rebalance power 10;
+
+
+------------------------+++++++++++++++++++++++++++++++++++++++++++++++--------------------------------------------------
+
+DR:: HKLPDSS2b001/002/003
+
+oracle@HKLPDSS2B001:/home/oracle [POHK1RCT_DG1]
+> asmcmd
+ASMCMD> lsdg
+State    Type    Rebal  Sector  Logical_Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  EXTERN  N         512             512   4096  1048576   4096496   225227                0          225227              0             N  DATA_API01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   2560300   819932                0          819932              0             N  DATA_CCD01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   9729140   277408                0          277408              0             N  DATA_CCD02/
+MOUNTED  EXTERN  N         512             512   4096  4194304   4096480  2400272                0         2400272              0             N  DATA_CCD03/
+MOUNTED  EXTERN  N         512             512   4096  4194304   3072360   323272                0          323272              0             N  DATA_CCD04/
+MOUNTED  EXTERN  N         512             512   4096  4194304  15873860  5456552                0         5456552              0             N  DATA_CCD05/
+MOUNTED  EXTERN  N         512             512   4096  1048576    512062   491427                0          491427              0             N  FRA/
+MOUNTED  EXTERN  N         512             512   4096  1048576   1024124   439617                0          439617              0             N  FRA_API01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   398644                0          398644              0             N  FRA_CCD01/
+MOUNTED  EXTERN  N         512             512   4096  4194304   3072360  1412236                0         1412236              0             N  FRA_CCD02/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   775148                0          775148              0             N  FRA_CCD03/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120   338760                0          338760              0             N  FRA_CCD04/
+MOUNTED  EXTERN  N         512             512   4096  4194304   7680900  4238132                0         4238132              0             N  FRA_CCD05/
+MOUNTED  EXTERN  N         512             512   4096  1048576   2048248  2048058                0         2048058              0             N  FRA_IMP/
+MOUNTED  EXTERN  N         512             512   4096  4194304    102412    70712                0           70712              0             N  GIMR/
+MOUNTED  NORMAL  N         512             512   4096  4194304    153612   152420            51204           50608              0             Y  INTERNAL/
+MOUNTED  EXTERN  N         512             512   4096  4194304   1024120    10156                0           10156              0             N  ORADUMP/
+MOUNTED  EXTERN  N         512             512   4096  4194304    204824    95916                0           95916              0             N  REDO1/
+MOUNTED  EXTERN  N         512             512   4096  4194304    204824   160932                0          160932              0             N  REDO2/
+ASMCMD>
+
+
+
+
+Disk Group Name      Path              File Name            Fail Group           File Size (MB) Used Size (MB)
+-------------------- ----------------- -------------------- -------------------- -------------- --------------
+DATA_CCD02           /dev/oracleasm/di DATA_CCD02_0018      DATA_CCD02_0018             512,060        497,468
+                     sks/asm_disk_JVSP
+                     5500-A_flash_012
+
+                     /dev/oracleasm/di DATA_CCD02_0019      DATA_CCD02_0019             512,060        497,476
+                     sks/asm_disk_JVSP
+                     5500-A_flash_013
+
+                     /dev/oracleasm/di DATA_CCD02_0020      DATA_CCD02_0020             512,060        497,464
+                     sks/asm_disk_JVSP
+                     5500-A_flash_014
+
+                     /dev/oracleasm/di DATA_CCD02_0021      DATA_CCD02_0021             512,060        497,448
+                     sks/asm_disk_JVSP
+                     5500-A_flash_015
+
+                     /dev/oracleasm/di DATA_CCD02_0022      DATA_CCD02_0022             512,060        497,464
+                     sks/asm_disk_JVSP
+                     5500-A_flash_016
+
+                     /dev/oracleasm/di DATA_CCD02_0023      DATA_CCD02_0023             512,060        497,472
+                     sks/asm_disk_JVSP
+                     5500-A_flash_017
+
+                     /dev/oracleasm/di DATA_CCD02_0024      DATA_CCD02_0024             512,060        497,436
+                     sks/asm_disk_JVSP
+                     5500-A_flash_018
+
+                     /dev/oracleasm/di DATA_CCD02_0025      DATA_CCD02_0025             512,060        497,440
+                     sks/asm_disk_JVSP
+                     5500-A_flash_019
+
+                     /dev/oracleasm/di DATA_CCD02_0026      DATA_CCD02_0026             512,060        497,464
+                     sks/asm_disk_JVSP
+                     5500-A_flash_020
+
+                     /dev/oracleasm/di DATA_CCD02_0027      DATA_CCD02_0027             512,060        497,460
+                     sks/asm_disk_JVSP
+                     5500-A_flash_021
+
+                     /dev/oracleasm/di DATA_CCD02_0028      DATA_CCD02_0028             512,060        497,464
+                     sks/asm_disk_JVSP
+                     5500-A_flash_022
+
+                     /dev/oracleasm/di DATA_CCD02_0029      DATA_CCD02_0029             512,060        497,448
+                     sks/asm_disk_JVSP
+                     5500-A_flash_023
+
+                     /dev/oracleasm/di DATA_CCD02_0030      DATA_CCD02_0030             512,060        497,476
+                     sks/asm_disk_JVSP
+                     5500-A_flash_024
+
+                     /dev/oracleasm/di DATA_CCD02_0031      DATA_CCD02_0031             512,060        497,468
+                     sks/asm_disk_JVSP
+                     5500-A_flash_025
+
+                     /dev/oracleasm/di DATA_CCD02_0032      DATA_CCD02_0032             512,060        497,464
+                     sks/asm_disk_JVSP
+                     5500-A_flash_026
+
+                     /dev/oracleasm/di DATA_CCD02_0033      DATA_CCD02_0033             512,060        497,488
+                     sks/asm_disk_JVSP
+                     5500-A_flash_027
+
+                     /dev/oracleasm/di DATA_CCD02_0034      DATA_CCD02_0034             512,060        497,448
+                     sks/asm_disk_JVSP
+                     5500-A_flash_028
+
+                     /dev/oracleasm/di DATA_CCD02_0035      DATA_CCD02_0035             512,060        497,444
+                     sks/asm_disk_JVSP
+                     5500-A_flash_029
+
+                     /dev/oracleasm/di DATA_CCD02_094       DATA_CCD02_094              512,060        497,440
+                     sks/asm_disk_JVSP
+                     5500-A_flash_094
+
+********************                                                             -------------- --------------
+                                                                                      9,729,140      9,451,732
+
+DATA_CCD04           /dev/oracleasm/di DATA_CCD04_0006      DATA_CCD04_0006             512,060        458,176
+                     sks/asm_disk_JVSP
+                     5500-A_flash_038
+
+                     /dev/oracleasm/di DATA_CCD04_0007      DATA_CCD04_0007             512,060        458,152
+                     sks/asm_disk_JVSP
+                     5500-A_flash_039
+
+                     /dev/oracleasm/di DATA_CCD04_0008      DATA_CCD04_0008             512,060        458,196
+                     sks/asm_disk_JVSP
+                     5500-A_flash_040
+
+                     /dev/oracleasm/di DATA_CCD04_0009      DATA_CCD04_0009             512,060        458,196
+                     sks/asm_disk_JVSP
+                     5500-A_flash_041
+
+                     /dev/oracleasm/di DATA_CCD04_0010      DATA_CCD04_0010             512,060        458,200
+                     sks/asm_disk_JVSP
+                     5500-A_flash_042
+
+                     /dev/oracleasm/di DATA_CCD04_0011      DATA_CCD04_0011             512,060        458,168
+                     sks/asm_disk_JVSP
+                     5500-A_flash_043
+
+********************                                                             -------------- --------------
+                                                                                      3,072,360      2,749,088
+
+FRA_IMP              /dev/oracleasm/di FRA_IMP_0008         FRA_IMP_0008                512,062             46
+                     sks/asm_disk_JVSP
+                     5500-A_flash_086
+
+                     /dev/oracleasm/di FRA_IMP_0009         FRA_IMP_0009                512,062             47
+                     sks/asm_disk_JVSP
+                     5500-A_flash_087
+
+                     /dev/oracleasm/di FRA_IMP_0010         FRA_IMP_0010                512,062             48
+                     sks/asm_disk_JVSP
+                     5500-A_flash_088
+
+                     /dev/oracleasm/di FRA_IMP_0011         FRA_IMP_0011                512,062             49
+                     sks/asm_disk_JVSP
+                     5500-A_flash_089
+
+********************                                                             -------------- --------------
+                                                                                      2,048,248            190
+
+                                                                                 -------------- --------------
+Grand Total:                                                                         14,849,748     12,201,010
+
+29 rows selected.
+
+
+
+Disk Group
+Name                      State       Total Size (GB) Used Size (GB) Free Size (GB)  % Free  % Used
+------------------------- ----------- --------------- -------------- -------------- ------- -------
+DATA_API01                MOUNTED               4,000          3,781            220    5.50   94.50
+DATA_CCD01                MOUNTED               2,500          1,700            801   32.02   67.98
+DATA_CCD02                MOUNTED               9,501          9,230            271    2.85   97.15
+DATA_CCD03                MOUNTED               4,000          1,656          2,344   58.59   41.41
+DATA_CCD04                MOUNTED               3,000          2,685            316   10.52   89.48
+DATA_CCD05                MOUNTED              15,502         10,173          5,329   34.37   65.63
+FRA                       MOUNTED                 500             20            480   95.97    4.03
+FRA_API01                 MOUNTED               1,000            572            428   42.84   57.16
+FRA_CCD01                 MOUNTED               1,000            612            388   38.77   61.23
+FRA_CCD02                 MOUNTED               3,000          1,620          1,380   45.99   54.01
+FRA_CCD03                 MOUNTED               1,000            244            756   75.57   24.43
+FRA_CCD04                 MOUNTED               1,000            671            329   32.92   67.08
+FRA_CCD05                 MOUNTED               7,501          3,381          4,120   54.93   45.07
+FRA_IMP                   MOUNTED               2,000              0          2,000   99.99     .01
+GIMR                      MOUNTED                 100             31             69   69.05   30.95
+INTERNAL                  MOUNTED                 150              1            149   99.22     .78
+ORADUMP                   MOUNTED               1,000            990             10     .99   99.01
+REDO1                     MOUNTED                 200            106             94   46.83   53.17
+REDO2                     MOUNTED                 200             43            157   78.57   21.43
+                                      --------------- -------------- --------------
+Grand Total:                                   57,157         37,517         19,640
+
+19 rows selected.
+
+
+SQL>
+NAME                           PATH                                                                   HEADER_STATU
+------------------------------ ---------------------------------------------------------------------- ------------
+FRA_IMP_0009                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087                     MEMBER
+FRA_IMP_0008                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_086                     MEMBER
+FRA_IMP_0010                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_088                     MEMBER
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_089                     MEMBER
+
+
+REDO1                     CONNECTED               200            167   83.27             33   16.73
+REDO2     
+
+
+AS +ASM instance 
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0008 rebalance power 10;
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0009 rebalance power 10;
+
+REDO2_0007      /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_007           MEMBER           102412      68124
+REDO2_0006      /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_006           MEMBER           102412      68088
+REDO1_0005      /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_005           MEMBER           102412      17136
+REDO1_0004      /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_004           MEMBER           102412      17124
+
+
+
+DATA_CCD04
+
+/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_086
+
+ALTER DISKGROUP DATA_CCD04 ADD DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_086' NAME DATA_CCD04_0086 rebalance power 10;
+
+alter diskgroup REDO1 ADD DISK '' NAME REDO1_0006 rebalance power 10;                     
+alter diskgroup REDO1 ADD DISK '' NAME REDO1_0007 rebalance power 10;
+
+alter diskgroup REDO2 ADD DISK '' NAME REDO2_0008 rebalance power 10;                     
+alter diskgroup REDO2 ADD DISK '' NAME REDO2_0009 rebalance power 10;
+
+
+
+DATA_CCD02
+
+/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087
+
+ALTER DISKGROUP DATA_CCD02 ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087' NAME DATA_CCD02_0087 rebalance power 10;

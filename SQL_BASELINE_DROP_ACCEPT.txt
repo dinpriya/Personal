@@ -1,0 +1,272 @@
+SELECT * FROM table(DBMS_XPLAN.DISPLAY_CURSOR('3dzhmb1wz35h3'));
+ 
+ SQL_PLAN_gfh0zwjjqhxakce44bfc8
+ SQL_PLAN_fkndgw491ktnrce44bfc8
+ SQL_PLAN_dwztk6nupp2h6661b2606
+select plan_table_output from table(dbms_xplan.display_awr('3dzhmb1wz35h3'));
+ 
+ To create,
+
+variable x varchar2(100);
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'gnqpq00y0w6kq', hint_text=>'opt_param(''_px_cdb_view_enabled'' ''false'') opt_param(''_partition_cdb_view_enabled'' ''false'')', name=> 'SQL_Patch_gnqpq00y0w6kq', DESCRIPTION=>'sql_patch_gnqpq00y0w6kq');
+
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'fhxtthfr1q1cu', hint_text=>'opt_param(''_px_cdb_view_enabled'' ''false'') opt_param(''_partition_cdb_view_enabled'' ''false'')', name=> 'SQL_Patch_fhxtthfr1q1cu', DESCRIPTION=>'sql_patch_fhxtthfr1q1cu');
+
+Roll back,
+
+To drop SQL patch
+
+EXEC DBMS_SQLDIAG.DROP_SQL_PATCH(name=>'SQL_Patch_gnqpq00y0w6kq');
+EXEC DBMS_SQLDIAG.DROP_SQL_PATCH(name=>'SQL_Patch_fhxtthfr1q1cu');
+
+Find SQL ID
+
+select *
+               FROM DBA_HIST_ACTIVE_SESS_HISTORY D
+               WHERE D.SAMPLE_TIME >= TO_DATE('2025-04-10 10:00', 'YYYY-MM-DD HH24:MI')
+               and D.SAMPLE_TIME <= TO_DATE('2025-04-10 10:30', 'YYYY-MM-DD HH24:MI')
+               --and session_id=2425
+               and sql_id='76nnsks2j1d4n'
+               order by SAMPLE_TIME;
+			   
+SELECT ss.snap_id, ss.instance_number, begin_interval_time, sql_id, plan_hash_value
+FROM DBA_HIST_SQLSTAT s, DBA_HIST_SNAPSHOT ss
+WHERE ss.snap_id = s.snap_id
+  AND ss.instance_number = s.instance_number
+  AND s.sql_id='76nnsks2j1d4n' order by 3;	
+
+SELECT ss.snap_id, ss.instance_number, begin_interval_time, sql_id, plan_hash_value
+FROM DBA_HIST_SQLSTAT s, DBA_HIST_SNAPSHOT ss
+WHERE ss.snap_id = s.snap_id
+  AND ss.instance_number = s.instance_number
+  AND BEGIN_INTERVAL_TIME like '%10-APR-25 10%';
+
+
+===Please also see the confluence page below to learn more.
+https://confluence.global.standardchartered.com/display/OracleDBA/Managing+SQL+Plan+Baselines
+
+======Steps to drop and Fix baseline/s=================
+1. Get the sql_handle from sql_id
+SELECT *
+FROM
+  (SELECT t.SQL_HANDLE,
+    t.SIGNATURE,
+    t.SQL_TEXT,
+    s.SQL_ID
+  FROM SYS.SQL$TEXT t,
+    DBA_HIST_SQLSTAT s
+  WHERE s.SQL_ID in ('76nnsks2j1d4n')
+  AND t.SIGNATURE    = s.FORCE_MATCHING_SIGNATURE
+  )
+WHERE rownum = 1 ;
+
+SELECT *  FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id in ('76nnsks2j1d4n')) and ACCEPTED='YES';
+
+SQLID from TEXT
+
+SELECT SQL_ID FROM V$SQLSTATS WHERE SQL_TEXT = 'SELECT COUNT(*) FROM DBA_OBJECTS';
+
+aazhkk1h93ma0 ==> SQL_de7f3235355a8a06
+anvamh7j6njtf ==> SQL_db2362b70c11edd0
+avjg2rjhmv8cc ==> SQL_e951afe112196697
+fhxtthfr1q1cu ==> SQL_f7401fe463687552
+
+
+SQL_PLAN_cu7f5z5nvq1wh18827dd6
+SQL_PLAN_cu7f5z5nvq1wh828fe322
+	
+	
+anvamh7j6njtf
+aazhkk1h93ma0
+fhxtthfr1q1cu
+anvamh7j6njtf
+
+2. Display all the plan for the sql handle
+col plan_name for a40
+select SQL_HANDLE,PLAN_NAME,ORIGIN,ENABLED,ACCEPTED,FIXED,REPRODUCED,AUTOPURGE from DBA_SQL_PLAN_BASELINES 
+where SQL_HANDLE in ('SQL_6be21965582ed25e');
+
+
+
+SQL_PLAN_046d900f8nvn58e2c9bc3
+
+SQL_PLAN_046d900f8nvn58e2c9bc3
+select name, type, status, sql_text from dba_sql_profiles where name='SYS_SQLPROF_0190b7ac9fd70002';
+
+exec dbms_sqltune.drop_sql_profile('SYS_SQLPROF_0190b7ac9fd70002');
+
+
+
+SQL_HANDLE                     PLAN_NAME                                ORIGIN                        ENA ACC FIX REP AUT
+------------------------------ ---------------------------------------- ----------------------------- --- --- --- --- ---
+SQL_db2362b70c11edd0           SQL_PLAN_dq8v2qw613vfhce44bfc8           AUTO-CAPTURE                  YES YES NO  YES YES
+SQL_de7f3235355a8a06           SQL_PLAN_dwztk6nupp2h6661b2606           AUTO-CAPTURE                  YES YES NO  YES YES
+SQL_e951afe112196697           SQL_PLAN_fkndgw491ktnrce44bfc8           AUTO-CAPTURE                  YES YES NO  YES YES
+SQL_f7401fe463687552           SQL_PLAN_gfh0zwjjqhxakce44bfc8           AUTO-CAPTURE                  YES YES NO  YES YES
+
+one option, can we drop and let oracle decide to create new one 
+
+3. Verify the PHV per plan_name 
+
+avjg2rjhmv8cc
+select * from dbms_xplan.display_sql_plan_baseline('SQL_a176855a1a4c7d9a','SQL_PLAN_a2xn5b8d4szcue4f38815');
+
+aazhkk1h93ma0
+select * from dbms_xplan.display_sql_plan_baseline('SQL_de7f3235355a8a06','SQL_PLAN_dwztk6nupp2h6661b2606');
+
+fhxtthfr1q1cu
+select * from dbms_xplan.display_sql_plan_baseline('SQL_f7401fe463687552','SQL_PLAN_gfh0zwjjqhxakce44bfc8');
+
+anvamh7j6njtf
+select * from dbms_xplan.display_sql_plan_baseline('SQL_db2362b70c11edd0','SQL_PLAN_dq8v2qw613vfhce44bfc8');
+
+
+
+
+4. Drop the other plans that are not needed
+declare
+xx PLS_INTEGER;
+BEGIN
+xx := dbms_spm.drop_sql_plan_baseline(sql_handle=>'SQL_cd1dc5f969bb0790',plan_name=>'SQL_PLAN_cu7f5z5nvq1wh828fe322');
+END;
+/
+
+select * from dbms_xplan.display_sql_plan_baseline('SQL_ee4b5482050126ba','SQL_PLAN_fwkunh82h29pu0348aec1');
+
+SET SERVEROUTPUT ON
+ SET LONG 10000
+ set lines 175
+ DECLARE
+ report clob;
+ BEGIN
+ report := DBMS_SPM.EVOLVE_SQL_PLAN_BASELINE(
+ sql_handle => 'SQL_9cfa9b544b8d1c27', time_limit => 60);
+ DBMS_OUTPUT.PUT_LINE(report);
+ END;
+ /
+
+to accept plan,
+
+set  serverouput on
+
+DECLARE
+report clob;
+BEGIN
+report := DBMS_SPM.EVOLVE_SQL_PLAN_BASELINE(SQL_HANDLE=>'<SQL_Handle>',plan_name=>'<SQL_PlanName>',verify=>'NO',commit=>'YES');
+DBMS_OUTPUT.PUT_LINE(report);
+END;
+/
+ 
+above command for accept sql base plan 
+ 
+ 
+5. Recheck plans
+col plan_name for a40
+select SQL_HANDLE,PLAN_NAME,ORIGIN,ENABLED,ACCEPTED,FIXED,REPRODUCED,AUTOPURGE from DBA_SQL_PLAN_BASELINES 
+where SQL_HANDLE='SQL_ee4b5482050126ba';
+
+6.Fix the SQL baseline/s for particular SQL.
+set serverout on
+DECLARE
+   pf PLS_INTEGER;
+BEGIN
+   pf := dbms_spm.alter_sql_plan_baseline( sql_handle => 'SQL_cd1dc5f969bb0790',
+                                           plan_name => 'SQL_PLAN_cu7f5z5nvq1wh18827dd6',
+                                           attribute_name => 'FIXED',
+                                           attribute_value => 'YES');
+  dbms_output.put_line('Disabled baseline => '||pf);
+END;
+/
+
+declare
+myplan pls_integer;
+begin
+myplan:=DBMS_SPM.ALTER_SQL_PLAN_BASELINE (sql_handle => 'SQL_ee4b5482050126ba',plan_name  => 'SQL_PLAN_fwkunh82h29pu0348aec1',attribute_name => 'ACCEPTED',attribute_value => 'NO');
+end;
+/
+
+
+SET SERVEROUTPUT ON
+SET LONG 10000
+DECLARE
+    x number;
+BEGIN
+x := dbms_spm.evolve_sql_plan_baseline('SQL_ce0aa6afadd6127b','SQL_PLAN_cw2p6pyqxc4mv67c73e33',VERIFY=>'NO',COMMIT=>'YES');
+DBMS_OUTPUT.PUT_LINE(report);
+END;
+/
+
+declare
+myplan pls_integer;
+begin
+myplan:=DBMS_SPM.ALTER_SQL_PLAN_BASELINE (sql_handle => '&sql_handle',plan_name  => '&plan_name',attribute_name => 'ENABLED',attribute_value => 'NO');
+end;
+/
+
+Query below to show when plan (PHV) was last used. Used with check history of plan during multiplan verification.
+
+SELECT sql_id,
+      plan_hash_value,
+   min(BEGIN_INTERVAL_TIME),
+   max(BEGIN_INTERVAL_TIME)
+FROM DBA_HIST_SQLSTAT S, DBA_HIST_SNAPSHOT SS
+WHERE     sql_id IN ('0z48djw48qgpm',
+                     '2f8srh390dbyp',
+                     '2h3bjtpjzjy3v',
+                     '2jgkgkj5trqxg',
+                     '2k6b1nc8373mu',
+                     '3j36rc024xdy3',
+                     '416mjsus98mc7',
+                                                              '52w6930zs6s4a',
+                                                              '65wwjhavh3nj7',
+                                                              '6cnn9t470vrg6',
+                                                              '6ftcwsvtw4fpx',
+                                                              '6vt2sy6z1zwac',
+                                                              '7c9ruvyamyzcy',
+                                                              '7ckccxk0s5f8a',
+                                                              '7r4sv7tchsvhw',
+                                                              '9h3gv0afnzxt9',
+                                                              'anjgmhak37b7c',
+                                                              'arv2s869d3zah',
+                                                              'b5crmuayj9zv3',
+                                                              'bpkqh79sgzvg5',
+                                                              'c5wg83tbgkm89',
+                                                              'd9h7bg005fufm',
+                                                              'gj328ammxs268',
+                                                              'gztpf9u85u3fr')
+      AND ss.snap_id = S.snap_id
+      AND ss.instance_number = S.instance_number
+   group by sql_id,plan_hash_value
+                          ORDER BY 1,4;
+
+
+Please see updated query below and also to accept a plan. This will be let oracle know that we prefer this plan to be used instead of the other ones in the baseline.
+
+Check the history of the sql_id and find for the better plan to accept.
+
+1.	Query the plan baselines using sql_id.
+SELECT B.SQL_HANDLE,B.parsing_schema_name, b.PLAN_NAME,o.plan_id,to_char(created,'dd-Mon-yyyy hh24:mi') created,   ENABLED, ACCEPTED,fixed,reproduced,b.last_executed
+FROM DBA_SQL_PLAN_BASELINES b,sys.sqlobj$ o 
+where b.signature=(select exact_matching_signature  from gv$sql where sql_id='88wmk6wjmj0j4' and rownum<2)
+and b.signature = o.signature
+and o.name = b.plan_name
+order by created
+/
+
+2.	Accept the plan using below command with sql_handle and plan_name
+set  serverouput on
+DECLARE
+report clob;
+BEGIN
+report := DBMS_SPM.EVOLVE_SQL_PLAN_BASELINE(SQL_HANDLE=>'<SQL_Handle>',plan_name=>'<SQL_PlanName>',verify=>'NO',commit=>'YES');
+DBMS_OUTPUT.PUT_LINE(report);
+END;
+/ 
+3.	Drop the “Bad” Plan Hash Value
+
+
+asy7kx8wtggz1 
+
+select ADDRESS, HASH_VALUE from V$SQLAREA where SQL_ID like 'asy7kx8wtggz1%';
+
+exec DBMS_SHARED_POOL.PURGE ('00000026C8FCBFC0, 966246369', 'C');

@@ -1,0 +1,60 @@
+S2B NON-PROD RESTART
+
+oracle    18465      1  0 Mar16 ?        00:02:11 ora_pmon_DOHK2S2B1
+oracle    21720      1  0 Mar15 ?        00:00:46 ora_pmon_OMSDB1
+oracle    72972      1  0 Mar16 ?        00:03:49 ora_pmon_DOHK3S2B1
+oracle    76785 168479  0 17:05 pts/4    00:00:00 grep --color=auto pmon
+oracle    89313      1  0 Mar16 ?        00:01:11 ora_pmon_DOHK1RND1
+oracle   101358      1  0 Mar16 ?        00:01:19 ora_pmon_DOHK7CCB1
+oracle   112129      1  0 Mar16 ?        00:10:58 ora_pmon_DOHK1S2B1
+oracle   170620      1  0 Mar21 ?        00:00:11 ora_pmon_DOHK1SSC1
+oracle   320388      1  0 Mar16 ?        00:01:36 ora_pmon_DOHK1NGW1
+
+
+srvctl status database -d DOHK2S2B1 -v
+srvctl status database -d DOHK3S2B1 -v
+srvctl status database -d DOHK1RND1 -v
+srvctl status database -d DOHK7CCB1 -v
+srvctl status database -d DOHK1S2B1 -v
+srvctl status database -d DOHK1SSC1 -v
+srvctl status database -d DOHK1NGW1 -v
+
+srvctl stop database -d DOHK2S2B1 -v
+srvctl stop database -d DOHK3S2B1 -v
+srvctl stop database -d DOHK1RND1 -v
+srvctl stop database -d DOHK7CCB1 -v
+srvctl stop database -d DOHK1S2B1 -v
+srvctl stop database -d DOHK1SSC1 -v
+srvctl stop database -d DOHK1NGW1 -v
+
+srvctl start database -d DOHK2S2B1 -v
+srvctl start database -d DOHK3S2B1 -v
+srvctl start database -d DOHK1RND1 -v
+srvctl start database -d DOHK7CCB1 -v
+srvctl start database -d DOHK1S2B1 -v
+srvctl start database -d DOHK1SSC1 -v
+srvctl start database -d DOHK1NGW1 -v
+
+srvctl stop database -d DOHK2S2B1 -v
+srvctl stop database -d DOHK3S2B1 -v
+srvctl stop database -d DOHK1RND1 -v
+srvctl stop database -d DOHK7CCB1 -v
+srvctl stop database -d DOHK1S2B1 -v
+srvctl stop database -d DOHK1SSC1 -v
+srvctl stop database -d DOHK1NGW1 -v
+
+HKLPDDS2B002
+
+sudo /u01/app/grid/product/19c/bin/crsctl stop crs
+sudo /u01/app/grid/product/19c/bin/crsctl start crs
+
+HKLPDDS2B003
+
+sudo /u01/app/grid/product/19c/bin/crsctl stop crs
+sudo /u01/app/grid/product/19c/bin/crsctl start crs
+
+HKLPDDS2B004
+
+sudo /u01/app/grid/product/19c/bin/crsctl stop crs
+sudo /u01/app/grid/product/19c/bin/crsctl start crs
+

@@ -1,0 +1,27 @@
+select
+tablespace_name, 
+count(*) free_chunks,
+decode(
+round((max(bytes) / 1024000),2),
+null,0,
+round((max(bytes) / 1024000),2)) largest_chunk,
+nvl(round(sqrt(max(blocks)/sum(blocks))*(100/sqrt(sqrt(count(blocks)) )),2),
+0) fragmentation_index
+from
+sys.dba_free_space 
+group by 
+tablespace_name
+order by 
+2 desc, 1;
+
+TABLESPACE_NAME                FREE_CHUNKS LARGEST_CHUNK FRAGMENTATION_INDEX
+------------------------------ ----------- ------------- -------------------
+TS_CC_SRS_GL_RAC                     11666       4063.23                 .47
+SYSAUX                                1231        3503.1               11.52
+UNDO_3                                 212       4063.23                8.72
+UNDOTBS1                                93       4063.23                17.8
+UNDO_4                                  25       4063.23               18.42
+SYSTEM                                   3       1005.57               75.98
+AUDIT_TBS                                1           4.1                 100
+SCB_ADMIN_DATA                           1           .96                 100
+USERS                                    1           4.1                 100

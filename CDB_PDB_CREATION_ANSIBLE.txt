@@ -1,0 +1,1582 @@
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ls -lrt
+total 144
+-rw-r--r--.  1 oracle oinstall 7892 Apr 14  2023 README.md
+-rw-r--r--.  1 oracle oinstall  238 Apr 14  2023 ansible.cfg
+drwxr-xr-x.  3 oracle oinstall   28 Apr 14  2023 dms_deployment
+-rw-r--r--.  1 oracle oinstall  140 Apr 14  2023 dms-db_deployment.yml
+-rw-r--r--.  1 oracle oinstall 1666 Apr 14  2023 dms-db-deployment-inventory.yml
+-rw-r--r--.  1 oracle oinstall  586 Apr 14  2023 ctm-reschedule-jobs.yml
+-rw-r--r--.  1 oracle oinstall  541 Apr 14  2023 create-wallet.yml
+-rw-r--r--.  1 oracle oinstall  753 Apr 14  2023 create-standby-db.yml
+-rw-r--r--.  1 oracle oinstall 1416 Apr 14  2023 create-primary-db.yml
+-rw-r--r--.  1 oracle oinstall  266 Apr 14  2023 create-dd-backup-client.yml
+-rw-r--r--.  1 oracle oinstall  297 Apr 14  2023 create-cohesity-backup-client.yml
+-rw-r--r--.  1 oracle oinstall  240 Apr 14  2023 config-cohsity-backup.yml
+-rw-r--r--.  1 oracle oinstall  406 Apr 14  2023 certificate_for_oem_agent.yml
+-rw-r--r--.  1 oracle oinstall   13 Apr 14  2023 artifact_upload.txt
+drwxr-xr-x.  9 oracle oinstall 4096 Apr 14  2023 artifact_code
+drwxr-xr-x.  2 oracle oinstall 4096 Apr 14  2023 jenkins
+-rw-r--r--.  1 oracle oinstall  341 Apr 14  2023 install-restart-home.yml
+-rw-r--r--.  1 oracle oinstall 2768 Apr 14  2023 install-ords.yml
+-rw-r--r--.  1 oracle oinstall  438 Apr 14  2023 install-ogg.yml
+-rw-r--r--.  1 oracle oinstall  285 Apr 14  2023 install-emagent.yml
+-rw-r--r--.  1 oracle oinstall  362 Apr 14  2023 install-db-home.yml
+-rw-r--r--.  1 oracle oinstall  816 Apr 14  2023 install-and-switch-db-home.yml
+drwxr-xr-x.  2 oracle oinstall   17 Apr 14  2023 group_vars
+-rw-r--r--.  1 oracle oinstall  398 Apr 14  2023 goldimage-creation.yml
+-rw-r--r--.  1 oracle oinstall  234 Apr 14  2023 remove-db-home.yml
+drwxr-xr-x.  2 oracle oinstall   61 Apr 14  2023 python
+-rw-r--r--.  1 oracle oinstall  438 Apr 14  2023 promote-targets.yml
+-rw-r--r--.  1 oracle oinstall  568 Apr 14  2023 post-vaulting.yml
+-rw-r--r--.  1 oracle oinstall  468 Apr 14  2023 patching-prechecks.yml
+-rw-r--r--.  1 oracle oinstall  484 Apr 14  2023 patching-prechecks-continueonfail.yml
+-rw-r--r--.  1 oracle oinstall  321 Apr 14  2023 patching-postchecks-continueonfail.yml
+-rw-r--r--.  1 oracle oinstall  298 Apr 14  2023 oracle_oat_main.yml
+drwxr-xr-x.  2 oracle oinstall 4096 Apr 14  2023 library
+drwxr-xr-x.  2 oracle oinstall   29 Apr 14  2023 vra
+-rw-r--r--.  1 oracle oinstall 3679 Apr 14  2023 update_vdaas_contours_page.yml
+drwxr-xr-x.  2 oracle oinstall    6 Apr 14  2023 testbox-api
+-rw-r--r--.  1 oracle oinstall  347 Apr 14  2023 switchover-db.yml
+-rw-r--r--.  1 oracle oinstall  545 Apr 14  2023 switch-db-home.yml
+-rw-r--r--.  1 oracle oinstall  258 Apr 14  2023 run-oat-tests.yml
+drwxr-xr-x. 30 oracle oinstall 4096 Apr 14  2023 roles
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -k -u oracle install-db-home.yml --tags "scb_utils"
+SSH password:  [ERROR]: User interrupted execution
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+>
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -e "db_num=1 cdb_appl_code=RES pdb_appl_code=RES pdb_service_suffix=res_uat" -u oracle -k create-primary-db.yml
+SSH password:  [ERROR]: User interrupted execution
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> . oraenv
+ORACLE_SID = [POHK3CCD] ?
+The Oracle base remains unchanged with value /u01/app/oracle/local
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> sqlplus sys as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat May 4 12:03:43 2024
+Version 19.22.0.0.0
+
+Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+
+Enter password:
+#WARNING! This database is the property of the Standard Chartered Group and may be accessed only by
+#authorized users for Legitimate business purposes. Unauthorized use of this database is strictly prohibited
+#and may be subject to criminal prosecution. Standard Chartered Group may monitor any activity
+#in the database. By continuing to use this database you indicate your consent to these conditions
+#of use. LOG OFF IMMEDIATELY if you do not agree to the conditions stated in this warning.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.22.0.0.0
+
+12:03:43 SYS @ POHK3CCD:CDB$ROOT:>exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.22.0.0.0
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -k -u oracle install-db-home.yml --tags "scb_utils"timed out waiting for input: auto-logout
+oracle2@hklvdpapp071[orasupp2] $ sudo -u oracle -i
+oracle@hklvdpapp071:/home/oracle [POHK3CCD]
+> export ANSIBLE_HOST_KEY_CHECKING=False
+oracle@hklvdpapp071:/home/oracle [POHK3CCD]
+> cd /home/oracle/scb_ansible_oracle
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -k -u oracle install-db-home.yml --tags "scb_utils"
+SSH password:
+
+PLAY [all] **********************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:33 +0800 (0:00:00.035)       0:00:00.035 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [Oracle Database Software Installation] ************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:36 +0800 (0:00:03.471)       0:00:03.507 **********
+
+TASK [oraswdb-install : install-db-home | check if gi is installed] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:37 +0800 (0:00:00.273)       0:00:03.780 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db-home | check if crsd.bin is running to determine RAC or Restart] *****************************************************************************************************************************************
+Saturday 04 May 2024  13:16:37 +0800 (0:00:00.503)       0:00:04.284 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"changed": true, "cmd": "ps -ef|grep crsd.bin|grep -v grep", "delta": "0:00:00.045866", "end": "2024-05-04 13:16:38.072147", "msg": "non-zero return code", "rc": 1, "start": "2024-05-04 13:16:38.026281", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [oraswdb-install : install-db-home | check if db type is RAC] **************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.564)       0:00:04.848 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db-home | check if db type is Restart] **********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.087)       0:00:04.936 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db-home | get the list of RAC nodes] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.129)       0:00:05.065 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db-home | set the nodelist parameter] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.085)       0:00:05.151 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db_home | set inventory location for SI] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.084)       0:00:05.236 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db_home | set inventory location for Restart and RAC] *******************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.088)       0:00:05.325 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : install-db-home | Check if first ORACLE_HOME] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:38 +0800 (0:00:00.092)       0:00:05.418 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : oraswinstall | scb_utils] *******************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:39 +0800 (0:00:00.347)       0:00:05.765 **********
+included: /home/oracle/scb_ansible_oracle/roles/oraswdb-install/tasks/scb_utils.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oraswdb-install : scb_utils | set fact scb_utils_base dir] ****************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:39 +0800 (0:00:00.127)       0:00:05.892 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | set fact scb_utils_base dir] ****************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:39 +0800 (0:00:00.091)       0:00:05.984 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : set_facts | set server country code fact] ***************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:39 +0800 (0:00:00.084)       0:00:06.068 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | create directories for scb_utils] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:39 +0800 (0:00:00.090)       0:00:06.159 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils/oraro)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_log)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_log/CLIp)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_rpt)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_conf)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_conf/PDBAdmin)
+ok: [hklvdpapp071.hk.standardchartered.com] => (item=scb_utils_conf/CLIp)
+
+TASK [oraswdb-install : scb_utils | copy configuration files] *******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:41 +0800 (0:00:02.381)       0:00:08.541 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'oracle_DaaS.conf.j2', 'dest': 'scb_utils_conf/PDBAdmin/oracle_DaaS.conf', 'force': False})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'scb_housekeep.ini.j2', 'dest': 'scb_utils_conf/CLIp/scb_housekeep.ini', 'force': True})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'scb_rman_backup.ini.j2', 'dest': 'scb_utils_conf/CLIp/scb_rman_backup.ini', 'force': False})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'scb_export.ini.j2', 'dest': 'scb_utils_conf/CLIp/scb_export.ini', 'force': False})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'scb_import.ini.j2', 'dest': 'scb_utils_conf/CLIp/scb_import.ini', 'force': False})
+
+TASK [oraswdb-install : scb_utils | copy configuration files] *******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:44 +0800 (0:00:02.774)       0:00:11.316 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'HK_DD_NETWORKER_DLY.j2', 'dest': 'scb_utils_conf/CLIp/HK_DD_NETWORKER_DLY', 'force': False})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'HK_DD_NETWORKER_MTHLY.j2', 'dest': 'scb_utils_conf/CLIp/HK_DD_NETWORKER_MTHLY', 'force': False})
+
+TASK [oraswdb-install : scb_utils | copy configuration files] *******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:45 +0800 (0:00:01.032)       0:00:12.348 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'UK_DD_NETWORKER_DLY.j2', 'dest': 'scb_utils_conf/CLIp/UK_DD_NETWORKER_DLY', 'force': False})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'UK_DD_NETWORKER_MTHLY.j2', 'dest': 'scb_utils_conf/CLIp/UK_DD_NETWORKER_MTHLY', 'force': False})
+
+TASK [oraswdb-install : scb_utils | Find cohesity sbt library file path] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:45 +0800 (0:00:00.100)       0:00:12.449 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | Define cohesity sbt library file path] ******************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:45 +0800 (0:00:00.091)       0:00:12.540 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | Fail when cohesity sbt library path is undefined] *******************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:45 +0800 (0:00:00.088)       0:00:12.629 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | Get cohesity cluster name] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:46 +0800 (0:00:00.089)       0:00:12.718 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | copy configuration files] *******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:46 +0800 (0:00:00.163)       0:00:12.882 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'SG_COH_NETWORKER_DLY.j2', 'dest': 'scb_utils_conf/CLIp/SG_COH_NETWORKER_DLY', 'force': False})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'src': 'SG_COH_NETWORKER_MLY.j2', 'dest': 'scb_utils_conf/CLIp/SG_COH_NETWORKER_MLY', 'force': False})
+
+TASK [oraswdb-install : scb_utils | oradbeng | set base directory] **************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:46 +0800 (0:00:00.095)       0:00:12.977 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | oradbeng | Get latest version of oradbeng file] *********************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:46 +0800 (0:00:00.086)       0:00:13.064 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | oradbeng | Get latest version of oradbeng file - Validate] **********************************************************************************************************************************************
+Saturday 04 May 2024  13:16:47 +0800 (0:00:01.223)       0:00:14.288 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | oradbeng | download wrapper script] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:47 +0800 (0:00:00.093)       0:00:14.381 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | oradbeng | Check if oradbeng file exists] ***************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:52 +0800 (0:00:04.341)       0:00:18.722 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | oradbeng | Fail if oradbeng file not exists] ************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:52 +0800 (0:00:00.386)       0:00:19.109 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oraswdb-install : scb_utils | clone scb_utils repository] *****************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:16:52 +0800 (0:00:00.085)       0:00:19.195 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"changed": true, "cmd": "./oradbeng -a clone -u https://bitbucket.global.standardchartered.com/scm/dbeng/scb_utils.git -o /u01/app/oracle/local -w amend", "delta": "0:00:01.244459", "end": "2024-05-04 13:16:54.010861", "msg": "non-zero return code", "rc": 1, "start": "2024-05-04 13:16:52.766402", "stderr": "", "stderr_lines": [], "stdout": "[ERROR]: Unable to clone Bitbucket repo", "stdout_lines": ["[ERROR]: Unable to clone Bitbucket repo"]}
+
+PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+hklvdpapp071.hk.standardchartered.com : ok=15   changed=3    unreachable=0    failed=1    skipped=14   rescued=0    ignored=1
+
+Saturday 04 May 2024  13:16:54 +0800 (0:00:01.539)       0:00:20.734 **********
+===============================================================================
+oraswdb-install : scb_utils | oradbeng | download wrapper script --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 4.34s
+Gathering Facts ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 3.47s
+oraswdb-install : scb_utils | copy configuration files ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.78s
+oraswdb-install : scb_utils | create directories for scb_utils ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.38s
+oraswdb-install : scb_utils | clone scb_utils repository ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.54s
+oraswdb-install : scb_utils | oradbeng | Get latest version of oradbeng file --------------------------------------------------------------------------------------------------------------------------------------------------------- 1.22s
+oraswdb-install : scb_utils | copy configuration files ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.03s
+oraswdb-install : install-db-home | check if crsd.bin is running to determine RAC or Restart ----------------------------------------------------------------------------------------------------------------------------------------- 0.56s
+oraswdb-install : install-db-home | check if gi is installed ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.50s
+oraswdb-install : scb_utils | oradbeng | Check if oradbeng file exists --------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.39s
+oraswdb-install : install-db-home | Check if first ORACLE_HOME ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.35s
+Oracle Database Software Installation ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.27s
+oraswdb-install : scb_utils | Get cohesity cluster name ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.16s
+oraswdb-install : install-db-home | check if db type is Restart ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.13s
+oraswdb-install : oraswinstall | scb_utils ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.13s
+oraswdb-install : scb_utils | copy configuration files ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.10s
+oraswdb-install : scb_utils | copy configuration files ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.10s
+oraswdb-install : scb_utils | oradbeng | Get latest version of oradbeng file - Validate ---------------------------------------------------------------------------------------------------------------------------------------------- 0.09s
+oraswdb-install : install-db_home | set inventory location for Restart and RAC ------------------------------------------------------------------------------------------------------------------------------------------------------- 0.09s
+oraswdb-install : scb_utils | set fact scb_utils_base dir ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.09s
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+>
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -e "db_num=1 cdb_appl_code=RES pdb_appl_code=RES pdb_service_suffix=res_uat" -u oracle -k create-primary-db.yml
+SSH password:
+
+PLAY [all] **********************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:51 +0800 (0:00:00.028)       0:00:00.028 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [Create Primary Database] **************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:53 +0800 (0:00:02.900)       0:00:02.929 **********
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task set_db_fact] *************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:54 +0800 (0:00:00.201)       0:00:03.130 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/set_db_facts.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle home] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:54 +0800 (0:00:00.151)       0:00:03.282 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set oracle home] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:54 +0800 (0:00:00.502)       0:00:03.785 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle db environment type] ***************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:54 +0800 (0:00:00.092)       0:00:03.877 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get country code] *****************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:54 +0800 (0:00:00.087)       0:00:03.965 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle db vDaaS environment type] *********************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:55 +0800 (0:00:00.139)       0:00:04.104 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get db_num value for vDaaS environment] *******************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:55 +0800 (0:00:00.085)       0:00:04.190 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check if gi is installed] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:55 +0800 (0:00:00.085)       0:00:04.275 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts| check if crsd.bin is running to determine RAC or Restart] **************************************************************************************************************************************
+Saturday 04 May 2024  13:17:55 +0800 (0:00:00.435)       0:00:04.711 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"changed": true, "cmd": "ps -ef|grep crsd.bin|grep -v grep", "delta": "0:00:00.048945", "end": "2024-05-04 13:17:55.986178", "msg": "non-zero return code", "rc": 1, "start": "2024-05-04 13:17:55.937233", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.356)       0:00:05.067 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=1"
+}
+
+TASK [oradb-create-primarydb : set_db_facts | check if db type is RAC or Restart] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.085)       0:00:05.153 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check if db type is RAC or Restart] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.094)       0:00:05.248 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get the list of RAC nodes] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.085)       0:00:05.334 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the nodelist parameter] *******************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.085)       0:00:05.419 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | Identify if the database is a DaaS or Non-DaaS] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.094)       0:00:05.514 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | identify if the DB supported by SCB or ATOS] **************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.101)       0:00:05.615 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check db_num greater than 10 and less than 100] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.102)       0:00:05.718 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for Non-DaaS] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.084)       0:00:05.802 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for DaaS] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.092)       0:00:05.895 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for vDaaS] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:56 +0800 (0:00:00.102)       0:00:05.997 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the gdbname] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:57 +0800 (0:00:00.083)       0:00:06.081 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get hugepages total in GB] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:57 +0800 (0:00:00.085)       0:00:06.167 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get /orafra size in MB] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:57 +0800 (0:00:00.350)       0:00:06.518 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the oracle_prsid] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:57 +0800 (0:00:00.348)       0:00:06.867 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task create_cdb_prechecks] ****************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:57 +0800 (0:00:00.089)       0:00:06.956 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/create_cdb_prechecks.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if the database is already running] **********************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.141)       0:00:07.097 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if ASM instance is up and running] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.383)       0:00:07.480 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if disk groups are mounted] ******************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.088)       0:00:07.569 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'DATA'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'FRA'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'REDO1'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'REDO2'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | get size of FRA diskgroup] *************************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.108)       0:00:07.677 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if ora_dump ACFS exists] *********************************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.091)       0:00:07.769 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/ora_dump', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if /u01/app/oracle/global ACFS exists] *******************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.119)       0:00:07.888 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/u01/app/oracle/global', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if 4 FS exists for SI FS Installation] *******************************************************************************************************************************************
+Saturday 04 May 2024  13:17:58 +0800 (0:00:00.071)       0:00:07.959 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oradata', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oraredo1', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oraredo2', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/orafra', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oradump', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the number of databases running on this host] **************************************************************************************************************************************
+Saturday 04 May 2024  13:18:00 +0800 (0:00:01.633)       0:00:09.593 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if a listener is already running] ************************************************************************************************************************************************
+Saturday 04 May 2024  13:18:00 +0800 (0:00:00.358)       0:00:09.951 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the listener name if already running on this host] *********************************************************************************************************************************
+Saturday 04 May 2024  13:18:01 +0800 (0:00:00.341)       0:00:10.293 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the listener port] *****************************************************************************************************************************************************************
+Saturday 04 May 2024  13:18:01 +0800 (0:00:00.342)       0:00:10.635 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:18:02 +0800 (0:00:00.387)       0:00:11.022 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=1621"
+}
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task create_cdb] **************************************************************************************************************************************************************
+Saturday 04 May 2024  13:18:02 +0800 (0:00:00.072)       0:00:11.095 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/create_cdb.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : create-cdb | copy dbca template for non-standard character sets] *********************************************************************************************************************************************
+Saturday 04 May 2024  13:18:02 +0800 (0:00:00.216)       0:00:11.311 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | download dbca template for SI or Restart (AL32UTF8 or ZHS16GBK)] ********************************************************************************************************************************
+Saturday 04 May 2024  13:18:02 +0800 (0:00:00.074)       0:00:11.386 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | unzip dbca template for SI or Restart (AL32UTF8 or ZHS16GBK)] ***********************************************************************************************************************************
+Saturday 04 May 2024  13:18:13 +0800 (0:00:11.583)       0:00:22.969 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | run dbca command for SI] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:18:17 +0800 (0:00:03.476)       0:00:26.446 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"ansible_job_id": "492923130064.727261", "changed": true, "cmd": "/u01/app/oracle/product/db/19.9.0.0.Oct2020/bin/dbca -J-Djava.io.tmpdir=/u01/app/oracle/local/tmp -silent -createDatabase -gdbName POHK1RES. -responseFile NO_VALUE -templateName /u01/app/oracle/product/db/19.9.0.0.Oct2020/assistants/dbca/templates/SCB_Bigfile_Template.dbc -characterset AL32UTF8 -datafileDestination /oradata -sid POHK1RES -redoLogFileSize 1024 -systemPassword System_1234 -sysPassword Sys_1234 -enableArchive true -memoryMgmtType AUTO_SGA -createASContainerDatabase true -useLocalUndoForPDBs true -recoveryAreaDestination /orafra -recoveryAreaSize 1179236 -sampleSchema false -databaseType MULTIPURPOSE -nationalCharacterSet AL16UTF16 -storageType FS -dbsnmpPassword D65nmp_1234 -useOMF true -initParams \"common_user_prefix='',sga_target=75G,sga_max_size=75G,db_create_file_dest=/oradata,db_create_online_log_dest_1=/oraredo1,db_create_online_log_dest_2=/oraredo2,pga_aggregate_target=15360M,processes=1000,db_block_size=8192,local_listener='hklvdpapp071:1621'\"", "delta": "0:00:20.007772", "end": "2024-05-04 13:18:38.298143", "failed_when_result": true, "finished": 1, "msg": "non-zero return code", "rc": 255, "start": "2024-05-04 13:18:18.290371", "stderr": "", "stderr_lines": [], "stdout": "Prepare for db operation\n10% complete\nCopying database files\n12% complete\n[WARNING] ORA-27125: unable to create shared memory segment\n\n40% complete\n100% complete\n[FATAL] Recovery Manager failed to restore datafiles. Refer logs for details.\n10% complete\n0% complete\nLook at the log file \"/u01/app/oracle/local/cfgtoollogs/dbca/POHK1RES/POHK1RES.log\" for further details.", "stdout_lines": ["Prepare for db operation", "10% complete", "Copying database files", "12% complete", "[WARNING] ORA-27125: unable to create shared memory segment", "", "40% complete", "100% complete", "[FATAL] Recovery Manager failed to restore datafiles. Refer logs for details.", "10% complete", "0% complete", "Look at the log file \"/u01/app/oracle/local/cfgtoollogs/dbca/POHK1RES/POHK1RES.log\" for further details."]}
+
+PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+hklvdpapp071.hk.standardchartered.com : ok=27   changed=1    unreachable=0    failed=1    skipped=15   rescued=0    ignored=1
+
+Saturday 04 May 2024  13:18:38 +0800 (0:00:21.214)       0:00:47.660 **********
+===============================================================================
+oradb-create-primarydb : create-cdb | run dbca command for SI ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 21.21s
+oradb-create-primarydb : create-cdb | download dbca template for SI or Restart (AL32UTF8 or ZHS16GBK) ------------------------------------------------------------------------------------------------------------------------------- 11.58s
+oradb-create-primarydb : create-cdb | unzip dbca template for SI or Restart (AL32UTF8 or ZHS16GBK) ----------------------------------------------------------------------------------------------------------------------------------- 3.48s
+Gathering Facts ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.90s
+oradb-create-primarydb : create_db_prechecks | check if 4 FS exists for SI FS Installation ------------------------------------------------------------------------------------------------------------------------------------------- 1.63s
+oradb-create-primarydb : set_db_facts | get oracle home ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.50s
+oradb-create-primarydb : set_db_facts | check if gi is installed --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.44s
+oradb-create-primarydb : create_db_prechecks | get the listener port ----------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.39s
+oradb-create-primarydb : create_db_prechecks | check if the database is already running ---------------------------------------------------------------------------------------------------------------------------------------------- 0.38s
+oradb-create-primarydb : create_db_prechecks | get the number of databases running on this host -------------------------------------------------------------------------------------------------------------------------------------- 0.36s
+oradb-create-primarydb : set_db_facts| check if crsd.bin is running to determine RAC or Restart -------------------------------------------------------------------------------------------------------------------------------------- 0.36s
+oradb-create-primarydb : set_db_facts | get hugepages total in GB -------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.35s
+oradb-create-primarydb : set_db_facts | get /orafra size in MB ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.35s
+oradb-create-primarydb : create_db_prechecks | get the listener name if already running on this host --------------------------------------------------------------------------------------------------------------------------------- 0.34s
+oradb-create-primarydb : create_db_prechecks | check if a listener is already running ------------------------------------------------------------------------------------------------------------------------------------------------ 0.34s
+oradb-create-primarydb : oradb-primary-create | include task create_cdb -------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.22s
+Create Primary Database -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.20s
+oradb-create-primarydb : oradb-primary-create | include task set_db_fact ------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.15s
+oradb-create-primarydb : oradb-primary-create | include task create_cdb_prechecks ---------------------------------------------------------------------------------------------------------------------------------------------------- 0.14s
+oradb-create-primarydb : set_db_facts | get country code ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.14s
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ps -ef|grep pmon
+oracle    768011  648476  0 13:19 pts/0    00:00:00 grep --color=auto pmon
+oracle   2442244       1  0 Apr30 ?        00:00:38 ora_pmon_POHK3CCD
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> sqlplus sys as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat May 4 13:19:46 2024
+Version 19.22.0.0.0
+
+Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+
+Enter password:
+#WARNING! This database is the property of the Standard Chartered Group and may be accessed only by
+#authorized users for Legitimate business purposes. Unauthorized use of this database is strictly prohibited
+#and may be subject to criminal prosecution. Standard Chartered Group may monitor any activity
+#in the database. By continuing to use this database you indicate your consent to these conditions
+#of use. LOG OFF IMMEDIATELY if you do not agree to the conditions stated in this warning.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.22.0.0.0
+
+13:19:48 SYS @ POHK3CCD:CDB$ROOT:>show sga
+
+Total System Global Area 1.6106E+10 bytes
+Fixed Size                 18672288 bytes
+Variable Size            2248146944 bytes
+Database Buffers         1.3824E+10 bytes
+Redo Buffers               14880768 bytes
+13:19:56 SYS @ POHK3CCD:CDB$ROOT:>show parameter sga
+
+NAME
+------------------------------------
+TYPE
+------------------------------------------------------------------------------------------------
+VALUE
+------------------------------
+allow_group_access_to_sga
+boolean
+FALSE
+lock_sga
+boolean
+FALSE
+pre_page_sga
+
+NAME
+------------------------------------
+TYPE
+------------------------------------------------------------------------------------------------
+VALUE
+------------------------------
+boolean
+TRUE
+sga_max_size
+big integer
+15G
+sga_min_size
+big integer
+
+NAME
+------------------------------------
+TYPE
+------------------------------------------------------------------------------------------------
+VALUE
+------------------------------
+0
+sga_target
+big integer
+15G
+unified_audit_sga_queue_size
+integer
+1048576
+13:20:03 SYS @ POHK3CCD:CDB$ROOT:>set lines 9999
+13:20:08 SYS @ POHK3CCD:CDB$ROOT:>show parameter sga
+
+NAME                                 TYPE                                                                                             VALUE
+------------------------------------ ------------------------------------------------------------------------------------------------ ------------------------------
+allow_group_access_to_sga            boolean                                                                                          FALSE
+lock_sga                             boolean                                                                                          FALSE
+pre_page_sga                         boolean                                                                                          TRUE
+sga_max_size                         big integer                                                                                      15G
+sga_min_size                         big integer                                                                                      0
+sga_target                           big integer                                                                                      15G
+unified_audit_sga_queue_size         integer                                                                                          1048576
+13:20:12 SYS @ POHK3CCD:CDB$ROOT:>! free -m
+              total        used        free      shared  buff/cache   available
+Mem:         128386       80479       19554          60       28352       44848
+Swap:         16415          11       16404
+
+13:20:18 SYS @ POHK3CCD:CDB$ROOT:>shu immediate
+ORA-01507: database not mounted
+
+
+ORACLE instance shut down.
+13:20:56 SYS @ POHK3CCD:CDB$ROOT:>exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.22.0.0.0
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> ansible-playbook -i hklvdpapp071.hk.standardchartered.com, -e "db_num=1 cdb_appl_code=RES pdb_appl_code=RES pdb_service_suffix=res_uat" -u oracle -k create-primary-db.yml
+SSH password:
+
+PLAY [all] **********************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:40 +0800 (0:00:00.036)       0:00:00.036 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [Create Primary Database] **************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:43 +0800 (0:00:03.124)       0:00:03.161 **********
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task set_db_fact] *************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:43 +0800 (0:00:00.181)       0:00:03.342 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/set_db_facts.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle home] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:43 +0800 (0:00:00.150)       0:00:03.493 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set oracle home] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.526)       0:00:04.019 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle db environment type] ***************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.091)       0:00:04.111 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get country code] *****************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.137)       0:00:04.249 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get oracle db vDaaS environment type] *********************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.094)       0:00:04.343 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get db_num value for vDaaS environment] *******************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.087)       0:00:04.431 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check if gi is installed] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:44 +0800 (0:00:00.090)       0:00:04.522 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts| check if crsd.bin is running to determine RAC or Restart] **************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.446)       0:00:04.968 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"changed": true, "cmd": "ps -ef|grep crsd.bin|grep -v grep", "delta": "0:00:00.042251", "end": "2024-05-04 13:21:45.367908", "msg": "non-zero return code", "rc": 1, "start": "2024-05-04 13:21:45.325657", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.353)       0:00:05.321 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=1"
+}
+
+TASK [oradb-create-primarydb : set_db_facts | check if db type is RAC or Restart] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.093)       0:00:05.415 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check if db type is RAC or Restart] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.084)       0:00:05.500 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get the list of RAC nodes] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.086)       0:00:05.587 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the nodelist parameter] *******************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.085)       0:00:05.672 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | Identify if the database is a DaaS or Non-DaaS] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.095)       0:00:05.768 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | identify if the DB supported by SCB or ATOS] **************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:45 +0800 (0:00:00.094)       0:00:05.862 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | check db_num greater than 10 and less than 100] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.090)       0:00:05.953 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for Non-DaaS] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.088)       0:00:06.042 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for DaaS] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.100)       0:00:06.142 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set DB Name for vDaaS] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.088)       0:00:06.231 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the gdbname] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.086)       0:00:06.318 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get hugepages total in GB] ********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.090)       0:00:06.408 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | get /orafra size in MB] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:46 +0800 (0:00:00.363)       0:00:06.772 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set the oracle_prsid] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:47 +0800 (0:00:00.371)       0:00:07.143 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task create_cdb_prechecks] ****************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:47 +0800 (0:00:00.098)       0:00:07.241 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/create_cdb_prechecks.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if the database is already running] **********************************************************************************************************************************************
+Saturday 04 May 2024  13:21:47 +0800 (0:00:00.149)       0:00:07.390 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if ASM instance is up and running] ***********************************************************************************************************************************************
+Saturday 04 May 2024  13:21:47 +0800 (0:00:00.386)       0:00:07.777 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if disk groups are mounted] ******************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:47 +0800 (0:00:00.091)       0:00:07.869 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'DATA'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'FRA'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'REDO1'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'dg': 'REDO2'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | get size of FRA diskgroup] *************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:48 +0800 (0:00:00.116)       0:00:07.986 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if ora_dump ACFS exists] *********************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:48 +0800 (0:00:00.093)       0:00:08.079 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/ora_dump', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if /u01/app/oracle/global ACFS exists] *******************************************************************************************************************************************
+Saturday 04 May 2024  13:21:48 +0800 (0:00:00.117)       0:00:08.197 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/u01/app/oracle/global', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if 4 FS exists for SI FS Installation] *******************************************************************************************************************************************
+Saturday 04 May 2024  13:21:48 +0800 (0:00:00.074)       0:00:08.271 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oradata', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oraredo1', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oraredo2', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/orafra', 'mode': '0750'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'path': '/oradump', 'mode': '0750'})
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the number of databases running on this host] **************************************************************************************************************************************
+Saturday 04 May 2024  13:21:50 +0800 (0:00:01.702)       0:00:09.974 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | check if a listener is already running] ************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:50 +0800 (0:00:00.442)       0:00:10.417 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the listener name if already running on this host] *********************************************************************************************************************************
+Saturday 04 May 2024  13:21:50 +0800 (0:00:00.374)       0:00:10.791 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create_db_prechecks | get the listener port] *****************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:51 +0800 (0:00:00.385)       0:00:11.177 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:51 +0800 (0:00:00.362)       0:00:11.539 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=1621"
+}
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task create_cdb] **************************************************************************************************************************************************************
+Saturday 04 May 2024  13:21:51 +0800 (0:00:00.076)       0:00:11.616 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/create_cdb.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : create-cdb | copy dbca template for non-standard character sets] *********************************************************************************************************************************************
+Saturday 04 May 2024  13:21:51 +0800 (0:00:00.213)       0:00:11.829 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | download dbca template for SI or Restart (AL32UTF8 or ZHS16GBK)] ********************************************************************************************************************************
+Saturday 04 May 2024  13:21:52 +0800 (0:00:00.071)       0:00:11.900 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | unzip dbca template for SI or Restart (AL32UTF8 or ZHS16GBK)] ***********************************************************************************************************************************
+Saturday 04 May 2024  13:22:03 +0800 (0:00:11.673)       0:00:23.574 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | run dbca command for SI] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  13:22:06 +0800 (0:00:03.071)       0:00:26.645 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:54:24.727)       0:54:51.373 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "db_creation_success.stdout_lines": [
+        "Prepare for db operation",
+        "10% complete",
+        "Copying database files",
+        "40% complete",
+        "Creating and starting Oracle instance",
+        "42% complete",
+        "46% complete",
+        "50% complete",
+        "54% complete",
+        "60% complete",
+        "Completing Database Creation",
+        "66% complete",
+        "69% complete",
+        "70% complete",
+        "Executing Post Configuration Actions",
+        "100% complete",
+        "Database creation complete. For details check the logfiles at:",
+        " /u01/app/oracle/local/cfgtoollogs/dbca/POHK1RES.",
+        "Database Information:",
+        "Global Database Name:POHK1RES",
+        "System Identifier(SID):POHK1RES",
+        "Look at the log file \"/u01/app/oracle/local/cfgtoollogs/dbca/POHK1RES/POHK1RES0.log\" for further details."
+    ]
+}
+
+TASK [oradb-create-primarydb : create-cdb | run dbca command for Restart] *******************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:00:00.078)       0:54:51.452 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:00:00.076)       0:54:51.528 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "db_creation_restart.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+
+TASK [oradb-create-primarydb : create-cdb | run dbca command for RAC] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:00:00.081)       0:54:51.610 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:00:00.074)       0:54:51.684 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "db_creation_rac.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+
+TASK [oradb-create-primarydb : create-cdb | get instance name] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:31 +0800 (0:00:00.092)       0:54:51.776 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:32 +0800 (0:00:00.410)       0:54:52.187 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=POHK1RES"
+}
+
+TASK [oradb-create-primarydb : create-cdb | set restart flag to Y in oratab] ****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:32 +0800 (0:00:00.100)       0:54:52.288 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | set ORACLE_SID in .bash_profile] ****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:33 +0800 (0:00:00.602)       0:54:52.891 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | copy listener.ora with SID_LIST_LISTENER] *******************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:33 +0800 (0:00:00.414)       0:54:53.305 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | copy tnsnames.ora] ******************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:34 +0800 (0:00:01.465)       0:54:54.770 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | start dbora service] ****************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:35 +0800 (0:00:01.067)       0:54:55.837 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : create-cdb | modify database resource in CRS] ****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:36 +0800 (0:00:00.458)       0:54:56.296 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task customize_cdb] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:36 +0800 (0:00:00.070)       0:54:56.366 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/customize_cdb.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : scb_customize_cdb | gather database facts] *******************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:36 +0800 (0:00:00.162)       0:54:56.529 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : set_db_facts | set oracle_base to oracle_global_dir when db_type is RAC] *************************************************************************************************************************************
+Saturday 04 May 2024  14:16:37 +0800 (0:00:01.156)       0:54:57.686 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | update scb_rman_backup.ini] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:37 +0800 (0:00:00.095)       0:54:57.782 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | update CATALOG_CAT in scb_rman_backup.ini] ***********************************************************************************************************************************************
+Saturday 04 May 2024  14:16:38 +0800 (0:00:00.544)       0:54:58.327 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set common init parameters 12c] **********************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:38 +0800 (0:00:00.400)       0:54:58.727 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_disable_file_resize_logging', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_exclude_seed_cdb_view', 'value': False, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_optimizer_use_feedback', 'value': False, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_serial_direct_read', 'value': 'NEVER', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_cursor_obsolete_threshold', 'value': 1024, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'awr_pdb_autoflush_enabled', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'cursor_sharing', 'value': 'FORCE', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_block_checking', 'value': 'MEDIUM', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_block_checksum', 'value': 'TYPICAL', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_files', 'value': 4096, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_flashback_retention_target', 'value': 1440, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_lost_write_protect', 'value': 'TYPICAL', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_securefile', 'value': 'preferred', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_start', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_config_file1', 'value': '/u01/app/oracle/product/db/19.9.0.0.Oct2020/dbs/dr1POHK1RES.dat', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_config_file2', 'value': '/u01/app/oracle/product/db/19.9.0.0.Oct2020/dbs/dr2POHK1RES.dat', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dispatchers', 'value': "''", 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'enable_automatic_maintenance_pdb', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'enable_pluggable_database', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'filesystemio_options', 'value': 'SETALL', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'log_archive_format', 'value': '%t_%s_%r.arc', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'max_dump_file_size', 'value': "'100M'", 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'open_cursors', 'value': 1000, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_adaptive_plans', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_adaptive_reporting_only', 'value': False, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_capture_sql_plan_baselines', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_dynamic_sampling', 'value': 2, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_mode', 'value': 'ALL_ROWS', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'os_authent_prefix', 'value': ' ', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'pga_aggregate_target', 'value': ' ', 'state': 'reset'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'recyclebin', 'value': 'on', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'standby_file_management', 'value': 'AUTO', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'sec_protocol_error_further_action', 'value': 'CONTINUE', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'temp_undo_enabled', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'timed_statistics', 'value': True, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'undo_management', 'value': 'AUTO', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'undo_retention', 'value': 7200, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'use_large_pages', 'value': 'ONLY', 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'archive_lag_target', 'value': 0, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'data_guard_sync_latency', 'value': 0, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'log_archive_min_succeed_dest', 'value': 1, 'state': 'present'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'log_archive_max_processes', 'value': 4, 'state': 'present'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set common init parameters 19c] **********************************************************************************************************************************************************
+Saturday 04 May 2024  14:16:39 +0800 (0:00:00.309)       0:54:59.036 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_disable_file_resize_logging', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_exclude_seed_cdb_view', 'value': False, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_optimizer_use_feedback', 'value': False, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_serial_direct_read', 'value': 'NEVER', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': '_cursor_obsolete_threshold', 'value': 1024, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'awr_pdb_autoflush_enabled', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'awr_pdb_max_parallel_slaves', 'value': 3, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'cursor_sharing', 'value': 'FORCE', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'data_guard_max_io_time', 'value': 60, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'data_guard_max_longio_time', 'value': 60, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_block_checking', 'value': 'MEDIUM', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_block_checksum', 'value': 'TYPICAL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_files', 'value': 4096, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_flashback_retention_target', 'value': 1440, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_lost_write_protect', 'value': 'TYPICAL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_securefile', 'value': 'preferred', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_start', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_config_file1', 'value': '/u01/app/oracle/local/dbs/dr1POHK1RES.dat', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dg_broker_config_file2', 'value': '/u01/app/oracle/local/dbs/dr2POHK1RES.dat', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dispatchers', 'value': "''", 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'enable_automatic_maintenance_pdb', 'value': True, 'state': 'present'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'enable_pluggable_database', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'filesystemio_options', 'value': 'SETALL', 'state': 'present'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'log_archive_format', 'value': '%t_%s_%r.arc', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'max_dump_file_size', 'value': "'100M'", 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'open_cursors', 'value': 1000, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'session_cached_cursors', 'value': 300, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_adaptive_plans', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_adaptive_reporting_only', 'value': False, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_capture_sql_plan_baselines', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_dynamic_sampling', 'value': 2, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'optimizer_mode', 'value': 'ALL_ROWS', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'os_authent_prefix', 'value': ' ', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'pga_aggregate_target', 'value': ' ', 'state': 'reset'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'recyclebin', 'value': 'on', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'standby_file_management', 'value': 'AUTO', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'sec_protocol_error_further_action', 'value': '(DROP,3)', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'sec_protocol_error_trace_action', 'value': 'LOG', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'temp_undo_enabled', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'timed_statistics', 'value': True, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'undo_management', 'value': 'AUTO', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'undo_retention', 'value': 7200, 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'use_large_pages', 'value': 'ONLY', 'state': 'present'})
+[WARNING]: The value True (type bool) in a string field was converted to 'True' (type string). If this does not look like what you expect, quote the entire value to ensure it does not change.
+[WARNING]: The value False (type bool) in a string field was converted to 'False' (type string). If this does not look like what you expect, quote the entire value to ensure it does not change.
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set max_pdb parameter for DaaS] **********************************************************************************************************************************************************
+Saturday 04 May 2024  14:17:08 +0800 (0:00:28.997)       0:55:28.034 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'max_pdbs', 'value': 50})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'target_pdbs', 'value': 60})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set max_pdb parameter for non-DaaS] ******************************************************************************************************************************************************
+Saturday 04 May 2024  14:17:08 +0800 (0:00:00.108)       0:55:28.142 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'max_pdbs', 'value': '3'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set target_pbs parameter for RAC] ********************************************************************************************************************************************************
+Saturday 04 May 2024  14:17:09 +0800 (0:00:00.750)       0:55:28.892 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'target_pdbs', 'value': 10})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set parameters for DataGuard] ************************************************************************************************************************************************************
+Saturday 04 May 2024  14:17:09 +0800 (0:00:00.104)       0:55:28.997 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'db_file_name_convert', 'value': "/POHK1RES_DG/','/POHK1RES/"})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'log_file_name_convert', 'value': "/POHK1RES_DG/','/POHK1RES/"})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'pdb_file_name_convert', 'value': "/POHK1RES_DG/','/POHK1RES/"})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'fal_server', 'value': 'POHK1RES_DG'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'fal_client', 'value': 'POHK1RES'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'redo_transport_user', 'value': 'OEMUSER'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'local_listener', 'value': 'LISTENER_POHK1RES'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set parameters for Testbox] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:17:09 +0800 (0:00:00.147)       0:55:29.145 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'dispatchers', 'value': '(PROTOCOL=TCP)(SERVICE=POHK1RESXDB)'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | restart cdb after setting init Parameters] ***********************************************************************************************************************************************
+Saturday 04 May 2024  14:17:09 +0800 (0:00:00.109)       0:55:29.254 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:11 +0800 (0:01:02.546)       0:56:31.801 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "restart_cdb.stdout_lines": [
+        "[ INFO ] Detailed operations & progress can be found in /u01/app/oracle/local/scb_utils_log/PDBAdmin/OracleDaaS_Admin.sh.20240504-141709-660117607.log. ",
+        "[ INFO ] Detailed operations & progress can be found in /u01/app/oracle/local/scb_utils_log/PDBAdmin/OracleDaaS_Admin.sh.20240504-141709-660117607.log. ",
+        "",
+        "SQL*Plus: Release 19.0.0.0.0 - Production on Sat May 4 14:17:10 2024",
+        "Version 19.22.0.0.0",
+        "",
+        "Copyright (c) 1982, 2023, Oracle.  All rights reserved.",
+        "",
+        "#WARNING! This database is the property of the Standard Chartered Group and may be accessed only by",
+        "#authorized users for Legitimate business purposes. Unauthorized use of this database is strictly prohibited",
+        "#and may be subject to criminal prosecution. Standard Chartered Group may monitor any activity",
+        "#in the database. By continuing to use this database you indicate your consent to these conditions",
+        "#of use. LOG OFF IMMEDIATELY if you do not agree to the conditions stated in this warning.",
+        "",
+        "",
+        "Connected to:",
+        "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production",
+        "Version 19.22.0.0.0",
+        "",
+        "14:17:10 SYS @ POHK1RES:CDB$ROOT:>Database closed.",
+        "Database dismounted.",
+        "ORACLE instance shut down.",
+        "14:17:40 SYS @ POHK1RES:CDB$ROOT:>ORACLE instance started.",
+        "",
+        "Total System Global Area 8.0531E+10 bytes",
+        "Fixed Size\t\t   23388632 bytes",
+        "Variable Size\t\t 9395240960 bytes",
+        "Database Buffers\t 7.0867E+10 bytes",
+        "Redo Buffers\t\t  245043200 bytes",
+        "Database mounted.",
+        "Database opened.",
+        "14:18:11 SYS @ POHK1RES:CDB$ROOT:>Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production",
+        "Version 19.22.0.0.0",
+        "[ INFO ] Container Database POHK1RES restart successful "
+    ]
+}
+
+TASK [oradb-create-primarydb : scb_customize_cdb | Check if DB Restarted successfully] ******************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:12 +0800 (0:00:00.107)       0:56:31.908 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create_cdb_level_triggers] ***************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:12 +0800 (0:00:00.097)       0:56:32.005 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'script': 'LLSTS/LLSTS_GRANT_19c.sql'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'script': 'PDBAdmin/restrict_create_user_cdb.sql'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | disable cdb_level_triggers] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:14 +0800 (0:00:02.070)       0:56:34.076 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter trigger llsts_grant disable'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter trigger restrict_create_user disable'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create password verify function] *********************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:15 +0800 (0:00:01.466)       0:56:35.543 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'script': '19c_pwd_verify_function.sql'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set up profiles] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:16 +0800 (0:00:00.837)       0:56:36.380 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'ora_stig_profile', 'attribute_name': ['sessions_per_user', 'password_life_time', 'password_grace_time', 'password_lock_time', 'password_reuse_max', 'password_reuse_time', 'password_verify_function', 'failed_login_attempts'], 'attribute_value': [100, 83, 7, 'unlimited', 20, 'unlimited', 'SCB_19C_PWD_VERIFY_FUNCTION', 6]})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'default', 'attribute_name': ['sessions_per_user', 'password_life_time', 'password_grace_time', 'password_lock_time', 'password_reuse_max', 'password_reuse_time', 'password_verify_function', 'failed_login_attempts'], 'attribute_value': [100, 'unlimited', 7, 'unlimited', 'unlimited', 'unlimited', 'SCB_19C_PWD_VERIFY_FUNCTION', 'unlimited']})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'scb_infra_supp', 'attribute_name': ['sessions_per_user', 'password_life_time', 'password_grace_time', 'password_lock_time', 'password_reuse_max', 'password_reuse_time', 'password_verify_function', 'failed_login_attempts', 'idle_time'], 'attribute_value': [100, 83, 7, 'unlimited', 20, 'unlimited', 'SCB_19C_PWD_VERIFY_FUNCTION', 3, 15]})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'scb_infra_app', 'attribute_name': ['sessions_per_user', 'password_life_time', 'password_grace_time', 'password_lock_time', 'password_reuse_max', 'password_reuse_time', 'password_verify_function', 'failed_login_attempts'], 'attribute_value': [400, 'unlimited', 7, 'unlimited', 'unlimited', 'unlimited', 'SCB_19C_PWD_VERIFY_FUNCTION', 'unlimited']})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create tablespace] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:19 +0800 (0:00:03.297)       0:56:39.678 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'audit_tbs', 'size': '64M', 'autoextend': True, 'next': '100M', 'maxsize': 'unlimited', 'content': 'permanent', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'scb_admin_data', 'size': '64M', 'autoextend': True, 'next': '100M', 'maxsize': 'unlimited', 'content': 'permanent', 'state': 'present'})
+ok: [hklvdpapp071.hk.standardchartered.com] => (item={'name': 'patrol', 'size': '64M', 'autoextend': False, 'next': '100M', 'maxsize': '8G', 'content': 'permanent', 'state': 'absent'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set default bigfile tablespaces for SI or Restart] ***************************************************************************************************************************************
+Saturday 04 May 2024  14:18:22 +0800 (0:00:03.018)       0:56:42.696 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set TEMP tablespaces to 32GB maxsize] ****************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:23 +0800 (0:00:00.815)       0:56:43.512 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create common users] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:24 +0800 (0:00:00.782)       0:56:44.294 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'ccs_scan', 'schema_password_hash': 'S:DADA9C9ED2A454E9B716D5C04D55E3A50B2B15666B155A2566305F41AC9D;T:A28A12967D9786346C9CDBB2443A9096F08402161BFBEA57B481E57CD831BF923A9DB9004B1076632905A6F99B8CCA2B618804AAC64EA615F4D2BA265D530216F4C6B21B6F78F6039B0D9B1E496F6FE3', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaro', 'schema_password_hash': 'S:682DDF4A3981C29B6A7EFE62646A90302CA44F4FD5F8B570F9F6C3CFE7C4;T:B37CEBACFF38ACBF8B9D1C1844E940F007617258D2DF39840200C4B3B8B7FE379A27AE4B6B2A4F88E9D5F726F47C6082E6A095D798D72C698E9750361FA6AFC051617940F2FD28F0FCD11D9D7853C0D0', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaro2', 'schema_password_hash': 'S:682DDF4A3981C29B6A7EFE62646A90302CA44F4FD5F8B570F9F6C3CFE7C4;T:B37CEBACFF38ACBF8B9D1C1844E940F007617258D2DF39840200C4B3B8B7FE379A27AE4B6B2A4F88E9D5F726F47C6082E6A095D798D72C698E9750361FA6AFC051617940F2FD28F0FCD11D9D7853C0D0', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_supp', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oraro', 'schema_password_hash': 'S:682DDF4A3981C29B6A7EFE62646A90302CA44F4FD5F8B570F9F6C3CFE7C4;T:B37CEBACFF38ACBF8B9D1C1844E940F007617258D2DF39840200C4B3B8B7FE379A27AE4B6B2A4F88E9D5F726F47C6082E6A095D798D72C698E9750361FA6AFC051617940F2FD28F0FCD11D9D7853C0D0', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_supp', 'authentication_type': 'external', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oramed1', 'schema_password_hash': 'S:A41B5C5D14A50A144D6CACE53B518FE5800CEB64E48311ED6676656A23B1;T:4357B667D8449031BAF78E7C4D72106B6E20BC0800A13C84587C4A80BFB2FD1C89B53C65B27B315198133BEC1AED9F3C17EF102582CD4067CC0554422C0D759FF2E94C1F91500CA4AFD77B2A883AE6C3', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oemuser', 'schema_password_hash': 'S:58C5BD3ACF06E25FE754D463BF569FAB44C50A3357A490940AB68EBFFD21;T:109D2A5CDAA4337F7F2E5B24B999D3B62E53C530BF333DE1246222E4E7D7A52B8761258FA244CBFAF488AD7B37E488845373C4972989929A71E2BBE571592A91FE61E137B891E97D652667699F5511E2', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_remote_clone', 'schema_password_hash': 'S:58C5BD3ACF06E25FE754D463BF569FAB44C50A3357A490940AB68EBFFD21;T:109D2A5CDAA4337F7F2E5B24B999D3B62E53C530BF333DE1246222E4E7D7A52B8761258FA244CBFAF488AD7B37E488845373C4972989929A71E2BBE571592A91FE61E137B891E97D652667699F5511E2', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_admin', 'schema_password_hash': 'T:2FB20F418B4A24A9A190889D80BEE22BC64D016F614F55AF76855A63EC61DBBD72340D59DDA73EAA03D30CB04CE2707451F8D715616470FA4BB7B0539490F331DA042C7897C9C2C26C8F7010F3F9B908', 'state': 'present', 'default_tablespace': 'scb_admin_data', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'none', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_link', 'schema_password_hash': 'S:B0B60600CE6973226FF18DA94A6648A8776B696943285D7D18E95D751A4C;T:9AE331DF35C90C6342EE504DC884DC343AAA97AB2E6372671010A3E9E2A09802AC7FC83C7C2780AB3CF14BCAC0DE03A7B397027F6B02B7332F4A051072A0B955C093768E348E9F41105F8D887C84985A', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'secadmin', 'schema_password_hash': 'S:C9087FEA1F76293AB2F8930E6186E1CF245F56BA554790B2527C4A849048;T:A695931450F947D758E07950AEF9BEE5FBC35B9273C388A0C24A0BC5AEE9402ED533F5C6A28FE83E2AE9EB9FB9F5E4F1A76199AFDF3EFCCEB726976B118CB15D033BA5FC525DC11D7FD47AC6F94AC1E4', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_supp', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'puppetam', 'schema_password_hash': 'S:C9087FEA1F76293AB2F8930E6186E1CF245F56BA554790B2527C4A849048;T:A695931450F947D758E07950AEF9BEE5FBC35B9273C388A0C24A0BC5AEE9402ED533F5C6A28FE83E2AE9EB9FB9F5E4F1A76199AFDF3EFCCEB726976B118CB15D033BA5FC525DC11D7FD47AC6F94AC1E4', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_supp', 'authentication_type': 'external', 'container': 'ALL', 'container_data': 'ALL'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create discovery prod user] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:32 +0800 (0:00:07.590)       0:56:51.885 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaddm', 'schema_password_hash': 'S:8AA26E13DE08BB56211E10CA627DE226E1C51F3BE75878FDC55856470C12;T:219586EEA9B7CD0D56492FC02317773F486DC815C15BAC91E370228B5C18640D2BE692ECD8850B33B0D46974691EC5990A212DBCA2EFD7BE4EDFD9FBC9619A4149187ABB808C59D0E4CA203A0A46130B', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create discovery non prod user] **********************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:32 +0800 (0:00:00.743)       0:56:52.629 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'devdbaddm', 'schema_password_hash': 'S:FA92E3781DCAB4BE975AE870EE3F719D9FA1EB82B1352CD3EFA2CD30E926;T:F43E87E9162FEA0CEBB38DE3F2D47422BA608DD632CE442E04883EE0EE7B7C30AC020B3474408758ADF2692A077620ADABF7DE668A41561C4CA7137A8B63035529B42404830A3EC45EB70890EA1BEB35', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create monitoring atos user] *************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:32 +0800 (0:00:00.106)       0:56:52.735 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'aogems', 'schema_password_hash': 'S:450F78E43C01EE323E5070C03DEA2CFBBEE93820D0E7614C7D59EB78242C;T:07B42A7E7863810800C1127F9A3EE561C99A5C7A8717BC9B05DFD3185EDCBDABFD0A7BCD1F4D63171C06B7F48D9DFCE3A66AB8089B5E9FACC96252099523DE199F6E91272C2A7204A424F9F2E4B1732B', 'state': 'present', 'default_tablespace': 'users', 'default_temp_tablespace': 'temp', 'update_password': 'on_create', 'profile': 'scb_infra_app', 'authentication_type': 'password', 'container': 'ALL', 'container_data': 'ALL'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | cdb_common_user_grants] ******************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:33 +0800 (0:00:00.774)       0:56:53.510 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'ccs_scan', 'grants': "'CONNECT','SELECT_CATALOG_ROLE','RESOURCE'", 'object_privs': 'SELECT:SYS.USER$,SELECT:SYSTEM.PRODUCT_USER_PROFILE,SELECT:SYS.UNIFIED_MISC_AUDITED_ACTIONS,SELECT:CDB_UNIFIED_AUDIT_TRAIL,SELECT:AUDIT_UNIFIED_POLICIES,SELECT:AUDIT_UNIFIED_ENABLED_POLICIES,SELECT:SYS.REGISTRY$SQLPATCH,SELECT:SYS.DBA_USERS_WITH_DEFPWD', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaro', 'grants': "'ADVISOR','CREATE SESSION','SELECT ANY TABLE','SET CONTAINER','CONNECT','SELECT_CATALOG_ROLE','SELECT ANY DICTIONARY'", 'object_privs': 'EXECUTE:SYS.DBMS_LOCK,EXECUTE:SYS.DBMS_LOB,EXECUTE:SYS.DBMS_METADATA,EXECUTE:SYS.DBMS_WORKLOAD_REPOSITORY,EXECUTE:SYS.DBMS_XPLAN', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaro2', 'grants': "'ADVISOR','CREATE SESSION','SELECT ANY TABLE','SET CONTAINER','CONNECT','SELECT_CATALOG_ROLE','SELECT ANY DICTIONARY'", 'object_privs': 'EXECUTE:SYS.DBMS_LOCK,EXECUTE:SYS.DBMS_LOB,EXECUTE:SYS.DBMS_METADATA,EXECUTE:SYS.DBMS_WORKLOAD_REPOSITORY,EXECUTE:SYS.DBMS_XPLAN', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oraro', 'grants': "'ADVISOR','CREATE SESSION','SELECT ANY TABLE','SET CONTAINER','CONNECT','SELECT_CATALOG_ROLE','SELECT ANY DICTIONARY'", 'object_privs': 'EXECUTE:SYS.DBMS_LOCK,EXECUTE:SYS.DBMS_LOB,EXECUTE:SYS.DBMS_METADATA,EXECUTE:SYS.DBMS_WORKLOAD_REPOSITORY,EXECUTE:SYS.DBMS_XPLAN', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oramed1', 'grants': "'ADMINISTER SQL TUNING SET','ADVISOR','ANALYZE ANY','CREATE ANY DIRECTORY','SELECT ANY DICTIONARY','UNLIMITED TABLESPACE','CONNECT','EXP_FULL_DATABASE','SELECT_CATALOG_ROLE'", 'object_privs': 'EXECUTE:SYS.DBMS_WORKLOAD_REPOSITORY,EXECUTE:SYS.DBMS_XPLAN', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'oemuser', 'grants': "'CONNECT','SYSOPER','SYSDBA','OEM_MONITOR'", 'object_privs': 'SELECT:SYSTEM.PRODUCT_USER_PROFILE', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_remote_clone', 'grants': "'CREATE SESSION','SYSOPER','CREATE PLUGGABLE DATABASE','SET CONTAINER'", 'object_privs': 'SELECT:SYS.V_$DATABASE', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_admin', 'grants': "'CONNECT','RESOURCE','ADMINISTER DATABASE TRIGGER','SELECT ANY DICTIONARY','SELECT_CATALOG_ROLE'", 'object_privs': 'EXECUTE:SYS.DBMS_LOB,EXECUTE:SYS.DBMS_SQL,EXECUTE:SYS.DBMS_XMLGEN,EXECUTE:SYS.DBMS_SCHEDULER,EXECUTE:SYS.DBMS_FLASHBACK,EXECUTE:SYS.DBMS_SHARED_POOL,EXECUTE:SYS.DBMS_WORKLOAD_REPOSITORY,EXECUTE:SYS.DBMS_SYSTEM,EXECUTE:SYS.DBMS_FILE_TRANSFER,EXECUTE:SYS.UTL_SMTP,EXECUTE:SYS.UTL_FILE', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'scb_link', 'grants': "'CONNECT'", 'object_privs': 'SELECT:SYSTEM.PRODUCT_USER_PROFILE', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'secadmin', 'grants': "'CONNECT','DROP USER','ALTER USER','CREATE USER','CREATE SESSION','CREATE PROFILE','CREATE ROLE','ALTER PROFILE','GRANT ANY OBJECT PRIVILEGE','GRANT ANY PRIVILEGE','GRANT ANY ROLE','DROP ANY ROLE','DROP PROFILE','ALTER ANY ROLE','SELECT ANY DICTIONARY'", 'object_privs': 'SELECT:SYS.CDB_ROLES,SELECT:SYS.DBA_ROLES,SELECT:SYS.CDB_PROFILES,SELECT:SYS.DBA_PROFILES,SELECT:SYS.CDB_USERS,SELECT:SYS.DBA_USERS,SELECT:SYS.CDB_TABLESPACES,SELECT:SYS.DBA_TABLESPACES,SELECT:SYS.CDB_PDBS,SELECT:SYS.CDB_OBJECTS,SELECT:SYS.DBA_OBJECTS,SELECT:SYS.CDB_SYS_PRIVS,SELECT:SYS.DBA_SYS_PRIVS,SELECT:SYS.CDB_TAB_PRIVS,SELECT:SYS.DBA_TAB_PRIVS,SELECT:SYS.CDB_ROLE_PRIVS,SELECT:SYS.DBA_ROLE_PRIVS,SELECT:SYS.PRODUCT_COMPONENT_VERSION,SELECT:SYS.V_$DATABASE,SELECT:SYS.ALL_VIEWS,SELECT:SYS.DBA_COL_PRIVS,SELECT:SYS.DBA_TS_QUOTAS,SELECT:SYS.ROLE_ROLE_PRIVS,SELECT:SYS.ROLE_SYS_PRIVS,SELECT:SYS.ROLE_TAB_PRIVS', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'puppetam', 'grants': "'CONNECT','DROP USER','ALTER USER','CREATE USER','CREATE SESSION','CREATE PROFILE','CREATE ROLE','ALTER PROFILE','GRANT ANY OBJECT PRIVILEGE','GRANT ANY PRIVILEGE','GRANT ANY ROLE','DROP ANY ROLE','DROP PROFILE','ALTER ANY ROLE','SELECT ANY DICTIONARY'", 'object_privs': 'SELECT:SYS.CDB_ROLES,SELECT:SYS.DBA_ROLES,SELECT:SYS.CDB_PROFILES,SELECT:SYS.DBA_PROFILES,SELECT:SYS.CDB_USERS,SELECT:SYS.DBA_USERS,SELECT:SYS.CDB_TABLESPACES,SELECT:SYS.DBA_TABLESPACES,SELECT:SYS.CDB_PDBS,SELECT:SYS.CDB_OBJECTS,SELECT:SYS.DBA_OBJECTS,SELECT:SYS.CDB_SYS_PRIVS,SELECT:SYS.DBA_SYS_PRIVS,SELECT:SYS.CDB_TAB_PRIVS,SELECT:SYS.DBA_TAB_PRIVS,SELECT:SYS.CDB_ROLE_PRIVS,SELECT:SYS.DBA_ROLE_PRIVS,SELECT:SYS.PRODUCT_COMPONENT_VERSION,SELECT:SYS.V_$DATABASE,SELECT:SYS.ALL_VIEWS,SELECT:SYS.DBA_COL_PRIVS,SELECT:SYS.DBA_TS_QUOTAS,SELECT:SYS.ROLE_ROLE_PRIVS,SELECT:SYS.ROLE_SYS_PRIVS,SELECT:SYS.ROLE_TAB_PRIVS', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | cdb_discovery_non_prod_user_grants] ******************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:45 +0800 (0:00:12.047)       0:57:05.557 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'devdbaddm', 'grants': "'CONNECT','SELECT_CATALOG_ROLE'", 'object_privs': 'EXECUTE:SYS.DBMS_OUTPUT', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | cdb_discovery_prod_user_grants] **********************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:45 +0800 (0:00:00.102)       0:57:05.660 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'dbaddm', 'grants': "'CONNECT','SELECT_CATALOG_ROLE'", 'object_privs': 'EXECUTE:SYS.DBMS_OUTPUT', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | cdb_monitoring_atos_user_grants] *********************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:47 +0800 (0:00:01.893)       0:57:07.554 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'schema': 'aogems', 'grants': "'CONNECT','SELECT_CATALOG_ROLE','RESOURCE'", 'object_privs': 'EXECUTE:SYS.DBMS_OUTPUT', 'grants_mode': 'append', 'container': 'ALL', 'state': 'present'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | execute sqls in the CDB] *****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:18:48 +0800 (0:00:00.788)       0:57:08.342 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "declare cursor c_data is select file_name from dba_data_files where autoextensible='YES'; begin for r_data in c_data loop execute immediate 'alter database datafile '''|| r_data.file_name || ''' autoextend on next 100M'; end loop; end;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'BEGIN dbms_stats.init_package(); END;'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'BEGIN dbms_stats.gather_fixed_objects_stats; END;'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN dbms_audit_mgmt.set_audit_trail_location(audit_trail_type => dbms_audit_mgmt.audit_trail_unified,audit_trail_location_value => 'AUDIT_TBS'); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN dbms_auto_task_admin.disable(client_name => 'auto space advisor', operation => NULL, window_name => NULL); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN dbms_sqltune.set_tuning_task_parameter('SYS_AUTO_SQL_TUNING_TASK','LOCAL_TIME_LIMIT',7200); DBMS_SQLTUNE.SET_TUNING_TASK_PARAMETER('SYS_AUTO_SQL_TUNING_TASK','ACCEPT_SQL_PROFILES', 'FALSE'); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'BEGIN dbms_workload_repository.modify_snapshot_settings(interval => 30, retention => 129600); END;'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to XDB container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to WMSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to CTXSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to ORDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to MDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to DVSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to LBACSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_file to gsmadmin_internal container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to XDB container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to WMSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to CTXSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to ORDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to MDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to DVSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to LBACSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_smtp to gsmadmin_internal container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to XDB container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to WMSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to CTXSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to ORDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to MDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to DVSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to LBACSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_http to gsmadmin_internal container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to XDB container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to WMSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to CTXSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to ORDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to MDSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to DVSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to LBACSYS container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'grant execute on utl_tcp to gsmadmin_internal container=all'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'revoke execute on utl_file from public'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'revoke execute on utl_tcp from public'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'revoke execute on utl_http from public'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'revoke execute on utl_smtp from public'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'BEGIN UTL_RECOMP.recomp_parallel(); END;'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter trigger restrict_create_user enable'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter trigger llsts_grant enable'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter database force logging'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter user system account lock'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter user dbsnmp account unlock'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter user dbsnmp identified by D65nmp_1234'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "create or replace directory DATA_PUMP_DIR as '/oradump/POHK1RES'"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter user ctxsys no authentication '})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'GRANT CONNECT TO SECADMIN WITH ADMIN OPTION CONTAINER=ALL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'GRANT CONNECT TO PUPPETAM WITH ADMIN OPTION CONTAINER=ALL'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | execute sqls in the CDB for testbox] *****************************************************************************************************************************************************
+Saturday 04 May 2024  14:20:50 +0800 (0:02:02.437)       0:59:10.779 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter user system account unlock'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | setup_cdb_auditing] **********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:20:51 +0800 (0:00:00.105)       0:59:10.884 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'noaudit policy ora_logon_failures'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'noaudit policy ora_secureconfig'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DDL_POLICY PRIVILEGES ADMINISTER DATABASE TRIGGER, ALTER DATABASE, ALTER SYSTEM ACTIONS ALTER DATABASE LINK, ALTER FUNCTION, ALTER INDEX, ALTER LOCKDOWN PROFILE, ALTER PACKAGE, ALTER PACKAGE BODY, ALTER PLUGGABLE DATABASE, ALTER PROCEDURE, ALTER SEQUENCE, ALTER SYNONYM, ALTER TABLE, ALTER TRIGGER, ALTER TYPE, ALTER VIEW, CREATE DATABASE LINK, CREATE DIRECTORY, CREATE FUNCTION, CREATE INDEX, CREATE LOCKDOWN PROFILE, CREATE PACKAGE, CREATE PACKAGE BODY, CREATE PLUGGABLE DATABASE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW, DROP DATABASE LINK, DROP DIRECTORY, DROP FUNCTION, DROP INDEX, DROP LOCKDOWN PROFILE, DROP PACKAGE, DROP PLUGGABLE DATABASE, DROP PROCEDURE, DROP SEQUENCE, DROP SYNONYM, DROP TRIGGER, DROP TYPE, DROP VIEW,CREATE USER,ALTER USER,DROP USER,CREATE ROLE,ALTER ROLE,DROP ROLE,GRANT,REVOKE,CREATE PROFILE,ALTER PROFILE,DROP PROFILE,DROP PACKAGE BODY,ALL on AUDSYS.AUD$UNIFIED  CONTAINER = CURRENT'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "CREATE AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER actions logon,logoff WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') IN (''SYS'', ''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "CREATE AUDIT POLICY SCB_LOGON_ALL_FAILURES actions logon WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') NOT IN (''SYS'',''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DROP_POLICY ACTIONS DROP TABLE CONTAINER=CURRENT'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'AUDIT POLICY SCB_AUDIT_DDL_POLICY'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'AUDIT POLICY SCB_LOGON_ALL_FAILURES WHENEVER NOT SUCCESSFUL'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'AUDIT POLICY SCB_AUDIT_DROP_POLICY'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_FGA_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_AUDIT_MGMT.ALTER_PARTITION_INTERVAL(INTERVAL_NUMBER=>1,INTERVAL_FREQUENCY=>'DAY'); END;"})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | check if audit policy created successfully] **********************************************************************************************************************************************
+Saturday 04 May 2024  14:21:13 +0800 (0:00:22.626)       0:59:33.511 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: noaudit policy ora_logon_failures', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'noaudit policy ora_logon_failures', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'noaudit policy ora_logon_failures'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: noaudit policy ora_secureconfig', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'noaudit policy ora_secureconfig', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'noaudit policy ora_secureconfig'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: CREATE AUDIT POLICY SCB_AUDIT_DDL_POLICY PRIVILEGES ADMINISTER DATABASE TRIGGER, ALTER DATABASE, ALTER SYSTEM ACTIONS ALTER DATABASE LINK, ALTER FUNCTION, ALTER INDEX, ALTER LOCKDOWN PROFILE, ALTER PACKAGE, ALTER PACKAGE BODY, ALTER PLUGGABLE DATABASE, ALTER PROCEDURE, ALTER SEQUENCE, ALTER SYNONYM, ALTER TABLE, ALTER TRIGGER, ALTER TYPE, ALTER VIEW, CREATE DATABASE LINK, CREATE DIRECTORY, CREATE FUNCTION, CREATE INDEX, CREATE LOCKDOWN PROFILE, CREATE PACKAGE, CREATE PACKAGE BODY, CREATE PLUGGABLE DATABASE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW, DROP DATABASE LINK, DROP DIRECTORY, DROP FUNCTION, DROP INDEX, DROP LOCKDOWN PROFILE, DROP PACKAGE, DROP PLUGGABLE DATABASE, DROP PROCEDURE, DROP SEQUENCE, DROP SYNONYM, DROP TRIGGER, DROP TYPE, DROP VIEW,CREATE USER,ALTER USER,DROP USER,CREATE ROLE,ALTER ROLE,DROP ROLE,GRANT,REVOKE,CREATE PROFILE,ALTER PROFILE,DROP PROFILE,DROP PACKAGE BODY,ALL on AUDSYS.AUD$UNIFIED  CONTAINER = CURRENT', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DDL_POLICY PRIVILEGES ADMINISTER DATABASE TRIGGER, ALTER DATABASE, ALTER SYSTEM ACTIONS ALTER DATABASE LINK, ALTER FUNCTION, ALTER INDEX, ALTER LOCKDOWN PROFILE, ALTER PACKAGE, ALTER PACKAGE BODY, ALTER PLUGGABLE DATABASE, ALTER PROCEDURE, ALTER SEQUENCE, ALTER SYNONYM, ALTER TABLE, ALTER TRIGGER, ALTER TYPE, ALTER VIEW, CREATE DATABASE LINK, CREATE DIRECTORY, CREATE FUNCTION, CREATE INDEX, CREATE LOCKDOWN PROFILE, CREATE PACKAGE, CREATE PACKAGE BODY, CREATE PLUGGABLE DATABASE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW, DROP DATABASE LINK, DROP DIRECTORY, DROP FUNCTION, DROP INDEX, DROP LOCKDOWN PROFILE, DROP PACKAGE, DROP PLUGGABLE DATABASE, DROP PROCEDURE, DROP SEQUENCE, DROP SYNONYM, DROP TRIGGER, DROP TYPE, DROP VIEW,CREATE USER,ALTER USER,DROP USER,CREATE ROLE,ALTER ROLE,DROP ROLE,GRANT,REVOKE,CREATE PROFILE,ALTER PROFILE,DROP PROFILE,DROP PACKAGE BODY,ALL on AUDSYS.AUD$UNIFIED  CONTAINER = CURRENT', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DDL_POLICY PRIVILEGES ADMINISTER DATABASE TRIGGER, ALTER DATABASE, ALTER SYSTEM ACTIONS ALTER DATABASE LINK, ALTER FUNCTION, ALTER INDEX, ALTER LOCKDOWN PROFILE, ALTER PACKAGE, ALTER PACKAGE BODY, ALTER PLUGGABLE DATABASE, ALTER PROCEDURE, ALTER SEQUENCE, ALTER SYNONYM, ALTER TABLE, ALTER TRIGGER, ALTER TYPE, ALTER VIEW, CREATE DATABASE LINK, CREATE DIRECTORY, CREATE FUNCTION, CREATE INDEX, CREATE LOCKDOWN PROFILE, CREATE PACKAGE, CREATE PACKAGE BODY, CREATE PLUGGABLE DATABASE, CREATE PROCEDURE, CREATE SEQUENCE, CREATE SYNONYM, CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE VIEW, DROP DATABASE LINK, DROP DIRECTORY, DROP FUNCTION, DROP INDEX, DROP LOCKDOWN PROFILE, DROP PACKAGE, DROP PLUGGABLE DATABASE, DROP PROCEDURE, DROP SEQUENCE, DROP SYNONYM, DROP TRIGGER, DROP TYPE, DROP VIEW,CREATE USER,ALTER USER,DROP USER,CREATE ROLE,ALTER ROLE,DROP ROLE,GRANT,REVOKE,CREATE PROFILE,ALTER PROFILE,DROP PROFILE,DROP PACKAGE BODY,ALL on AUDSYS.AUD$UNIFIED  CONTAINER = CURRENT'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: CREATE AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER actions logon,logoff WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') IN (''SYS'', ''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "CREATE AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER actions logon,logoff WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') IN (''SYS'', ''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "CREATE AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER actions logon,logoff WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') IN (''SYS'', ''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT"}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: CREATE AUDIT POLICY SCB_LOGON_ALL_FAILURES actions logon WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') NOT IN (''SYS'',''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "CREATE AUDIT POLICY SCB_LOGON_ALL_FAILURES actions logon WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') NOT IN (''SYS'',''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "CREATE AUDIT POLICY SCB_LOGON_ALL_FAILURES actions logon WHEN 'SYS_CONTEXT(''USERENV'',''SESSION_USER'') NOT IN (''SYS'',''SYSTEM'')' EVALUATE PER SESSION CONTAINER=CURRENT"}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: CREATE AUDIT POLICY SCB_AUDIT_DROP_POLICY ACTIONS DROP TABLE CONTAINER=CURRENT', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DROP_POLICY ACTIONS DROP TABLE CONTAINER=CURRENT', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'CREATE AUDIT POLICY SCB_AUDIT_DROP_POLICY ACTIONS DROP TABLE CONTAINER=CURRENT'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: AUDIT POLICY SCB_AUDIT_DDL_POLICY', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'AUDIT POLICY SCB_AUDIT_DDL_POLICY', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'AUDIT POLICY SCB_AUDIT_DDL_POLICY'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'AUDIT POLICY SCB_LOGON_LOGOFF_PRIVUSER'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: AUDIT POLICY SCB_LOGON_ALL_FAILURES WHENEVER NOT SUCCESSFUL', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'AUDIT POLICY SCB_LOGON_ALL_FAILURES WHENEVER NOT SUCCESSFUL', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'AUDIT POLICY SCB_LOGON_ALL_FAILURES WHENEVER NOT SUCCESSFUL'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': 'SQL executed: AUDIT POLICY SCB_AUDIT_DROP_POLICY', 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': 'AUDIT POLICY SCB_AUDIT_DROP_POLICY', 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': 'AUDIT POLICY SCB_AUDIT_DROP_POLICY'}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_FGA_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_FGA_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_AUDIT_MGMT.SET_AUDIT_TRAIL_LOCATION(AUDIT_TRAIL_TYPE => DBMS_AUDIT_MGMT.AUDIT_TRAIL_FGA_STD,AUDIT_TRAIL_LOCATION_VALUE => 'AUDIT_TBS'); END;"}, 'ansible_loop_var': 'item'})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_AUDIT_MGMT.ALTER_PARTITION_INTERVAL(INTERVAL_NUMBER=>1,INTERVAL_FREQUENCY=>'DAY'); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_AUDIT_MGMT.ALTER_PARTITION_INTERVAL(INTERVAL_NUMBER=>1,INTERVAL_FREQUENCY=>'DAY'); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_AUDIT_MGMT.ALTER_PARTITION_INTERVAL(INTERVAL_NUMBER=>1,INTERVAL_FREQUENCY=>'DAY'); END;"}, 'ansible_loop_var': 'item'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | scb_set_last_archive_ts_job] *************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:13 +0800 (0:00:00.221)       0:59:33.733 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_SCHEDULER.CREATE_JOB (JOB_NAME =>'SCB_SET_LAST_ARCHIVE_TS', JOB_TYPE =>'PLSQL_BLOCK', JOB_ACTION =>'DECLARE l_days NUMBER := 35; BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, last_archive_time => TRUNC(SYSTIMESTAMP)-l_days, container => DBMS_AUDIT_MGMT.CONTAINER_ALL, rac_instance_number => NULL); END;', START_DATE  => SYSTIMESTAMP, REPEAT_INTERVAL =>  'FREQ=DAILY; BYHOUR=00; BYMINUTE=05; BYSECOND=00;', END_DATE => NULL, ENABLED  =>  TRUE, COMMENTS => 'AUTOMATICALLY SET THE LAST ARCHIVE TIMESTAMP FOR UNIFIED AUDIT TRAIL'); END;"})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | check if set_last_archive_ts_job created successfully] ***********************************************************************************************************************************
+Saturday 04 May 2024  14:21:14 +0800 (0:00:00.806)       0:59:34.540 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_SCHEDULER.CREATE_JOB (JOB_NAME =>'SCB_SET_LAST_ARCHIVE_TS', JOB_TYPE =>'PLSQL_BLOCK', JOB_ACTION =>'DECLARE l_days NUMBER := 35; BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, last_archive_time => TRUNC(SYSTIMESTAMP)-l_days, container => DBMS_AUDIT_MGMT.CONTAINER_ALL, rac_instance_number => NULL); END;', START_DATE  => SYSTIMESTAMP, REPEAT_INTERVAL =>  'FREQ=DAILY; BYHOUR=00; BYMINUTE=05; BYSECOND=00;', END_DATE => NULL, ENABLED  =>  TRUE, COMMENTS => 'AUTOMATICALLY SET THE LAST ARCHIVE TIMESTAMP FOR UNIFIED AUDIT TRAIL'); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_SCHEDULER.CREATE_JOB (JOB_NAME =>'SCB_SET_LAST_ARCHIVE_TS', JOB_TYPE =>'PLSQL_BLOCK', JOB_ACTION =>'DECLARE l_days NUMBER := 35; BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, last_archive_time => TRUNC(SYSTIMESTAMP)-l_days, container => DBMS_AUDIT_MGMT.CONTAINER_ALL, rac_instance_number => NULL); END;', START_DATE  => SYSTIMESTAMP, REPEAT_INTERVAL =>  'FREQ=DAILY; BYHOUR=00; BYMINUTE=05; BYSECOND=00;', END_DATE => NULL, ENABLED  =>  TRUE, COMMENTS => 'AUTOMATICALLY SET THE LAST ARCHIVE TIMESTAMP FOR UNIFIED AUDIT TRAIL'); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_SCHEDULER.CREATE_JOB (JOB_NAME =>'SCB_SET_LAST_ARCHIVE_TS', JOB_TYPE =>'PLSQL_BLOCK', JOB_ACTION =>'DECLARE l_days NUMBER := 35; BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, last_archive_time => TRUNC(SYSTIMESTAMP)-l_days, container => DBMS_AUDIT_MGMT.CONTAINER_ALL, rac_instance_number => NULL); END;', START_DATE  => SYSTIMESTAMP, REPEAT_INTERVAL =>  'FREQ=DAILY; BYHOUR=00; BYMINUTE=05; BYSECOND=00;', END_DATE => NULL, ENABLED  =>  TRUE, COMMENTS => 'AUTOMATICALLY SET THE LAST ARCHIVE TIMESTAMP FOR UNIFIED AUDIT TRAIL'); END;"}, 'ansible_loop_var': 'item'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set audit purge job] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:14 +0800 (0:00:00.119)       0:59:34.659 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_AUDIT_MGMT.create_purge_job(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, audit_trail_purge_interval => 24, audit_trail_purge_name => 'SCB_UNIFIED_AUDIT_PURGE', use_last_arch_timestamp => TRUE); END;"})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | check if audit purge job created successfully] *******************************************************************************************************************************************
+Saturday 04 May 2024  14:21:15 +0800 (0:00:00.876)       0:59:35.535 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'msg': "SQL executed: BEGIN DBMS_AUDIT_MGMT.create_purge_job(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, audit_trail_purge_interval => 24, audit_trail_purge_name => 'SCB_UNIFIED_AUDIT_PURGE', use_last_arch_timestamp => TRUE); END;", 'changed': True, 'invocation': {'module_args': {'oracle_sid': 'POHK1RES', 'mode': 'sysdba', 'sql': "BEGIN DBMS_AUDIT_MGMT.create_purge_job(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, audit_trail_purge_interval => 24, audit_trail_purge_name => 'SCB_UNIFIED_AUDIT_PURGE', use_last_arch_timestamp => TRUE); END;", 'hostname': 'localhost', 'port': 1521, 'user': None, 'password': None, 'service_name': None, 'script': None}}, 'failed': False, 'item': {'sql': "BEGIN DBMS_AUDIT_MGMT.create_purge_job(audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, audit_trail_purge_interval => 24, audit_trail_purge_name => 'SCB_UNIFIED_AUDIT_PURGE', use_last_arch_timestamp => TRUE); END;"}, 'ansible_loop_var': 'item'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set up resource management plan for CDB] *************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:15 +0800 (0:00:00.189)       0:59:35.724 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "BEGIN DBMS_RESOURCE_MANAGER.CREATE_PENDING_AREA(); DBMS_RESOURCE_MANAGER.CREATE_CDB_PLAN( plan => 'DAASCDB_PLAN', comment => 'CDB resource plan for DAASCDB'); DBMS_RESOURCE_MANAGER.UPDATE_CDB_AUTOTASK_DIRECTIVE( plan => 'DAASCDB_PLAN', new_utilization_limit => 90, new_parallel_server_limit => 10); DBMS_RESOURCE_MANAGER.VALIDATE_PENDING_AREA(); DBMS_RESOURCE_MANAGER.SUBMIT_PENDING_AREA(); END;"})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | set up cpu count for the CDB] ************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:15 +0800 (0:00:00.124)       0:59:35.848 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "ALTER SYSTEM SET CPU_COUNT=6.0 scope=both sid='*'"})
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': "ALTER SYSTEM SET RESOURCE_MANAGER_PLAN='FORCE:DAASCDB_PLAN' SCOPE=BOTH SID='*'"})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | enable flashback in CDB] *****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:16 +0800 (0:00:00.122)       0:59:35.970 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'sql': 'alter database flashback on'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create oradump directory] ****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:18 +0800 (0:00:02.486)       0:59:38.457 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create_cdb_level_triggers2] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:19 +0800 (0:00:00.425)       0:59:38.883 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'script': 'PDBAdmin/open_all_pdbs_trigger.sql'})
+changed: [hklvdpapp071.hk.standardchartered.com] => (item={'script': 'PDBAdmin/restrict_ccs_scan_user_adg_trigger.sql'})
+
+TASK [oradb-create-primarydb : scb_customize_cdb | create LLSTS procedures] *****************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:20 +0800 (0:00:01.539)       0:59:40.423 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=LLSTS_GRANT_STATUS.sql)
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=LLSTS_GRANT_MAIN.sql)
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task create_pdb] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:22 +0800 (0:00:01.667)       0:59:42.090 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/create_pdb.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : oradb-create-pdb | get instance name] ************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:22 +0800 (0:00:00.282)       0:59:42.373 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : debug] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:22 +0800 (0:00:00.394)       0:59:42.768 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "POHK1RES"
+}
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB for DaaS] **********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:23 +0800 (0:00:00.191)       0:59:42.960 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB service for DaaS] **************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:23 +0800 (0:00:00.116)       0:59:43.076 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item=RW)
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB for Non-DaaS] ******************************************************************************************************************************************************************
+Saturday 04 May 2024  14:21:23 +0800 (0:00:00.119)       0:59:43.196 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB services for Non-DaaS] *********************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:46 +0800 (0:03:23.361)       1:03:06.557 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=RW)
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=RO)
+
+TASK [oradb-create-primarydb : oradb-create-pdb | copy testbox script] **********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:55 +0800 (0:00:09.190)       1:03:15.748 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | run testbox script] ***********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:55 +0800 (0:00:00.096)       1:03:15.844 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | set default bigfile tablespace] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:56 +0800 (0:00:00.096)       1:03:15.940 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | set TEMP tablespace 32GB maxsize] *********************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:56 +0800 (0:00:00.720)       1:03:16.661 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB for Non-DaaS SI and Restart] ***************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:57 +0800 (0:00:00.732)       1:03:17.393 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-create-pdb | create PDB services for Non-DaaS SI and Restart] ******************************************************************************************************************************************
+Saturday 04 May 2024  14:24:57 +0800 (0:00:00.094)       1:03:17.487 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item=RW)
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item=RO)
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task dataguard_config] ********************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:57 +0800 (0:00:00.105)       1:03:17.593 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task connection string] *******************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:57 +0800 (0:00:00.106)       1:03:17.700 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/connection_string.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : connection_string | non-replication] *************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.303)       1:03:18.003 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": [
+        "Please share these connection strings with the application team...",
+        "TNS/OCI:",
+        "    PDBP_RES_RW=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=hklvdpapp071)(PORT=1621)))(CONNECT_DATA=(SERVICE_NAME=pdbp_res_rw.))))",
+        "",
+        "JDBC:",
+        "    jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=hklvdpapp071)(PORT=1621)))(CONNECT_DATA=(SERVICE_NAME=pdbp_res_rw.))))"
+    ]
+}
+
+TASK [oradb-create-primarydb : connection_string | replication] *****************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.153)       1:03:18.156 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-create-primarydb : oradb-primary-create | include task non-prod cron] ***********************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.097)       1:03:18.254 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-create-primarydb/tasks/non_prod_cron.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-create-primarydb : non_prod_cron | add daily archivelog delete job] *************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.257)       1:03:18.512 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [Create Oracle Wallet] *****************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.103)       1:03:18.615 **********
+
+TASK [oradb-wallet : set_db_facts | check if gi is installed] *******************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:58 +0800 (0:00:00.180)       1:03:18.796 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : set_db_facts| check if crsd.bin is running to determine RAC or Restart] ************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:59 +0800 (0:00:00.354)       1:03:19.150 **********
+fatal: [hklvdpapp071.hk.standardchartered.com]: FAILED! => {"changed": true, "cmd": "ps -ef|grep crsd.bin|grep -v grep", "delta": "0:00:00.051494", "end": "2024-05-04 14:24:59.565430", "msg": "non-zero return code", "rc": 1, "start": "2024-05-04 14:24:59.513936", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [oradb-wallet : debug] *****************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:59 +0800 (0:00:00.396)       1:03:19.547 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "msg": "var=1"
+}
+
+TASK [oradb-wallet : set_db_facts | check if db type is RAC or Restart] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:59 +0800 (0:00:00.107)       1:03:19.654 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : set_db_facts | check if db type is RAC or Restart] *********************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:59 +0800 (0:00:00.099)       1:03:19.754 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet | include task wallet_steps] *********************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:24:59 +0800 (0:00:00.111)       1:03:19.866 **********
+included: /home/oracle/scb_ansible_oracle/roles/oradb-wallet/tasks/wallet_steps.yml for hklvdpapp071.hk.standardchartered.com
+
+TASK [oradb-wallet : check wallet already exists] *******************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:00 +0800 (0:00:00.253)       1:03:20.120 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : create wallet directory] ***********************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:00 +0800 (0:00:00.359)       1:03:20.480 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : create wallet] *********************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:00 +0800 (0:00:00.381)       1:03:20.861 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : createCredentials] *****************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:02 +0800 (0:00:01.725)       1:03:22.586 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=POHK1RES)
+
+TASK [oradb-wallet : createCredentials for DataGuard] ***************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:04 +0800 (0:00:02.136)       1:03:24.722 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item=POHK1RES_DG)
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item='(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hklvdpapp071)(PORT=1623))(CONNECT_DATA=(SERVICE_NAME=POHK1RES_DGMGRL.)(INSTANCE_NAME=POHK1RES)(SERVER=DEDICATED)))')
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item='(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=uk-database-244.tod.uk.dev.net)(PORT=1623))(CONNECT_DATA=(SERVICE_NAME=POHK1RES_DG_DGMGRL.)(INSTANCE_NAME=POHK1RES_DG)(SERVER=DEDICATED)))')
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item='(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=hklvdpapp071)(PORT=1623))(CONNECT_DATA=(SERVICE_NAME=POHK1RES_DGMGRL.)(INSTANCE_NAME=POHK1RES)(SERVER=DEDICATED)(STATIC_SERVICE=TRUE)))')
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item='(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=uk-database-244.tod.uk.dev.net)(PORT=1623))(CONNECT_DATA=(SERVICE_NAME=POHK1RES_DG_DGMGRL.)(INSTANCE_NAME=POHK1RES_DG)(SERVER=DEDICATED)(STATIC_SERVICE=TRUE)))')
+
+TASK [oradb-wallet : createCredentials for RMAN catalog] ************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:04 +0800 (0:00:00.151)       1:03:24.874 **********
+skipping: [hklvdpapp071.hk.standardchartered.com] => (item=RCAT19_PROD)
+
+TASK [oradb-wallet : listCredentials] *******************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:05 +0800 (0:00:00.115)       1:03:24.989 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : debug] *****************************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:06 +0800 (0:00:01.572)       1:03:26.561 **********
+ok: [hklvdpapp071.hk.standardchartered.com] => {
+    "wallet_list.stdout_lines": [
+        "Oracle Secret Store Tool Release 19.0.0.0.0 - Production",
+        "Version 19.4.0.0.0",
+        "Copyright (c) 2004, 2023, Oracle and/or its affiliates. All rights reserved.",
+        "",
+        "Enter wallet password:   ",
+        "List credential (index: connect_string username)",
+        "1: POHK1RES OEMUSER"
+    ]
+}
+
+TASK [oradb-wallet : enable SQLNET.WALLET_OVERRIDE = TRUE] **********************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:06 +0800 (0:00:00.106)       1:03:26.668 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : grant read permissions to oinstall] ************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:07 +0800 (0:00:00.381)       1:03:27.050 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : check oramed wallet already exists] ************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:07 +0800 (0:00:00.374)       1:03:27.424 **********
+ok: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : create oramed wallet directory] ****************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:07 +0800 (0:00:00.422)       1:03:27.846 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : create oramed wallet] **************************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:08 +0800 (0:00:00.394)       1:03:28.241 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : createCredentials for ORAMED1] *****************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:09 +0800 (0:00:01.295)       1:03:29.536 **********
+changed: [hklvdpapp071.hk.standardchartered.com] => (item=POHK1RES_ORAMED1)
+
+TASK [oradb-wallet : listCredentials for oramed_wallet] *************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:11 +0800 (0:00:01.763)       1:03:31.299 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : grant read permissions to group] ***************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:12 +0800 (0:00:01.528)       1:03:32.828 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet : chown group to noinstall] **********************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:13 +0800 (0:00:00.378)       1:03:33.207 **********
+changed: [hklvdpapp071.hk.standardchartered.com]
+
+TASK [oradb-wallet | include task wallet_steps RAC] *****************************************************************************************************************************************************************************************
+Saturday 04 May 2024  14:25:13 +0800 (0:00:00.382)       1:03:33.589 **********
+skipping: [hklvdpapp071.hk.standardchartered.com]
+
+PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+hklvdpapp071.hk.standardchartered.com : ok=96   changed=50   unreachable=0    failed=0    skipped=47   rescued=0    ignored=2
+
+Saturday 04 May 2024  14:25:13 +0800 (0:00:00.023)       1:03:33.613 **********
+===============================================================================
+oradb-create-primarydb : create-cdb | run dbca command for SI --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 3264.73s
+oradb-create-primarydb : oradb-create-pdb | create PDB for Non-DaaS ---------------------------------------------------------------------------------------------------------------------------------------------------------------- 203.36s
+oradb-create-primarydb : scb_customize_cdb | execute sqls in the CDB --------------------------------------------------------------------------------------------------------------------------------------------------------------- 122.44s
+oradb-create-primarydb : scb_customize_cdb | restart cdb after setting init Parameters ---------------------------------------------------------------------------------------------------------------------------------------------- 62.55s
+oradb-create-primarydb : scb_customize_cdb | set common init parameters 19c --------------------------------------------------------------------------------------------------------------------------------------------------------- 29.00s
+oradb-create-primarydb : scb_customize_cdb | setup_cdb_auditing --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 22.63s
+oradb-create-primarydb : scb_customize_cdb | cdb_common_user_grants ----------------------------------------------------------------------------------------------------------------------------------------------------------------- 12.05s
+oradb-create-primarydb : create-cdb | download dbca template for SI or Restart (AL32UTF8 or ZHS16GBK) ------------------------------------------------------------------------------------------------------------------------------- 11.67s
+oradb-create-primarydb : oradb-create-pdb | create PDB services for Non-DaaS --------------------------------------------------------------------------------------------------------------------------------------------------------- 9.19s
+oradb-create-primarydb : scb_customize_cdb | create common users --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 7.59s
+oradb-create-primarydb : scb_customize_cdb | set up profiles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 3.30s
+Gathering Facts ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 3.12s
+oradb-create-primarydb : create-cdb | unzip dbca template for SI or Restart (AL32UTF8 or ZHS16GBK) ----------------------------------------------------------------------------------------------------------------------------------- 3.07s
+oradb-create-primarydb : scb_customize_cdb | create tablespace ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 3.02s
+oradb-create-primarydb : scb_customize_cdb | enable flashback in CDB ----------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.49s
+oradb-wallet : createCredentials ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.14s
+oradb-create-primarydb : scb_customize_cdb | create_cdb_level_triggers --------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.07s
+oradb-create-primarydb : scb_customize_cdb | cdb_discovery_prod_user_grants ---------------------------------------------------------------------------------------------------------------------------------------------------------- 1.89s
+oradb-wallet : createCredentials for ORAMED1 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.76s
+oradb-wallet : create wallet --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.73s
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+>
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> . oraenv
+ORACLE_SID = [POHK3CCD] ? ^C
+oracle@hklvdpapp071:/home/oracle/scb_ansible_oracle [POHK3CCD]
+> exit
+logout
+oracle2@hklvdpapp071[orasupp2] $ sudo -u oracle -i
+oracle@hklvdpapp071:/home/oracle [POHK1RES]
+>
+oracle@hklvdpapp071:/home/oracle [POHK1RES]
+> . oraenv
+ORACLE_SID = [POHK1RES] ?
+The Oracle base remains unchanged with value /u01/app/oracle/local
+oracle@hklvdpapp071:/home/oracle [POHK1RES]
+> sqlplus sys as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Sat May 4 14:26:31 2024
+Version 19.22.0.0.0
+
+Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+
+Enter password:
+#WARNING! This database is the property of the Standard Chartered Group and may be accessed only by
+#authorized users for Legitimate business purposes. Unauthorized use of this database is strictly prohibited
+#and may be subject to criminal prosecution. Standard Chartered Group may monitor any activity
+#in the database. By continuing to use this database you indicate your consent to these conditions
+#of use. LOG OFF IMMEDIATELY if you do not agree to the conditions stated in this warning.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.22.0.0.0
+
+14:26:32 SYS @ POHK1RES:CDB$ROOT:>show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  YES
+         3 PDBP_RES                       READ WRITE YES
+14:26:34 SYS @ POHK1RES:CDB$ROOT:>show parameter sga
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+allow_group_access_to_sga            boolean                          FALSE
+lock_sga                             boolean                          FALSE
+pre_page_sga                         boolean                          TRUE
+sga_max_size                         big integer                      75G
+sga_min_size                         big integer                      0
+sga_target                           big integer                      75G
+unified_audit_sga_queue_size         integer                          1048576
+14:26:44 SYS @ POHK1RES:CDB$ROOT:>show parameter db_cache
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+db_cache_advice                      string                           ON
+db_cache_size                        big integer                      0
+14:26:54 SYS @ POHK1RES:CDB$ROOT:>show parameter streem
+14:27:05 SYS @ POHK1RES:CDB$ROOT:>show parameter pool
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+buffer_pool_keep                     string
+buffer_pool_recycle                  string
+java_pool_size                       big integer                      0
+large_pool_size                      big integer                      0
+memoptimize_pool_size                big integer                      0
+olap_page_pool_size                  big integer                      0
+shared_pool_reserved_size            big integer                      442918502
+shared_pool_size                     big integer                      0
+streams_pool_size                    big integer                      0
+14:27:10 SYS @ POHK1RES:CDB$ROOT:>alter system set sga_max_size=15G scope=spfile;
+
+System altered.
+
+14:27:52 SYS @ POHK1RES:CDB$ROOT:>alter system set  sga_target=15G scope=spfile;
+
+System altered.
+
+14:28:02 SYS @ POHK1RES:CDB$ROOT:>create pfile='/tmp/initpohk1res.ora' from spfile;
+
+File created.
+
+14:28:26 SYS @ POHK1RES:CDB$ROOT:>
+14:28:47 SYS @ POHK1RES:CDB$ROOT:>shu immediate
+Database closed.
+Database dismounted.
+ORACLE instance shut down.

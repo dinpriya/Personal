@@ -1,0 +1,11 @@
+This is the SOP now if you see 002 CPU is going high and all top sql_id (a2jg6a15trz7m
+)  belongs to AQ$ADM then do the rebuild of indexes.
+
+EXPORT ORACLE_SID=POHK2CCD2
+Alter session set container=PDBP_NGO;
+Show con_name
+
+alter index S2BV4CDS_ADMIN.AQ$_ADAM_QUEUE_TABLE_I rebuild online;
+alter index S2BV4CDS_ADMIN.AQ$_ADAM_QUEUE_TABLE_T rebuild online;
+
+Cheers, Vilas

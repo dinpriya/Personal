@@ -1,0 +1,222 @@
+SELECT * FROM table(DBMS_XPLAN.DISPLAY_CURSOR('4zcgn6f5m8ugj'));
+
+select * from table(DBMS_XPlan.Display_SQL_Plan_Baseline(Plan_Name => '<...>', Format => 'ADVANCED'));
+
+
+SELECT * FROM table(DBMS_XPLAN.DISPLAY_CURSOR('9tmxkvxh4bqt9'));
+
+create or replace TYPE sys.sqlprof_attr AS VARRAY(5000) of VARCHAR2(500);
+ 
+ SQL_PLAN_gfh0zwjjqhxakce44bfc8
+ SQL_PLAN_fkndgw491ktnrce44bfc8
+ SQL_PLAN_dwztk6nupp2h6661b2606
+ 
+select plan_table_output from table(dbms_xplan.display_awr('9tmxkvxh4bqt9'));
+
+select plan_table_output from table(dbms_xplan.display_awr('76nnsks2j1d4n'));
+ 
+ 
+ 7f3a647umyc1n
+ 
+        SID SQL_TEXT                                                              PIECE
+---------- ---------------------------------------------------------------- ----------
+     11324 MERGE INTO CDL_OPERATINGACCT_TRANS_ID XX USING ( SELECT AA.ACCTN          0
+     11324 UM, AA.BANKID, AA.CCYCODE, AA.BUSINESSDATE FROM CDL_OPERATINGACC          1
+     11324 T_BAL AA, CDL_HEADER_TRAILER HH, CDL_OPERATINGACCT_BAL_ID IB WHE          2
+     11324 RE HH.CTRYCODE = :B2 AND HH.SYSCODE = :B1 AND HH.PRODUCTTYPE = '          3
+     11324 OA' AND HH.INTERFACEFUNCTION = 'PD' AND HH.BUSINESSDATE = TRUNC(          4
+     11324 :B3 ) AND AA.BUSINESSDATE = HH.BUSINESSDATE AND AA.CTRYCODE = HH          5
+     11324 .CTRYCODE AND AA.BOAPPLSYS = DECODE(HH.SYSCODE, 'HOGANCAS', 'HOG          6
+     11324 AN', HH.SYSCODE) AND AA.FILEID = HH.FILEID AND IB.BUSINESSDATE =          7
+     11324  IM_PKG_COMMON.FN_GETNEXTBUSINESSDATE_BO(:B2 , 'XXX', TRUNC(AA .          8
+     11324 BUSINESSDATE + 1), 0, DECODE(:B1 , 'HOGANCAS', 'HOGAN', :B1 )) A          9
+     11324 ND IB.ACCTNUM = AA.ACCTNUM AND IB.BANKID = AA.BANKID AND IB.CCYC         10
+     11324 ODE = AA.CCYCODE AND IB.OPENINGAVLBBAL IS NULL ) YY ON ( XX.TRAN         11
+     11324 SDATE = IM_PKG_COMMON.FN_GETNEXTBUSINESSDATE_BO(:B2 , 'XXX', TRU         12
+     11324 NC(YY.BUSINESSDATE + 1), 0, DECODE(:B1 , 'HOGANCAS', 'HOGAN', :B         13
+     11324 1 )) AND XX.ACCTNO = YY.ACCTNUM AND XX.BANKID = YY.BANKID AND XX         14
+     11324 .CCYCODE = YY.CCYCODE ) WHEN MATCHED THEN UPDATE SET XX.CREATEDD         15
+     11324 ATE = (SYSDATE+((3/4)/24))                                               16
+
+
+
+
+* PSS reported delay in Feeds over the night.
+* SG DBA found there was a blocking sessions and  plan flip on SQL ID 0j2b6kzw6v3y4 after manitenance job (daily partition on table CDL_OPERATINGACCT_TRANS_ID).
+* SG DBA flused the plan, killed the session. DBA advised to create indexs which will speed up the Query.
+* PSS confirmed, Index creation need time to validate in non-prod and can't implement.
+* So SG DBA pinned the optimal plan for SQL ID, post that Feeds completed for China.
+* While running Feeds for indonesia causes blocking session, DBA killed the session as confirmed by PSS.
+* PSS given the temporary alternative fix as data patch. SG DBA executed the data patch, post that Feeds loaded for Indonesia.
+
+Recommendation:
+================
+
+* There is a merge query in feeds loader causing blocking everyday in the night. These blocking sessions causing delay in prior day reports.
+* Merge statements are different for each country as per history. PSS need to confirm on this.
+* SG DBA already informed long back to PSS team, to fix this logic. 
+* PSS currently working on to replace merge with individual codes with primary keys. They applied that, today for Indonesia feeds to fix as temporary solution. But it will take some time to rollout in prod as per PSS.
+
+exec DBMS_AUTO_TASK_ADMIN.ENABLE('AUTO OPTIMIZER STATS COLLECTION',
+NULL, NULL);
+
+
+
+MERG INTO CDL_OPERATINGACCT_TRANS_ID
+
+
+SQL> connect / as sysdba
+SQL> variable x varchar2(100);
+
+variable x varchar2(100);
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'fhxtthfr1q1cu', hint_text=>'OPT_PARAM(''_partition_cdb_view_enabled'' ''FALSE'', ''_px_cdb_view_enabled'' ''FALSE'')', name=> 'SQL_Patch_fhxtthfr1q1cu');
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'aazhkk1h93ma0', hint_text=>'OPT_PARAM(''_partition_cdb_view_enabled'' ''FALSE'', ''_px_cdb_view_enabled'' ''FALSE'')', name=> 'SQL_Patch_aazhkk1h93ma0');
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'avjg2rjhmv8cc', hint_text=>'OPT_PARAM(''_partition_cdb_view_enabled'' ''FALSE'', ''_px_cdb_view_enabled'' ''FALSE'')', name=> 'SQL_Patch_avjg2rjhmv8cc');
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'anvamh7j6njtf', hint_text=>'OPT_PARAM(''_partition_cdb_view_enabled'' ''FALSE'', ''_px_cdb_view_enabled'' ''FALSE'')', name=> 'SQL_Patch_anvamh7j6njtf');
+
+gnqpq00y0w6kq
+
+fhxtthfr1q1cu
+
+To create,
+
+variable x varchar2(100);
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'gnqpq00y0w6kq', hint_text=>'opt_param(''_px_cdb_view_enabled'' ''false'') opt_param(''_partition_cdb_view_enabled'' ''false'')', name=> 'SQL_Patch_gnqpq00y0w6kq', DESCRIPTION=>'sql_patch_gnqpq00y0w6kq');
+
+exec :x:=dbms_sqldiag.create_sql_patch(sql_id=>'fhxtthfr1q1cu', hint_text=>'opt_param(''_px_cdb_view_enabled'' ''false'') opt_param(''_partition_cdb_view_enabled'' ''false'')', name=> 'SQL_Patch_fhxtthfr1q1cu', DESCRIPTION=>'sql_patch_fhxtthfr1q1cu');
+
+Roll back,
+
+To drop SQL patch
+
+EXEC DBMS_SQLDIAG.DROP_SQL_PATCH(name=>'SQL_Patch_gnqpq00y0w6kq');
+EXEC DBMS_SQLDIAG.DROP_SQL_PATCH(name=>'SQL_Patch_fhxtthfr1q1cu');
+
+
+hint_text=>'OPT_PARAM(''_partition_cdb_view_enabled'' ''FALSE'', ''_px_cdb_view_enabled'' ''FALSE'')'
+
+ select * from table(dbms_xplan.display_cursor('4zcgn6f5m8ugj',0,'OUTLINE')) ;
+ 
+ 
+ _px_cdb_view_enabled = FALSE
+_partition_cdb_view_enabled =FALSE
+
+avjg2rjhmv8cc
+aazhkk1h93ma0 
+fhxtthfr1q1cu
+anvamh7j6njtf
+gnqpq00y0w6kq
+
+
+SELECT *
+FROM
+  (SELECT t.SQL_HANDLE,
+    t.SIGNATURE,
+    t.SQL_TEXT,
+    s.SQL_ID
+  FROM SYS.SQL$TEXT t,
+    DBA_HIST_SQLSTAT s
+  WHERE t.SQL_TEXT like '%SCBT_T_TSIL_REQ_SPLITTER%'
+  AND t.SIGNATURE    = s.FORCE_MATCHING_SIGNATURE
+  )
+WHERE rownum = 1 ;
+
+
+
+		
+2bxajk1xm4ms7
+
+update SCBT_T_FCR_REQ_DTLS set num_parties = :1 where req_id = :2 and REQ_CTY = :3 and REQ_BRANCH =:4
+
+3x8brxhtbnf3z
+
+insert into SCBT_T_TSIL_REQ_SPLITTER (BANK_GROUP_CODE, MSG_SEQ_NO, REQ_BRANCH, REQ_CTY, REQ_ID, REQ_SENT_TIME, TP_REF_ID, ID)
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+		
+
+Error Start Time : 11th Feb 1 AM HKT
+
+JDBC Version : <dependency>
+                                    <groupId>com.oracle</groupId>
+                                    <artifactId>ojdbc7</artifactId>
+                                    <version>12.1.0.2</version>
+</dependency>
+
+JDBC URL : spring.sanc.hibernate.jdbcurl=jdbc:oracle:thin:@(DESCRIPTION_LIST=(LOAD_BALANCE=OFF)(FAILOVER=YES)(DESCRIPTION= (CONNECT_TIMEOUT=5)(TRANSPORT_CONNECT_TIMEOUT=3) (ADDRESS_LIST= (ADDRESS=(PROTOCOL=TCP)(HOST=HKLVDPAPP101.global.standardchartered.com)(PORT=1621))) (CONNECT_DATA= (SERVER=DEDICATED) (SERVICE_NAME=GTPS_TSAM_PROD.global.standardchartered.com))) (DESCRIPTION= (CONNECT_TIMEOUT=5)(TRANSPORT_CONNECT_TIMEOUT=3)(ADDRESS_LIST= (ADDRESS=(PROTOCOL=TCP)(HOST=HKLVDSAPP101.global.standardchartered.com)(PORT=1621))) (CONNECT_DATA= (SERVER=DEDICATED) (SERVICE_NAME=GTPS_TSAM_PROD.global.standardchartered.com))))
+
+Error Logs for Update and Insert Statement: Also, attached.
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===== startSection========> parties.banks
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===== startindex========> 0
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===== splitSize========> 500
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===currentSeq===>1
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===parentSec===>sanctionDetails
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===nest section===>others
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===next index===>175
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===curretsecSize===>377
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===splitSize===>0
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.processor.SplitterProcessor - ===== splitSize========> 0
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.p.SplitterSaveProcessor - =====SplitterSaveProcessor saveSplitterProcess========> tpRefId 777010106744POA177
+Hibernate:
+    select
+        TSIL_REQ_SPLITTER_SEQ.nextval
+    from
+        dual
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.p.SplitterSaveProcessor - =====SplitterSaveProcessor ========> msgSeqNo 1
+Hibernate:
+    update
+        SCBT_T_FCR_REQ_DTLS
+    set
+        num_parties = ?
+    where
+        req_id = ?
+        and REQ_CTY = ?
+        and REQ_BRANCH =?
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  c.s.m.s.p.SplitterSaveProcessor - =====SplitterSaveProcessor updateNumOfParties========> numOfParties 704
+Hibernate:
+    insert
+    into
+        SCBT_T_TSIL_REQ_SPLITTER
+        (BANK_GROUP_CODE, MSG_SEQ_NO, REQ_BRANCH, REQ_CTY, REQ_ID, REQ_SENT_TIME, TP_REF_ID, ID)
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 17002, SQLState: 08006
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - IO Error: Checksum fail
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] INFO  o.h.e.j.b.internal.AbstractBatchImpl - HHH000010: On release of batch it still contained JDBC statements
+2025-02-14 02:06:03 [http-nio-127.0.0.1-9102-exec-4] ERROR o.s.o.h.HibernateTransactionManager - Commit exception overridden by rollback exception
+org.springframework.dao.DataAccessResourceFailureException: could not execute statement; nested exception is org.hibernate.exception.JDBCConnectionException: could not execute statement
+
+Severity 1		Severity 1		SR 3-39725175531 : SQL Error: 17002, SQLState: 08006 ERROR o.h.e.jdbc.spi.SqlExceptionHelper - IO Error: Checksum fail
+
+
+cd $ORACLE_HOME/clone/bin 
+
+perl clone.pl ORACLE_BASE=/u01/app/oracle/local ORACLE_HOME=/u01/app/oracle/product/db/19.20.0.0.Jul2023 ORACLE_HOME_NAME=OraHome_19c_Jul2023 
+
+cd  $ORACLE_HOME/clone/bin
+
+perl clone.pl ORACLE_BASE=/u01/app/oracle/local ORACLE_HOME=/u01/app/oracle/product/db/19.25.0.0.Oct2024 ORACLE_HOME_NAME=OraHome_19c_Jan2025
+
+
+transform=disable_archive_logging:Y
+
+
+GPBS_UAT_01
+
+GPBS_UAT_01
+
+
+declare
+ l_sql_tune_task_id varchar2(100);
+begin
+ l_sql_tune_task_id := dbms_sqltune.create_tuning_task (
+  begin_snap => 12345, 
+  end_snap => 12350,
+  sql_id => '3j6y331k97rmn',
+  scope => dbms_sqltune.scope_comprehensive,
+  time_limit => 10800,
+  task_name => 'task_name',
+  description => 'task description');
+ dbms_output.put_line('l_sql_tune_task_id: ' || l_sql_tune_task_id);
+end;
+/

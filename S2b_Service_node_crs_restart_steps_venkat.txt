@@ -1,0 +1,138 @@
+Dear Team,
+
+Please take a note of following steps whenever you perform S2B production server/crs/database restart activity as part of any change/S@R.
+
+1.	After stop of node/crs/database on particular node, services running on that node as preferred will get failed over to configured available nodes. So after preferred node is up in order to make new connections to original preferred node, run the below scripts in respective nodes. Please refer trail email for reference where services supposed to be run always. You can ignore *_bat services.
+
+HKLPDPS2B001:/u01/app/oracle/local/scripts
+POHK1CCD_SERVICE.sh
+POHK2CCD_SERVICE.sh
+POHK3CCD_SERVICE.sh
+
+HKLPDPS2B003:/u01/app/oracle/local/scripts
+POHK4CCD_SERVICE.sh
+POHK5CCD_SERVICE.sh
+POHK1API_SERVICE.sh
+
+       Note : For HKLPDPS2B002, No scripts created as it is always just one svc_pohk2ccd_ngo_gl_onl service should be up and running there, So manual stop and start that service will do.
+
+2.	Once new connections started coming to preferred node, make sure none of connections (those were created when preferred node was down) still connected to in available nodes. Use the below command to check.
+
+set pages 1000 lines 999
+col for service_name a40
+select inst_id,service_name,count(*),min(logon_time)mint,max(logon_time)maxt from gv$session where service_name like 'svc%'  group by inst_id,service_name order by 2,1;
+
+If you found connections running in both preferred and available node, stop the service in available node. ( you may notice error if service is not running already there)
+alter session set container=PDBP_<name>;
+exec dbms_service.stop_service('<service_name>’);
+
+Note: Some services are running on two nodes as preferred node, for instance pohk1ccd_pay_gl_onl which is running node 1 & 3 as preferred, So make sure you are stopping services only on its available node. Always refer the entire list of service details given in trail email by Vilas.
+
+3.	Once you stopped service on available node, kill the existing connections running on available nodes/other from preferred.
+
+Use below query to generate scripts to kill all sessions at once.  Make sure you are replacing the strings marked in bold according to your node and services.
+
+set lines 999 pages 999
+SELECT 'alter system kill session '''|| SID|| ','|| SERIAL#|| ',@'|| inst_id|| ''' immediate ;' 
+FROM gv$session where inst_id=1 and  service_name ='svc_pohk2ccd_ngo_gl_onl' and status <> 'KILLED';
+
+Where 
+              Inst_id => Node from which you need to kill session
+              service_name => actual service name on which sessions to be killed
+
+Once completed killing  of all unnecessary sessions, run above select query again to double confirm that no services running node other than preferred node.
+
+4.	At last, Verify all the services across nodes running as expected using below:
+
+srvctl status service -db POHK1CCD
+srvctl status service -db POHK2CCD
+srvctl status service -db POHK3CCD
+srvctl status service -db POHK4CCD
+srvctl status service -db POHK5CCD
+srvctl status service -db POHK1API
+
+Hi @Uttarwar, Vilas Dinkarrao,
+
+Could you please verify the above steps and correct/add as needed.
+
+
+Thanks & Regards,
+Venkat  
+
+From: Uttarwar, Vilas Dinkarrao <Vilasdinkarrao.Uttarwar@sc.com> 
+Sent: Sunday, December 11, 2022 4:12 PM
+To: Venkat Varatharajan (ext) <venkat.varatharajan.external@atos.net>
+Subject: DB services
+
+	Caution: External email. Do not open attachments or click links, unless this email comes from a known sender and you know the content is safe. 
+
+INTERNAL
+
+DB Services:
+> srvctl status service -d POHK1CCD
+Service svc_pohk1ccd_cci_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cci_jmb2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cci_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cci_meg2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cci_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ccs_gl_bat is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ccs_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cyc_gl_bat is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_cyc_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_etl_jmb2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_etl_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_etl_meg2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_etl_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_idc_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_idc_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_idc_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ipc_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ipc_jmb2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ipc_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ipc_meg2_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ipc_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ldr_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ldr_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_ldr_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_npc_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_npc_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_npc_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_pay_gl_bat is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_pay_gl_onl is running on instance(s) POHK1CCD1,POHK1CCD3
+Service svc_pohk1ccd_rta_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_rta_jmb_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_rta_meg_gl_onl is running on instance(s) POHK1CCD1
+Service svc_pohk1ccd_sav_gl_onl is running on instance(s) POHK1CCD1
+> srvctl status service -d POHK2CCD
+Service svc_pohk2ccd_aic_gl_onl is running on instance(s) POHK2CCD1
+Service svc_pohk2ccd_fwb_gl_bat is running on instance(s) POHK2CCD1
+Service svc_pohk2ccd_fwb_gl_onl is running on instance(s) POHK2CCD1
+Service svc_pohk2ccd_ngo_gl_bat is running on instance(s) POHK2CCD2
+Service svc_pohk2ccd_ngo_gl_onl is running on instance(s) POHK2CCD2
+>  srvctl status service -d POHK3CCD
+Service svc_pohk3ccd_cas_gl_bat is running on instance(s) POHK3CCD3
+Service svc_pohk3ccd_cas_gl_onl is running on instance(s) POHK3CCD1
+Service svc_pohk3ccd_tdc_gl_bat is running on instance(s) POHK3CCD3
+Service svc_pohk3ccd_tdc_gl_onl is running on instance(s) POHK3CCD1
+Service svc_pohk3ccd_tng_gl_bat is running on instance(s) POHK3CCD3
+Service svc_pohk3ccd_tng_gl_onl is running on instance(s) POHK3CCD1
+> srvctl status service -d POHK4CCD
+Service svc_pohk4ccd_cad_gl_bat is running on instance(s) POHK4CCD3
+Service svc_pohk4ccd_cad_gl_onl is running on instance(s) POHK4CCD3
+Service svc_pohk4ccd_srs_gl_bat is running on instance(s) POHK4CCD3
+Service svc_pohk4ccd_srs_gl_onl is running on instance(s) POHK4CCD3
+> srvctl status service -d POHK5CCD
+Service svc_pohk5ccd_inf_gl_onl is running on instance(s) POHK5CCD1
+Service svc_pohk5ccd_ngw_gl_bat is running on instance(s) POHK5CCD3
+Service svc_pohk5ccd_ngw_gl_onl is running on instance(s) POHK5CCD3
+>  srvctl status service -d POHK1API
+Service api_ro is running on instance(s) POHK1API1,POHK1API3
+Service api_rw is running on instance(s) POHK1API1,POHK1API3
+Service svc_pohk1api_api_gl_bat is running on instance(s) POHK1API3
+Service svc_pohk1api_api_gl_onl is running on instance(s) POHK1API3
+Service svc_pohk1api_hkjc_gl_bat is running on instance(s) POHK1API3
+Service svc_pohk1api_hkjc_gl_onl is running on instance(s) POHK1API3
+
+
+
+This email and any attachments are confidential and may also be privileged. If you are not the intended recipient, please delete all copies and notify the sender immediately. You may wish to refer to the incorporation details of Standard Chartered PLC, Standard Chartered Bank and their subsidiaries together with Standard Chartered Bank’s Privacy Policy via our public website.

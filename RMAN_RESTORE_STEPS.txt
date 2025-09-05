@@ -1,0 +1,118 @@
+RMAN RESTORE:
+=============
+
+Target Serveer	:	HKLVDPAPP071
+
+Source server 	:	HKLPDSS2B002 (Standby of prod database where RMAN backup is running).
+
+Backup Server	:	HKLVIPAPP021
+
+**** Get the source server and Backup server details from backup team
+***** Get target server details from PSS team/Requestor  that can be used for restore
+
+** Make sure change is placed to do this activity and its active. If the change is expired, ask PSS team to create a new change to do this activity.
+
+login to server HKLVDPAPP071 using oracle1/2 on OV
+
+export ORACLE_SID=POHK2CCD
+
+sqlplus /as sysdba
+
+SQL> shu immediate
+
+SQL> startup mount exclusive restrict;
+
+SQL> drop database;
+
+** Make sure /oradata and /orafra cleared and claimed the space. 
+
+In this scenario, /oradata should consumed only 90GB out of some 14TB and /orafra should have 2TB
+
+Startup:
+========
+
+startup nomount pfile='/u01/app/oracle/local/dbs/initPOHK2CCD.ora';
+
+Get the details from Backup team for below parameters. 
+
+NSR_SERVER=HKLVIPAPP021
+NSR_CLIENT=HKLPDSS2B002
+NSR_RECOVER_POOL="DC1 DB Clone DD11"
+
+Backup log location on server (NSR_CLIENT) : 
+
+NSR_RMAN_ARGUMENTS:"msglog '/home/oracle/log/`echo $ORACLE_SID`_`date +%d%m%y%H%M%S`_Rman_hot_level_0.msglog' append"; 
+
+Restore Control file:
+=====================
+
+rman target=/ << EOF
+run
+{
+allocate channel CH1 type 'SBT_TAPE';
+allocate channel CH2 type 'SBT_TAPE';
+send 'NSR_ENV=(NSR_SERVER=HKLVIPAPP021,NSR_CLIENT=HKLPDSS2B002,NSR_RECOVER_POOL="DC1 DB Clone DD11",NSR_DEBUG_LEVEL=1,NSR_DPRINTF=TRUE,NSR_DIAGNOSTIC_DEST=/oradump/POHK2CCD_19c/nsr/apps/logs)';
+restore  primary controlfile from 'control_POHK2CCD_ma0pdgl9_203466_1_1';  --> use differnt control file. c_
+release channel CH1;
+release channel CH2;
+}
+EXIT
+EOF
+
+Restore:
+========
+
+rman target=/ << EOF
+run
+{
+allocate channel CH1 type 'SBT_TAPE';
+allocate channel CH2 type 'SBT_TAPE';
+allocate channel CH3 type 'SBT_TAPE';
+allocate channel CH4 type 'SBT_TAPE';
+allocate channel CH5 type 'SBT_TAPE';
+allocate channel CH6 type 'SBT_TAPE';
+allocate channel CH7 type 'SBT_TAPE';
+allocate channel CH8 type 'SBT_TAPE';
+send 'NSR_ENV=(NSR_SERVER=HKLVIPAPP021,NSR_CLIENT=HKLPDSS2B002,NSR_RECOVER_POOL="DC1 DB Clone DD11",NSR_DEBUG_LEVEL=1,NSR_DPRINTF=TRUE,NSR_DIAGNOSTIC_DEST=/oradump/POHK2CCD_19c/nsr/apps/logs)';
+RESTORE DATABASE ;
+switch datafile all;
+switch tempfile all;
+RECOVER DATABASE ;
+release channel CH1;
+release channel CH2;
+release channel CH3;
+release channel CH4;
+release channel CH5;
+release channel CH6;
+release channel CH7;
+release channel CH8;
+}
+EXIT
+EOF
+
+Add tempfiles to CDB and PDB
+
+CREATE TEMPORARY TABLESPACE TEMP2 TEMPFILE '/oradata/pohk2ccd_dg/temp2_01.dbf' SIZE 100M AUTOEXTEND ON NEXT 1024M MAXSIZE UNLIMITED
+EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+
+CREATE TEMPORARY TABLESPACE TEMP2 TEMPFILE '/oradata/pohk2ccd_dg/b186c9434c086277e0538ac7150a0ad8/temp2_01.dbf' SIZE 100M AUTOEXTEND ON NEXT 1024M MAXSIZE UNLIMITED
+EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE TEMP2;
+
+alter database set standby to maximize performance;
+
+**** Clear Redo log group if you are unable to open the database.
+=================================================================
+
+ ALTER DATABASE CLEAR LOGFILE GROUP  14; 
+ ALTER DATABASE CLEAR LOGFILE member '+REDO1/POHK2CCD_DG/ONLINELOG/group_7.278.1053860835';
+ 
+ select group#,member from v$logfile;
+ 
+ALTER DATABASE DROP LOGFILE GROUP 7;
+alter database clear unarchived logfile group 1;
+
+ALTER DATABASE DROP LOGFILE member '+REDO1/POHK2CCD_DG/ONLINELOG/group_7.278.1053860835';
+alter system set standby_file_management=manual;
+

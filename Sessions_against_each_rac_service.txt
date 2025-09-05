@@ -1,0 +1,5 @@
+set pages 1000 lines 999
+col for service_name a40
+select inst_id,service_name,count(*),min(logon_time)mint,max(logon_time)maxt from gv$session where service_name like 'svc%'  group by inst_id,service_name order by 2,1;
+
+exec dbms_service.stop_service('svc_pohk2ccd_ngo_gl_onl','POHK2CCD1');

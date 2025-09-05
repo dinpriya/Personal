@@ -1,0 +1,76 @@
+
+HEALTHCHECK for GSM
+
+1) To check GSM status 
+	
+	. oraenv  to gsm
+	] GDSCTL
+	
+	To check GSM status 
+
+	GDSCTL> status gsm -gsm GSMCCS
+	
+	If GSM service is not running, you may see below error
+	
+		GSM-45075: No response from GSM.
+		
+	Then, immeditely start the service
+	
+	GDSCTL> start gsm -gsm GSMCCS
+	
+2) Verify the config shard
+
+		  ]GDSCTL
+	GDSCTL> set gsm -gsm GSMCCS
+	GDSCTL> config shard
+	
+		Make sure all components are up and running.
+		
+3) verify failed DDL
+
+		  ]GDSCTL
+	GDSCTL> set gsm -gsm GSMCCS
+	GDSCTL> show ddl -failed_only
+	
+		Make sure no failed entries.
+
+4) Adding Datafiles
+
+Sharding catalog Database POHK1CAT is running on S2B Cluster and for any datafile related activity we have to do it on catalog database first and that will sync to respective databases. 
+
+Post that datafile can be resized in respective SG and IN databases by teams.
+
+Steps:
+-------
+
+1.	Login to shard DB POHK1CAT and set to respective PDB
+2.	Run below command to enable shard ddl.
+
+alter session enable shard ddl;
+
+3.	Add datafiles with 10MB using below command. No disk group name needed as we are using OMF.
+
+alter tablespace XXXX add datafile size 10M; (Don’t add more than 10M size)
+
+4.	Once added, please check is there any failed DDL in sharding server hklvapapp354. Perform below steps to check any failed DDL.
+
+sudo -u oracle -i
+set oraenv to gsm
+gdsctl
+
+If you want to check API then run below command in gdsctl 
+
+Gdsctl> set gsm -gsm GSMAPI
+Gdsctl> config shard
+Gdsctl> show ddl -failed_only (please note there won’t be any error).
+
+If you want to check CCS then run below command in gdsctl 
+
+Gdsctl> set gsm -gsm GSMCCS
+Gdsctl> config shard
+Gdsctl> show ddl -failed_only (please note there won’t be any error).
+
+5.	If all looks good, proceed to resize datafiles in SG target databases. If it is IN DB, please reply to SCB DBA to resize the files.
+
+Please let me know if you need any further information on this
+

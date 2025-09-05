@@ -1,0 +1,21 @@
+select  'alter system kill session '''||sid||','||serial#||''';' XXX--, status, username 
+from v$session where username='CC_CCS_ATX_NG' and status in ('INACTIVE','KILLED');
+
+ 
+
+
+select 'alter system disconnect session '''||sid||','||serial#||''' immediate;' XXX 
+from v$session where username='CC_CCS_ATX_NG' and status in ('KILLED');
+
+ 
+
+
+select username, status, count(1)  
+from v$session where username='CC_CCS_ATX_NG'
+group by username, status;
+
+ 
+
+
+select username, MACHINE, OSUSER, count(1) from v$session where username='CC_CCS_ATX_NG'
+group by username, MACHINE, OSUSER;

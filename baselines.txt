@@ -1,0 +1,132 @@
+SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='&SQL_ID');
+
+SQL_HANDLE                     PLAN_NAME
+------------------------------ --------------------------------------------------------------------------------------------------------------------------------
+SQL_ab95b8c653cccee0           SQL_PLAN_ar5dsst9wtmr00144425c
+SQL_ab95b8c653cccee0           SQL_PLAN_ar5dsst9wtmr0718f93ae
+
+select dbms_sqltune_util0.sqltext_to_sqlid(sql_text||chr(0)) sql_id,
+( select to_number(regexp_replace(plan_table_output,'^[^0-9]*')) 
+  from table(dbms_xplan.display_sql_plan_baseline(sql_handle,plan_name)) 
+  where plan_table_output like 'Plan hash value: %') plan_hash_value
+,plan_name,enabled,accepted,fixed,reproduced  
+,dbms_xplan.format_time_s(elapsed_time/1e6) hours,creator,origin,created,last_modified,last_executed
+,sql_text
+from dba_sql_plan_baselines b 
+where sql_text like '%INSERT INTO CDL_OPERATINGACCT_BAL_ID ( ACCTNUM%'
+order by sql_id,hours desc
+;
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut23717cc2');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut37dbffda');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut3ee11058');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut6ea77bd3');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut738b61e9');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut7a341b65');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut8e95c164');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut96a30774');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7uta34719bc');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7utb3343156');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7utd68c09a3');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7utdb386d96');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ute40e6bd5');
+
+
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut23717cc2
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut37dbffda
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut3ee11058
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut6ea77bd3
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut738b61e9
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut7a341b65
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut8e95c164
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ut96a30774
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7uta34719bc
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7utb3343156
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7utd68c09a3
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7utdb386d96
+SQL_caad111d11179f59           SQL_PLAN_cpb8j3n8jg7ute40e6bd5
+
+HKLVDPCTM002/HKLVDSCTM002
+HKLVDPCTM003/HKLVDSCTM003
+hklvdpctm003/hklvdsctm003
+
+
+9846465212 
+
+Plan name: SQL_PLAN_6yr65zzphwhgn682712cf         Plan id: 1747391183
+Enabled: YES     Fixed: NO      Accepted: YES     Origin: AUTO-CAPTURE
+Plan rows: From dictionary
+--------------------------------------------------------------------------------
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_6f5cc5ffeb0e41f4','SQL_PLAN_6yr65zzphwhgnba31bf10');
+
+--------------------------------------------------------------------------------
+Plan name: SQL_PLAN_6yr65zzphwhgnba31bf10         Plan id: 3123822352
+Enabled: YES     Fixed: NO      Accepted: YES     Origin: AUTO-CAPTURE
+Plan rows: From dictionary
+--------------------------------------------------------------------------------
+select *from dbms_xplan.display_sql_plan_baseline('SQL_6f5cc5ffeb0e41f4','SQL_PLAN_6yr65zzphwhgnc4bff6ee');
+
+--------------------------------------------------------------------------------
+Plan name: SQL_PLAN_6yr65zzphwhgnc4bff6ee         Plan id: 3300914926
+Enabled: YES     Fixed: NO      Accepted: YES     Origin: AUTO-CAPTURE
+Plan rows: From dictionary
+
+SNAP_TIME     INT   EXECUTIONS   DISK_READS     AVG_RD      BUFFER_GETS    AVG_GET ROWS_PROCESSED CPU_TIME ELAPSED_TIME   AVG_TM(MS) PLAN_HASH_VALUE
+------------ ---- ------------ ------------ ---------- ---------------- ---------- -------------- -------- ------------ ------------ ---------------
+10-10 08:30     3            1        2,310    2,310.0            2,727    2,727.0              0        1        1,824  1,824,419.2      1588374096
+10-10 08:30     3            0            0         .0                0         .0              0        0            0           .0      1824123725
+10-10 08:30     3            0            0         .0                0         .0              0        0            0           .0      1959987950
+10-10 08:30     3            0            0         .0                0         .0              0        0            0           .0      2912752941
+10-10 08:30     3            1           84       84.0           56,172   56,172.0              7        1            1      1,088.2      3260728102
+10-10 08:30     3            0            0         .0                0         .0              0        0            0           .1      3452902213
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0      1144999705
+10-10 09:00     3            1            2        2.0               10       10.0              0        0        1,673  1,673,036.7      1588374096
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0      1824123725
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0      1959987950
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0      2912752941
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0       730528912
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0      3452902213
+10-10 09:00     3            2      103,224   51,612.0          114,474   57,237.0             95        7           31     15,429.7      3852128955
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0       202537702
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .0       216743275
+10-10 09:00     3            0            0         .0                0         .0              0        0            0           .1      3260728102
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt284e81f6');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt32b69aee');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt4693872e');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt5907bebf');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt59e40b38');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt5c9fb983');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt5fde9293');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt6aad45db');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt6f13cb44');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt8da99339');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt92a78958');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt958b55fc');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt9a72a204');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yt9f117c9c');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yta61b8b11');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5ytb8279f79');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5ytcc8bb496');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5yte17e7dc5');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d2905496760e17d9','SQL_PLAN_d542nktv0w5ytfde2ac8e');
+
+
+declare
+drop_result pls_integer;
+begin
+drop_result := DBMS_SPM.DROP_SQL_PLAN_BASELINE(
+sql_handle => 'SQL_caad111d11179f59',
+plan_name => 'SQL_PLAN_cpb8j3n8jg7ut37dbffda');
+dbms_output.put_line(drop_result);
+end;
+/
+
+
+SQL_PLAN_8010uw29dr41m14c283a4
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_caad111d11179f59','SQL_PLAN_cpb8j3n8jg7ut37dbffda');
+
+
+SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='35ubvtwar6xzw');

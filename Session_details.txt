@@ -1,0 +1,1 @@
+select username,osuser,machine,program,status,count(*) from gv$session where username='CC_PSS_VIEW' group by username,osuser,machine,program,status;

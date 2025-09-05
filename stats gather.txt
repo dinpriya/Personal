@@ -1,0 +1,1 @@
+EXEC DBMS_STATS.gather_table_stats('QLDSADMIN','SS_POS_HIST');

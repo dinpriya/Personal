@@ -1,0 +1,23 @@
+Implementation Steps
+------------------------------------
+1.	Login to dgmgrl on primary side HKLVDPAPP089
+2.	Dgmgrl /@POHK1UTS
+3.	Dgmgrl> show configuration verbose
+5.	Dgmgrl>  EDIT DATABASE pohk1uts SET PROPERTY 'LogXptMode'='ASYNC'; 
+6.	Dgmgrl>  EDIT DATABASE pohk1uts_dg SET PROPERTY 'LogXptMode'='ASYNC'; 
+7.	Dgmgrl>  EDIT CONFIGURATION SET PROTECTION MODE AS MaxPerformance;
+8.	Dgmgrl> show configuration verbose
+9.	Dgmgrl> show database verbose pohk1uts
+10.	Dgmgrl> show database verbose pohk1uts_dg
+ 
+Rollback :-
+ 
+1.	Login to dgmgrl on primary side HKLVDPAPP089
+2.	Dgmgrl /@POHK1UTS
+3.	Dgmgrl> show configuration verbose
+5.	Dgmgrl>  EDIT DATABASE pohk1uts SET PROPERTY 'LogXptMode'='SYNC'; 
+6.	Dgmgrl>  EDIT DATABASE pohk1uts_dg SET PROPERTY 'LogXptMode'='SYNC'; 
+7.	Dgmgrl>  EDIT CONFIGURATION SET PROTECTION MODE AS MAXAVAILABILITY;
+8.	Dgmgrl> show configuration verbose
+9.	Dgmgrl> show database verbose pohk1uts
+10.	Dgmgrl> show database verbose pohk1uts_dg

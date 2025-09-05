@@ -1,0 +1,58 @@
+Login to server
+HKLPDPS2B003	10.21.199.144
+
+
+cd /u01/app/oracle/global/scb_utils/PDBAdmin
+
+Create PDB-
+./OracleDaaS_PDBAdmin.sh -o createPDB -c POHK4CCD3 -a COP
+
+OracleDaaS_PDBAdmin.sh -o createSVC -c POHK4CCD3 -p PDBP_COP -s svc_pohk4ccd_cop_gl_onl
+OracleDaaS_PDBAdmin.sh -o createSVC -c POHK4CCD3 -p PDBP_COP -s svc_pohk4ccd_cop_gl_bat
+srvctl modify service -db POHK4CCD -service svc_pohk4ccd_cop_gl_onl -available POHK4CCD2 -modifyconfig -preferred POHK4CCD3
+srvctl modify service -db POHK4CCD -service svc_pohk4ccd_cop_gl_bat -available POHK4CCD2 -modifyconfig -preferred POHK4CCD3
+
+also need to configured DB services on DR side
+
+srvctl add service -db POHK4CCD_DG -service svc_pohk4ccd_cop_gl_onl -preferred POHK4CCD_DG3 -available POHK4CCD_DG2 -role primary -notification FALSE -failovertype SELECT -failovermethod BASIC -failoverretry 3 -failoverdelay 30 -clbgoal short -pdb PDBP_COP
+srvctl add service -db POHK4CCD_DG -service svc_pohk4ccd_cop_gl_bat -preferred POHK4CCD_DG3 -available POHK4CCD_DG2 -role primary -notification FALSE -failovertype SELECT -failovermethod BASIC -failoverretry 3 -failoverdelay 30 -clbgoal short -pdb PDBP_COP
+
+export ORACLE_SID=POHK4CCD3
+
+sqlplus
+
+alter session set container=PDBP_COP;
+show con_name
+
+create tablespace TS_CC_COP_GL_RAC datafile '+DATA_CCD04' size 30g; 
+
+CREATE ROLE SCB_SCHEMA_ROLE;
+CREATE ROLE SCB_USER_RO;
+
+GRANT ALTER SESSION to SCB_SCHEMA_ROLE;
+GRANT CREATE CLUSTER  to SCB_SCHEMA_ROLE;
+GRANT CREATE DIMENSION to SCB_SCHEMA_ROLE;
+GRANT CREATE INDEXTYPE to SCB_SCHEMA_ROLE;
+GRANT CREATE MATERIALIZED VIEW to SCB_SCHEMA_ROLE;
+GRANT CREATE OPERATOR to SCB_SCHEMA_ROLE;
+GRANT CREATE PROCEDURE to SCB_SCHEMA_ROLE;
+GRANT CREATE SEQUENCE to SCB_SCHEMA_ROLE;
+GRANT CREATE SESSION to SCB_SCHEMA_ROLE;
+GRANT CREATE SYNONYM to SCB_SCHEMA_ROLE;
+GRANT CREATE TABLE to SCB_SCHEMA_ROLE;
+GRANT CREATE TRIGGER to SCB_SCHEMA_ROLE;
+GRANT CREATE TYPE to SCB_SCHEMA_ROLE;
+GRANT CREATE VIEW to SCB_SCHEMA_ROLE;
+GRANT QUERY REWRITE to SCB_SCHEMA_ROLE;
+GRANT GLOBAL QUERY REWRITE to SCB_SCHEMA_ROLE;
+GRANT CREATE ANY MATERIALIZED VIEW to SCB_SCHEMA_ROLE;
+
+
+GRANT ALTER SESSION TO SCB_USER_RO;
+GRANT CREATE SESSION TO SCB_USER_RO;
+GRANT CREATE SYNONYM TO SCB_USER_RO;
+
+
+grant select any dictionary to CC_ITRS;
+grant create session to CC_ITRS; 
+grant SCB_USER_RO to CC_ITRS;

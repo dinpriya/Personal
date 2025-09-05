@@ -1,0 +1,146 @@
+
+
+Critical apps :  Oracle (S2B) --> 7 DBS are there 
+
+super critical : iCDD and ICM application systems
+
+
+
+Urgency		                    Impact
+
+U1	Critical (Now < 2 Hrs)		I1	Extensive / Wide Spread
+U2	Severe ( Now < 3 Hrs)		I2	Significant / Large
+U3	Elevated ( Now < 4 Hrs)		I3	Moderate / Limited
+U4	Guarded (Now < 5 Hrs)		I4	Minor / Localized
+U5	Low (Now < 8 Hrs)		    I5	No Impact / Single
+
+
+
+Row Labels
+------------
+
+AO-IN MR DBA TSO SUP - India DBA team 
+AO-IN MR DBA TSO CHG - India DBA team 
+AO-SG MR DBA TSO SUP - Singapore/Malaysia DBA team 
+AO-SG MR DBA TSO CHG - Singapore/Malaysia DBA team  
+
+
+SG-SCB-DBA <SG-DBA@atos.net>
+DLSGO-TCC2-SG-DBA-Support <dlsgo-tcc2-sg-dba-support@atos.net>
+
+
+
+
+SLA - based on response / resolution time
+KPI breach - even if we put inc as pending KPI will get breach so better try to close inc within SLA 
+
+
+
+
+1) Tablespace alerts
+======================
+
+
+critical apps - prod - S2B apps 
+-------------------------------
+
+if reached event alert - 90% -  send mail to Vilas for S2B apps , whether we can add datafile or resize datafile if space is available in FS or disks
+if reached event alert - 80% -  send mail to respective PSS apps team, and ask them to raise change to add space to tablespace and s2b apps alert transferred to PSS for 80%  
+
+Non - prod
+------------------
+
+if reached event alert - 90% or 80% - we can add datafile but inc or change is require , apps team will provide inc/change details                                 
+
+
+
+
+RFS Req :
+---------
+
+---> incase if ASM DATA reach 80% or 90% or /datafile mount point FS also reach 80% or 90% and then send mail to PSS to raise RFS 
+once they raised change and respective PM will take it forward to follow and once they provided LUN and then we can add disk in asm DG
+
+
+2) Session kill
+==================
+
+
+---> U4/I5 inc is required to kill any active/inactive sessions even prod or non prod and also before killing any sessions, please doublecheck with apps team 
+
+U4 - Urgency 4
+I5 - Impact 5 
+
+
+3) select statements 
+==========================
+
+---> As per standard process, DBA should not run any select statements even prod or non prod as well. Application team must have read only access for objects. so, apps team can run select any query
+
+
+
+4)update / delete / insert
+=============================
+
+
+--> U4/I5 inc is required and once user raised inc and once user send mail to us the scripts then execute and open the session for whatever time and then
+transferred the inc to apps team and don't close our bin and if customer ask us to run again any ins/del/upd then run and after 3 days user will close 
+we can run multiple time execution for ins/del with using same kind of inc.
+
+
+Clarification:
+---------------
+
+1)	SCB MIM will be engaged only from U4/I4 incident where multiple technical towers support required and impact is significant
+2)	The script execution can be done using U4/I5 incident where SCB MIM will not be participating and PSS team is responsible for this incident follow up and closure. The 
+3)	The script execution is being done using U4/I4 incident with SCB MIM participation due to impact is Minor
+4)	Only Impact (I5 – Low/No Impact, I4 – Guarded/Minor,  I3 – Elevated/Moderate, I2 – Severe/Significant, I1 – Critical/Extensive) will determine the SCB MIM participation. SCB MIN will participate from I4 onwards only 
+
+
+
+
+
+5) Change process
+=======================
+
+--> standard   :  Standard change is only for non prod
+--> Emergency  :  Emergency / expedited / normal - these 3 types belongs to prod
+---> expedited  : Emergency / expedited / normal - these 3 types belongs to prod   --> U4 / i5 means expedited change  --> Expedited change only belongs to projects
+---> Normal      : Emergency / expedited / normal - these 3 types belongs to prod
+
+
+
+Non prod based on the tickets we can do and no any change required like session kill or alter or data file resize
+For prod if any activity like session kill or alter or data file resize  -> change is required
+
+
+
+
+
+6) inc
+============
+
+--> for inc we need to create inc ctask and then note the relationship id and then login in one vault there paste the relationship id and then login in server
+
+below U4/I5 dba should not close inc and we need to route back to PSS team
+above U4/I5 like U5/I5 we can close the inc
+11.5 hrs open the putty sessions for DML inc
+
+
+
+7) Apps team will create change for DML exec like update / ins . they will call as name like patch  ref the below change, we need standby support 
+=========================================================================================================================================================
+
+Assigned To	Change no	Description	Type of change	Status	Start time IST	CR End time IST
+Dinesh	CHG0116323	S2B Next Gen - Post migration / Switch off production data patch – 16 th January   2023	Normal	NEW	1/16/2022 17:00	1/17/2022 17:00
+Aradha	CHG0125902	S2B Next Gen - Post migration / Switch off production data patch – 17 th January   2023	Normal	NEW	1179/2022 5:00 PM	1/18/2022 17:00
+
+
+8) OEM agent issue will fix only on Chennai Atos DBA   team
+
+9) GG issue has fixed only by Scb DBA support only - Hussain, Syed Khayyum <SyedKhayyum.Hussain@sc.com>
+
+
+
+
+

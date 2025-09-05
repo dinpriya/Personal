@@ -1,0 +1,52 @@
+set lines 400
+column "Time left" format A15
+column "Time spent" format A15
+column message format a100
+column username format a10
+select inst_id, sid, serial#, username, context,
+trunc(time_remaining / 60,2)||' Minutes' "Time left",
+trunc(elapsed_seconds / 60,2)||' Minutes' "Time spent",
+round(sofar/totalwork*100,2) "% Completed",
+message
+from gv$session_longops
+where sofar != totalwork
+and totalwork != 0
+order by 1;
+ 
+ 
+set lines 400
+column "Time left" format A15
+column "Time spent" format A15
+column message format a100
+column username format a10
+select inst_id, sid, serial#, username, context,
+trunc(time_remaining / 60,2)||' Minutes' "Time left",
+trunc(elapsed_seconds / 60,2)||' Minutes' "Time spent",
+round(sofar/totalwork*100,2) "% Completed",
+message
+from gv$session_longops
+where sofar != totalwork
+and totalwork != 0 and message like '%Gather%'
+order by 1;
+ 
+ 
+col sid for  9999 
+col serial# for 9999999 
+col sql_id for 9999999 
+col machine for a30 
+col progress_pct for 99999999.00 
+col elapsed for a10 
+col remaining for a10 
+col TARGET for a30
+col opname for a30
+SELECT s.sid,sl.opname,sl.target,sl.sofar,sl.totalwork, 
+         s.serial#, 
+         s.machine, 
+         TRUNC(sl.elapsed_seconds/60) || ':' || MOD(sl.elapsed_seconds,60) elapsed, 
+         TRUNC(sl.time_remaining/60) || ':' || MOD(sl.time_remaining,60) remaining, 
+         ROUND(sl.sofar/sl.totalwork*100, 2) progress_pct 
+  FROM   v$session s, 
+         v$session_longops sl 
+  WHERE  s.sid     = sl.sid 
+  AND    s.serial# = sl.serial# 
+  and sofar<totalwork;

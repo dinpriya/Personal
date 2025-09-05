@@ -1,0 +1,1 @@
+Create tablespace XXX_san_data datafile '+DATA_SAN' size 10g segment space management auto extent management local;

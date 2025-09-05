@@ -1,0 +1,39 @@
+set lines 250
+set pages 10000
+col sess_in head "Session|Detail" for a15
+col module  head "Mod"            for a10 trunc
+col undo_nm head "RollBack|Name" for a32
+col start_tm head "Transaction|Start Time" for a20
+col tstatus head "Transaction|Status" for a11
+col sstatus head "Session|Status" for a11
+col space_use head "Undo Space|Used(GB)" for 9999999999
+col un_rec head "Undo Records" for 9999999999
+col log_io head "Logical|IO" for 999999999999
+col phy_io head "Physical|IO" for 999999999999
+col cr_get head "Consistent|Gets" for 999999999999
+col cr_change head "Consistent|Change" for 999999999999
+break on report
+compute sum of space_use on report
+
+select
+vs.sid||','||vs.serial# sess_in,
+nvl(vs.module,vs.program) module,
+vr.usn||','||vr.name                 undo_nm,
+vt.start_time           start_tm,
+vt.status               tstatus,
+vs.status               sstatus,
+round((vt.used_ublk*8192)/(1024*1024*1024),2) space_use,
+vt.used_urec            un_rec,
+vt.log_io               log_io,
+vt.phy_io               phy_io,
+vt.cr_get               cr_get,
+vt.cr_change            cr_change,
+vs.sql_id               sql_id
+from
+v$rollname    vr,
+v$transaction vt,
+v$session     vs
+where  vt.ses_addr     =    vs.saddr
+and  vt.xidusn       =    vr.usn
+order by vt.start_time
+/

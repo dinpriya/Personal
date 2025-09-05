@@ -1,0 +1,57 @@
+DR:
+===
+
+Login to HKLPDSS2B001
+
+sqlplus sys as sysasm
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+NAME                           PATH                                                                                                 HEADER_STATU
+------------------------------ ---------------------------------------------------------------------------------------------------- ------------
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_089                                                   MEMBER
+FRA_IMP_0016                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_067                                                   MEMBER
+FRA_IMP_0015                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_131                                                   MEMBER
+FRA_IMP_0018                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_107                                                   MEMBER
+FRA_IMP_0017                   /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_072                                                   MEMBER
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0011 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0016 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0018 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0017 rebalance power 100;
+
+Monitor rebalance opeartion. 
+
+select * from v$asm_operation;
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+PROD:
+=====
+
+Login to HKLPDPS2B001
+
+sqlplus sys as sysasm
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+NAME                           PATH                                                                                                 HEADER_STATU
+------------------------------ ---------------------------------------------------------------------------------------------------- ------------
+FRA_IMP_0018                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_105                                                   MEMBER
+FRA_IMP_0017                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_103                                                   MEMBER
+FRA_IMP_0011                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_089                                                   MEMBER
+FRA_IMP_0016                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_088                                                   MEMBER
+FRA_IMP_0015                   /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_083                                                   MEMBER
+
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0018 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0017 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0011 rebalance power 100;
+ALTER DISKGROUP FRA_IMP DROP DISK FRA_IMP_0016 rebalance power 100;
+
+Monitor rebalance opeartion. 
+
+select * from v$asm_operation;
+
+select NAME,path,header_status from v$asm_disk where name like '%FRA_IMP%';
+
+

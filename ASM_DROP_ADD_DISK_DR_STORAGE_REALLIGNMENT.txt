@@ -1,0 +1,174 @@
+DATA_CCD03
+
+select NAME,path,header_status from v$asm_disk where name like '%DATA_CCD03%';
+
+NAME                           PATH                                                         HEADER_STATU
+------------------------------ ------------------------------------------------------------ ------------
+DATA_CCD03_0015                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_037           MEMBER
+DATA_CCD03_0010                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_032           MEMBER
+DATA_CCD03_0014                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_036           MEMBER
+DATA_CCD03_0008                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_030           MEMBER
+DATA_CCD03_0009                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_031           MEMBER
+DATA_CCD03_0013                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_035           MEMBER
+DATA_CCD03_0012                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_034           MEMBER
+DATA_CCD03_0011                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_033           MEMBER
+
+ALTER DISKGROUP DATA_CCD03 DROP DISK DATA_CCD03_0011 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_033%';
+
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_033' NAME FRA_IMP_0012 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+
+DATA_CCD05
+
+10:11:38 SYS @ POHK1RCT_DG1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%DATA_CCD05%';
+
+NAME                           PATH                                                         HEADER_STATU
+------------------------------ ------------------------------------------------------------ ------------
+DATA_CCD05_0030                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_058           MEMBER
+DATA_CCD05_0007                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_112           MEMBER
+DATA_CCD05_0016                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_044           MEMBER
+DATA_CCD05_0023                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_051           MEMBER
+DATA_CCD05_0013                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_118           MEMBER
+DATA_CCD05_0021                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_049           MEMBER
+DATA_CCD05_096                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_096           MEMBER
+DATA_CCD05_0020                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_048           MEMBER
+DATA_CCD05_0019                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_047           MEMBER
+DATA_CCD05_0028                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_056           MEMBER
+DATA_CCD05_095                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_095           MEMBER
+DATA_CCD05_101                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_101           MEMBER
+DATA_CCD05_0022                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_050           MEMBER
+DATA_CCD05_0014                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_119           MEMBER
+DATA_CCD05_0018                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_046           MEMBER
+DATA_CCD05_0011                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_116           MEMBER
+DATA_CCD05_098                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_098           MEMBER
+DATA_CCD05_0017                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_045           MEMBER
+DATA_CCD05_0024                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_052           MEMBER
+DATA_CCD05_099                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_099           MEMBER
+DATA_CCD05_0026                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_054           MEMBER
+DATA_CCD05_0010                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_115           MEMBER
+DATA_CCD05_0031                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_059           MEMBER
+DATA_CCD05_0009                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_114           MEMBER
+DATA_CCD05_0012                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_117           MEMBER
+DATA_CCD05_0029                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_057           MEMBER
+DATA_CCD05_0027                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_055           MEMBER
+DATA_CCD05_100                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_100           MEMBER
+DATA_CCD05_0025                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_053           MEMBER
+DATA_CCD05_097                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_097           MEMBER
+DATA_CCD05_0008                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_113           MEMBER
+
+ALTER DISKGROUP DATA_CCD05 DROP DISK DATA_CCD05_0008 rebalance power 100;
+ALTER DISKGROUP DATA_CCD05 DROP DISK DATA_CCD05_097 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_113%';
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_097%';
+
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_113' NAME FRA_IMP_0013 rebalance power 100;
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_097' NAME FRA_IMP_0014 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+
+FRA_API01
+
+10:15:24 SYS @ POHK1RCT_DG1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%FRA_API01%';
+
+NAME                           PATH                                                         HEADER_STATU
+------------------------------ ------------------------------------------------------------ ------------
+FRA_API01_0001                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_083           MEMBER
+FRA_API01_0000                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_085           MEMBER
+FRA_API01_0002                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_130           MEMBER
+FRA_API01_0003                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_131           MEMBER
+
+ALTER DISKGROUP FRA_API01 DROP DISK FRA_API01_0003 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_131%';
+
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_131' NAME FRA_IMP_0015 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+FRA_CCD03
+
+10:17:38 SYS @ POHK1RCT_DG1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%FRA_CCD03%';
+
+NAME                           PATH                                                         HEADER_STATU
+------------------------------ ------------------------------------------------------------ ------------
+FRA_CCD03_0002                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_066           MEMBER
+FRA_CCD03_0004                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_088           MEMBER
+FRA_CCD03_0003                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_067           MEMBER
+
+ALTER DISKGROUP FRA_CCD03 DROP DISK FRA_CCD03_0003 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_067%';
+
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_067' NAME FRA_IMP_0016 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+FRA_CCD05
+
+10:18:56 SYS @ POHK1RCT_DG1:CDB$ROOT:>select NAME,path,header_status from v$asm_disk where name like '%FRA_CCD05%';
+
+NAME                           PATH                                                         HEADER_STATU
+------------------------------ ------------------------------------------------------------ ------------
+FRA_CCD05_103                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_103           MEMBER
+FRA_CCD05_104                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_104           MEMBER
+FRA_CCD05_0006                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_071           MEMBER
+FRA_CCD05_106                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_106           MEMBER
+FRA_CCD05_111                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_111           MEMBER
+FRA_CCD05_0005                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_070           MEMBER
+FRA_CCD05_105                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_105           MEMBER
+FRA_CCD05_108                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_108           MEMBER
+FRA_CCD05_102                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_102           MEMBER
+FRA_CCD05_110                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_110           MEMBER
+FRA_CCD05_109                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_109           MEMBER
+FRA_CCD05_107                  /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_107           MEMBER
+FRA_CCD05_0007                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_072           MEMBER
+
+ALTER DISKGROUP FRA_CCD05 DROP DISK FRA_CCD05_0007 rebalance power 100;
+ALTER DISKGROUP FRA_CCD05 DROP DISK FRA_CCD05_107 rebalance power 100;
+ALTER DISKGROUP FRA_CCD05 DROP DISK FRA_CCD05_109 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_072%';
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_107%';
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_109%';
+
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_072' NAME FRA_IMP_0017 rebalance power 100;
+ALTER DISKGROUP FRA_IMP ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_107' NAME FRA_IMP_0018 rebalance power 100;
+ALTER DISKGROUP FRA_CCD02 ADD  DISK '/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_109' NAME FRA_CCD02_0010 rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont proceed with adding disk.
+
+select * from v$asm_operation;

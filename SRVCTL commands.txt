@@ -1,0 +1,317 @@
+srvctl -help
+srvctl -V
+
+Database related commands in RAC 12c
+srvctl add database -db db_unique_name -oraclehome oracle_home [-dbtype {RACONENODE | RAC | SINGLE} [-server server_list] [-instance inst_name] [-timeout timeout]] [-domain domain_name] [-spfile spfile] [-pwfile password_file_path] [-role {PRIMARY | PHYSICAL_STANDBY | LOGICAL_STANDBY | SNAPSHOT_STANDBY | FAR_SYNC}] [-startoption start_options] [-stopoption stop_options] [-startconcurrency start_concurrency] [-stopconcurrency stop_concurrency] [-dbname db_name] [-policy {AUTOMATIC | MANUAL | NORESTART}] [-serverpool "serverpool_list" [-pqpool pq_server_pools]] [-node node_name] [-diskgroup "diskgroup_list"] [-acfspath "acfs_path_list"] [-eval] [-fixed] [-verbose]
+srvctl config database [-db db_unique_name [-all] | -serverpool serverpool_name] [-verbose]
+srvctl start database -db db_unique_name [-startoption start_options] [-startconcurrency start_concurrency] [-node node] [-eval] [-verbose]
+srvctl stop database -db db_unique_name [-stopoption stop_options] [-stopconcurrency stop_concurrency] [-force] [-eval] [-verbose]
+srvctl status database {-db db_unique_name [-serverpool serverpool_name] | -serverpool serverpool_name | -thisversion | -thishome} [-force] [-verbose]
+srvctl enable database -db db_unique_name [-node node_name]
+srvctl disable database -db db_unique_name [-node node_name]
+srvctl modify database -db db_unique_name [-dbname db_name] [-instance instance_name] [-oraclehome oracle_home] [-user oracle_user] [-server server_list] [-timeout timeout] [-domain domain] [-spfile spfile] [-pwfile password_file_path] [-role {PRIMARY | PHYSICAL_STANDBY | LOGICAL_STANDBY | SNAPSHOT_STANDBY}] [-startoption start_options] [-stopoption stop_options] [-startconcurrency start_concurrency] [-stopconcurrency stop_concurrency][-policy {AUTOMATIC | MANUAL | NORESTART}] [-serverpool "serverpool_list" [-node node_name]] [-pqpool pq_server_pools] [-diskgroup "diskgroup_list"|-nodiskgroup] [-acfspath "acfs_path_list"] [-force] [-eval] [-verbose]
+srvctl remove database -db db_unique_name [-force] [-noprompt] [-verbose]
+srvctl getenv database -db db_unique_name [-envs "name[,...]"]
+srvctl setenv database -db db_unique_name {-envs "name=val[,...]" | -env "name=val"}
+srvctl unsetenv database -db db_unique_name -envs "name[,...]"
+srvctl predict database -db database_name [-verbose]
+srvctl convert database -db db_unique_name -dbtype RAC [-node node]
+srvctl convert database -db db_unique_name -dbtype RACONENODE [-instance inst_name] [-timeout timeout]
+srvctl relocate database -db db_unique_name {[-node target] [-timeout timeout] [-stopoption stop_option] | -abort [-revert]} [-verbose]
+srvctl upgrade database -db db_unique_name -oraclehome oracle_home
+srvctl downgrade database -db db_unique_name -oraclehome oracle_home -targetversion to_version
+srvctl update database -db db_unique_name [-startoption start_options [-node node_name]]
+
+Instance related commands in Oracle RAC 12c
+srvctl add instance -db db_unique_name -instance inst_name -node node_name [-force]
+srvctl start instance -db db_unique_name {-node node_name [-instance inst_name] | -instance inst_name_list} [-startoption start_options]
+srvctl stop instance -db db_unique_name {-node node_name | -instance inst_name_list}  [-stopoption stop_options] [-force] [-failover]
+srvctl status instance -db db_unique_name {-node node_name | -instance inst_name_list} [-force] [-verbose]
+srvctl enable instance -db db_unique_name -instance "inst_name_list"
+srvctl disable instance -db db_unique_name -instance "inst_name_list"
+srvctl modify instance -db db_unique_name -instance inst_name -node node_name
+srvctl remove instance -db db_unique_name -instance inst_name [-force] [-noprompt]
+srvctl update instance -db db_unique_name {-instance instance_name | -node node_name} -startoption start_options
+
+RAC 12c srvctl - Service related commands
+srvctl add service -db db_unique_name -service service_name {-preferred "preferred_list" [-available "available_list"] [-tafpolicy {BASIC | NONE | PRECONNECT}] | -serverpool pool_name [-cardinality {UNIFORM | SINGLETON}] } [-netnum network_number] [-role "[PRIMARY][,PHYSICAL_STANDBY][,LOGICAL_STANDBY][,SNAPSHOT_STANDBY]"] [-policy {AUTOMATIC | MANUAL}] [-notification {TRUE|FALSE}] [-dtp {TRUE|FALSE}] [-clbgoal {SHORT|LONG}] [-rlbgoal {NONE|SERVICE_TIME|THROUGHPUT}] [-failovertype {NONE|SESSION|SELECT|TRANSACTION}] [-failovermethod {NONE|BASIC}] [-failoverretry failover_retries] [-failoverdelay failover_delay] [-edition edition] [-pdb pluggable_database] [-global {TRUE|FALSE}] [-maxlag max_lag_time] [-sql_translation_profile sql_translation_profile] [-commit_outcome {TRUE|FALSE}] [-retention retention] [-replay_init_time replay_initiation_time] [-session_state {STATIC|DYNAMIC}] [-pqservice pq_service] [-pqpool pq_pool_list] [-gsmflags gsm_flags] [-force] [-eval] [-verbose]
+srvctl add service -db db_unique_name -service service_name -update {-preferred "new_pref_inst" | -available "new_avail_inst"} [-force] [-verbose]
+srvctl config service {-db db_unique_name [-service service_name] | -serverpool serverpool_name [-db db_unique_name]} [-verbose]
+srvctl enable service -db db_unique_name -service  "service_name_list" [-instance inst_name | -node node_name] [-global_override]
+srvctl disable service -db db_unique_name -service  "service_name_list" [-instance inst_name | -node node_name] [-global_override]
+srvctl status service {-db db_unique_name [-service  "service_name_list"] | -serverpool serverpool_name [-db db_unique_name]} [-force] [-verbose]
+srvctl predict service -db database_name -service service_name [-verbose]
+srvctl modify service -db db_unique_name -service service_name -oldinst old_inst_name -newinst new_inst_name [-force]
+srvctl modify service -db db_unique_name -service service_name -available avail_inst_name -toprefer [-force]
+srvctl modify service -db db_unique_name -service service_name -modifyconfig -preferred "preferred_list" [-available "available_list"] [-force]
+srvctl modify service -db db_unique_name -service service_name [-serverpool pool_name] [-pqservice pqsvc_name] [-pqpool pq_pool_list] [-cardinality {UNIFORM | SINGLETON}] [-tafpolicy {BASIC|NONE}] [-role [PRIMARY][,PHYSICAL_STANDBY][,LOGICAL_STANDBY][,SNAPSHOT_STANDBY]] [-policy {AUTOMATIC | MANUAL}][-notification {TRUE|FALSE}] [-dtp {TRUE|FALSE}] [-clbgoal {SHORT|LONG}] [-rlbgoal {NONE|SERVICE_TIME|THROUGHPUT}] [-failovertype {NONE|SESSION|SELECT|TRANSACTION}] [-failovermethod {NONE|BASIC}] [-failoverretry integer] [-failoverdelay integer] [-edition edition] [-pdb pluggable_database] [-sql_translation_profile sql_translation_profile] [-commit_outcome {TRUE|FALSE}] [-retention retention] [-replay_init_time replay_initiation_time] [-session_state {STATIC|DYNAMIC}] [-maxlag max_lag_time] [-gsmflags gsm_flags] [-global_override] [-eval] [-verbose] [-force]
+srvctl relocate service -db db_unique_name -service service_name {-oldinst old_inst_name -newinst new_inst_name | -currentnode current_node -targetnode target_node} [-pq] [-force [-noreplay]] [-eval] [-verbose]
+srvctl remove service -db db_unique_name -service service_name [-instance inst_name] [-global_override] [-force]
+srvctl start service -db db_unique_name [-service  "service_name_list"] [-serverpool pool_name] [-node node_name | -instance inst_name] [-pq] [-global_override] [-startoption start_options] [-eval] [-verbose]
+srvctl stop service -db db_unique_name [-service  "service_name_list"] [-serverpool pool_name] [-node node_name | -instance inst_name] [-pq] [-global_override] [-force [-noreplay]] [-eval] [-verbose]
+
+NodeApps related commands in RAC 12c
+srvctl add nodeapps { { -node node_name -address {vip_name|ip}/netmask[/if1[|if2...]] [-skip]} | { -subnet subnet/netmask[/if1[|if2...]] } } [-emport em_port] [-onslocalport ons_local_port]  [-onsremoteport ons_remote_port] [-remoteservers host[:port][,host[:port]...]] [-clientdata file] [-pingtarget "pingtarget_list"] [-verbose]
+srvctl config nodeapps [-viponly] [-onsonly]
+srvctl modify nodeapps {[-node node_name -address {vip_name|ip}/netmask[/if1[|if2...]] [-skip]] | [-subnet subnet/netmask[/if1[|if2|...]]]} [-nettype {STATIC|DHCP|AUTOCONFIG|MIXED}] [-emport em_port] [ -onslocalport ons_local_port ] [-onsremoteport ons_remote_port ] [-remoteservers host[:port][,host[:port]...]] [-clientdata file] [-pingtarget "pingtarget_list"] [-verbose]
+srvctl start nodeapps [-node node_name] [-adminhelper | -onsonly] [-verbose]
+srvctl stop nodeapps [-node node_name] [-adminhelper | -onsonly | -relocate] [-force] [-verbose]
+srvctl status nodeapps [-node node_name]
+srvctl enable nodeapps [-adminhelper] [-verbose]
+srvctl disable nodeapps [-adminhelper] [-verbose]
+srvctl remove nodeapps [-force] [-noprompt] [-verbose]
+srvctl getenv nodeapps [-viponly] [-onsonly] [-envs "name[,...]"]
+srvctl setenv nodeapps {-envs "name=val[,...]" | -env "name=val"} [-viponly | -onsonly] [-verbose]
+srvctl unsetenv nodeapps -envs "name[,...]" [-viponly | -onsonly] [-verbose]
+
+VIP related commands in RAC 12c
+srvctl add vip -node node_name -netnum network_number -address {name|ip}/netmask[/if1[|if2...]] [-skip] [-verbose]
+srvctl config vip {-node node_name | -vip vip_name}
+srvctl disable vip -vip vip_name [-verbose]
+srvctl enable vip -vip vip_name [-verbose]
+srvctl remove vip -vip vip_name_list [-force] [-noprompt] [-verbose]
+srvctl getenv vip -vip vip_name [-envs "name[,...]"]
+srvctl start vip {-node node_name [-netnum network_number] | -vip vip_name} [-verbose]
+srvctl stop vip {-node node_name [-netnum network_number] | -vip vip_name} [-force] [-relocate] [-verbose]
+srvctl relocate vip -vip vip_name [-node node_name] [-force] [-verbose]
+srvctl status vip {-node node_name | -vip vip_name} [-verbose]
+srvctl setenv vip -vip vip_name {-envs "name=val[,...]" | -env "name=val"} [-verbose]
+srvctl unsetenv vip -vip vip_name -envs "name[,...]" [-verbose]
+srvctl predict vip -vip vip_name [-verbose]
+
+Network related commands in RAC 12c
+srvctl add network [-netnum network_number] -subnet subnet/netmask[/if1[|if2...]] [-nettype {STATIC|DHCP|AUTOCONFIG|MIXED}] [-pingtarget "pingtarget_list"] [-leaf] [-verbose]
+srvctl config network [-netnum network_number]
+srvctl modify network [-netnum network_number] [-subnet subnet/netmask[/if1[|if2...]]] [-nettype {STATIC|DHCP|AUTOCONFIG|MIXED}] [-iptype {IPV4|IPV6|BOTH}] [-pingtarget "pingtarget_list"] [-verbose]
+srvctl remove network {-netnum network_number | -all} [-force] [-verbose]
+srvctl predict network [-netnum network_number] [-verbose]
+
+ASM related commands in Oracle RAC 12c
+srvctl add asm [-listener lsnr_name] [-pwfile password_file_path] [-flex [-count {number_of_instances|ALL}]|-proxy]
+srvctl start asm [-proxy] [-node node_name] [-startoption start_options]
+srvctl stop asm [-proxy] [-node node_name] [-stopoption stop_options] [-force]
+srvctl config asm [-proxy] [-detail]
+srvctl status asm [-proxy] [-node node_name] [-detail] [-verbose]
+srvctl enable asm [-proxy] [-node node_name]
+srvctl disable asm [-proxy] [-node node_name]
+srvctl modify asm [-listener lsnr_name] [-pwfile password_file_path] [-count {number_of_instances|ALL}] [-force]
+srvctl remove asm [-proxy] [-force]
+srvctl relocate asm -currentnode current_node [-targetnode target_node] [-force]
+srvctl getenv asm [-envs "name[,...]"]
+srvctl setenv asm {-envs "name=val[,...]" | -env "name=value"}
+srvctl unsetenv asm -envs "name[,...]"
+srvctl predict asm [-node node_name] [-verbose]
+
+Diskgroup related commands in RAC 12c
+srvctl start diskgroup -diskgroup dg_name [-node "node_list"]
+srvctl stop diskgroup -diskgroup dg_name [-node "node_list"] [-force]
+srvctl status diskgroup -diskgroup dg_name [-node "node_list"] [-detail] [-verbose]
+srvctl enable diskgroup -diskgroup dg_name [-node "node_list"]
+srvctl disable diskgroup -diskgroup dg_name [-node "node_list"]
+srvctl remove diskgroup -diskgroup dg_name [-force]
+srvctl predict diskgroup -diskgroup diskgroup_name [-verbose]
+
+Listener related commands in RAC 12c
+srvctl add listener [-listener lsnr_name] {[-netnum network_number] [-oraclehome path] [-user oracle_user] | -asmlistener [-subnet subnet] | -leaflistener [-subnet subnet]} [-skip] [-endpoints "[TCP:]port[, ...][/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]"] [-invitednodes node_list] [-invitedsubnets subnet_list]
+srvctl config listener [-listener lsnr_name | -asmlistener | -leaflistener] [-all]
+srvctl start listener [-listener lsnr_name] [-node node_name]
+srvctl stop listener [-listener lsnr_name] [-node node_name] [-force]
+srvctl status listener [-listener lsnr_name] [-node node_name] [-verbose]
+srvctl enable listener [-listener lsnr_name] [-node node_name]
+srvctl disable listener [-listener lsnr_name] [-node node_name]
+srvctl modify listener [-listener lsnr_name] [-oraclehome path] [-endpoints "[TCP:]port[, ...][/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]"] [-user oracle_user] [-netnum network_number]
+srvctl remove listener [-listener lsnr_name | -all] [-force]
+srvctl getenv listener [-listener lsnr_name] [-envs "name[,...]"]
+srvctl setenv listener [-listener lsnr_name] {-envs "name=val[,...]" | -env "name=value"}
+srvctl unsetenv listener [-listener lsnr_name] -envs "name[,...]"
+srvctl predict listener -listener listener_name [-verbose]
+
+SCAN related commands in RAC 12c
+srvctl add scan -scanname scan_name [-netnum network_number]
+srvctl config scan [[-netnum network_number] [-scannumber scan_ordinal_number] | -all]
+srvctl start scan [-netnum network_number] [-scannumber scan_ordinal_number] [-node node_name]
+srvctl stop scan [-netnum network_number] [-scannumber scan_ordinal_number] [-force]
+srvctl relocate scan -scannumber scan_ordinal_number [-netnum network_number] [-node node_name]
+srvctl status scan [[-netnum network_number] [-scannumber scan_ordinal_number] | -all] [-verbose]
+srvctl enable scan [-netnum network_number] [-scannumber scan_ordinal_number]
+srvctl disable scan [-netnum network_number] [-scannumber scan_ordinal_number]
+srvctl modify scan -scanname scan_name [-netnum network_number]
+srvctl remove scan [-netnum network_number] [-force] [-noprompt]
+srvctl predict scan -scannumber scan_ordinal_number [-netnum network_number] [-verbose]
+
+SCAN Listener related commands in RAC 12c
+srvctl add scan_listener [-netnum network_number] [-listener lsnr_name_prefix] [-skip] [-endpoints [TCP:]port[/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]] [-invitednodes node_list] [-invitedsubnets subnet_list]
+srvctl config scan_listener [[-netnum network_number] [-scannumber scan_ordinal_number] | -all]
+srvctl start scan_listener [-netnum network_number] [-scannumber scan_ordinal_number] [-node node_name]
+srvctl stop scan_listener [-netnum network_number] [-scannumber scan_ordinal_number] [-force]
+srvctl relocate scan_listener -scannumber scan_ordinal_number [-netnum network_number] [-node node_name]
+srvctl status scan_listener [[-netnum network_number] [-scannumber scan_ordinal_number] | -all] [-verbose]
+srvctl enable scan_listener [-netnum network_number] [-scannumber scan_ordinal_number]
+srvctl disable scan_listener [-netnum network_number] [-scannumber scan_ordinal_number]
+srvctl modify scan_listener {-update|-endpoints [TCP:]port[/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]} [-netnum network_number] [-invitednodes node_list] [-invitedsubnets subnet_list]
+srvctl update scan_listener
+srvctl remove scan_listener [-netnum network_number] [-force] [-noprompt]
+srvctl predict scan_listener -scannumber scan_ordinal_number [-netnum network_number] [-verbose]
+
+Server Pool related commands in RAC 12c
+srvctl add srvpool -serverpool pool_name [-min min] [-max max] [-importance importance] [-servers "server_list" | -category server_category] [-force] [-eval] [-verbose]
+srvctl config srvpool [-serverpool pool_name]
+srvctl status srvpool [-serverpool pool_name] [-detail]
+srvctl status server -servers "server_list" [-detail]
+srvctl relocate server -servers "server_list" -serverpool pool_name [-force] [-eval] [-verbose]
+srvctl modify srvpool -serverpool pool_name [-min min] [-max max] [-importance importance] [-servers "server_list" | -category server_category] [-force] [-eval] [-verbose]
+srvctl remove srvpool -serverpool pool_name [-eval] [-verbose]
+
+OC4J related commands in RAC 12c
+srvctl add oc4j [-verbose]
+srvctl config oc4j
+srvctl start oc4j [-node node_name] [-verbose]
+srvctl stop oc4j [-force] [-verbose]
+srvctl relocate oc4j [-node node_name] [-verbose]
+srvctl status oc4j [-node node_name] [-verbose]
+srvctl enable oc4j [-node node_name] [-verbose]
+srvctl disable oc4j [-node node_name] [-verbose]
+srvctl modify oc4j [-rmiport oc4j_rmi_port] [-httpport oc4j_http_port] [-verbose] [-force]
+srvctl remove oc4j [-force] [-verbose]
+srvctl predict oc4j [-verbose]
+
+RHP server related commands in RAC 12c
+srvctl add rhpserver -storage base_path -diskgroup dg_name
+srvctl config rhpserver
+srvctl start rhpserver [-node node_name]
+srvctl stop rhpserver
+srvctl relocate rhpserver [-node node_name]
+srvctl status rhpserver
+srvctl enable rhpserver [-node node_name]
+srvctl disable rhpserver [-node node_name]
+srvctl modify rhpserver [-port rmi_port [-force]]
+srvctl remove rhpserver [-force]
+
+HA VIP related commands in RAC 12c
+srvctl add havip -id id -address {name|ip} [-netnum network_number] [-description text] [-skip] [-homenode node_name]
+srvctl config havip [-id id]
+srvctl start havip -id id [-node node_name]
+srvctl stop havip -id id [-node node_name] [-force]
+srvctl relocate havip -id id [-node node_name] [-force]
+srvctl status havip [-id id]
+srvctl enable havip -id id [-node node_name]
+srvctl disable havip -id id [-node node_name]
+srvctl modify havip -id id [-address {name|ip} [-netnum network_number] [-skip]] [-description text] [-homenode node_name]
+srvctl remove havip -id id [-force]
+
+Export FS related commands in RAC 12c
+srvctl add exportfs -name expfs_name  -id id -path exportpath [-clients export_clients] [-options export_options]
+srvctl config exportfs [-name expfs_name | -id havip id]
+srvctl start exportfs {-name expfs_name | -id havip id }
+srvctl stop exportfs {-name expfs_name | -id havip id } [-force]
+srvctl status exportfs [-name expfs_name |-id havip id]
+srvctl enable exportfs -name expfs_name
+srvctl disable exportfs -name expfs_name
+srvctl modify exportfs -name expfs_name [-path exportpath] [-clients export_clients] [-options export_options]
+srvctl remove exportfs -name expfs_name [-force]
+
+RHP Client related commands in RAC 12c
+srvctl add rhpclient -clientdata file [-diskgroup dg_name -storage base_path]
+srvctl config rhpclient
+srvctl start rhpclient [-node node_name]
+srvctl stop rhpclient
+srvctl relocate rhpclient [-node node_name]
+srvctl status rhpclient
+srvctl enable rhpclient [-node node_name]
+srvctl disable rhpclient [-node node_name]
+srvctl modify rhpclient [-clientdata file] [-port rmi_port] [-diskgroup dg_name -storage base_path]
+srvctl remove rhpclient [-force]
+
+Oracle Home related commands in Oracle RAC 12c
+srvctl start home -oraclehome oracle_home -statefile state_file -node node_name
+srvctl stop home -oraclehome oracle_home -statefile state_file -node node_name [-stopoption stop_options] [-force]
+srvctl status home -oraclehome oracle_home -statefile state_file -node node_name
+
+File System related commands in RAC 12c
+srvctl add filesystem -device volume_device -path mountpoint_path [-volume volume_name] [-diskgroup dg_name] [-node node_list | -serverpool serverpool_list] [-user user_list] [-fstype {ACFS|EXT3|EXT4}] [-fsoptions options] [-description description] [-appid application_id] [-autostart {ALWAYS|NEVER|RESTORE}] [-auxvolumes volume_device]
+srvctl config filesystem [-device volume_device]
+srvctl start filesystem -device volume_device [-node node_name]
+srvctl stop filesystem -device volume_device [-node node_name] [-force]
+srvctl relocate filesystem -device volume_device [-node node_name] [-force] [-verbose]
+srvctl status filesystem [-device volume_device] [-verbose]
+srvctl enable filesystem -device volume_device
+srvctl disable filesystem -device volume_device
+srvctl modify filesystem -device volume_device [-user {[/+ | /-]user | user_list}] [-path mountpoint_path] [-node node_list | -serverpool serverpool_list] [-fsoptions options] [-description description] [-autostart  {ALWAYS|NEVER|RESTORE}] [-force]
+srvctl remove filesystem -device volume_device [-force]
+srvctl predict filesystem -device volume_device [-verbose]
+
+RAC 12c srvctl - Volume related commands
+srvctl config volume [-volume volume_name] [-diskgroup group_name] [-device volume_device]
+srvctl start volume {-volume volume_name -diskgroup group_name | -device volume_device} [-node node_list]
+srvctl stop volume {-volume volume_name -diskgroup group_name | -device volume_device} [-node node_list] [-force]
+srvctl status volume [-device volume_device] [-volume volume_name] [-diskgroup group_name] [-node node_list | -all]
+srvctl enable volume {-volume volume_name -diskgroup group_name | -device volume_device} [-node node_name]
+srvctl disable volume {-volume volume_name -diskgroup group_name | -device volume_device} [-node node_name]
+
+GNS related commands in RAC 12c
+srvctl start gns [-loglevel log_level] [-node node_name] [-verbose]
+srvctl stop gns [-node node_name] [-force] [-verbose]
+srvctl config gns [-detail] [-subdomain] [-multicastport] [-node node_name] [-port] [-status] [-version] [-query name] [-list] [-clusterguid] [-clustername] [-clustertype] [-loglevel] [-network] [-verbose]
+srvctl status gns [-node node_name] [-verbose]
+srvctl enable gns [-node node_name] [-verbose]
+srvctl disable gns [-node node_name] [-verbose]
+srvctl relocate gns [-node node_name] [-verbose]
+srvctl add gns {-vip {vip_name | ip} [-skip] [-domain domain] [-verbose] | -clientdata filename}
+srvctl modify gns {-loglevel log_level | [-resolve name] [-verify name] [-parameter name:value[,name:value...]] [-vip {vip_name | ip} [-skip]] [-clientdata filename] [-verbose]}
+srvctl remove gns [-force] [-verbose]
+srvctl import gns -instance filename
+srvctl export gns {-instance filename | -clientdata filename}
+srvctl update gns {-advertise name -address address [-timetolive time_to_live] | -delete name [-address address] | -alias alias -name name [-timetolive time_to_live] | -deletealias alias | -createsrv service -target target -protocol protocol [-weight weight] [-priority priority] [-port port_number] [-timetolive time_to_live] [-instance instance_name] | -deletesrv service_name -target target -protocol protocol [-instance instance_name] | -createtxt name -target target [-timetolive time_to_live] [-namettl name_ttl] | -deletetxt name -target target | -createptr name -target target [-timetolive time_to_live] [-namettl name_ttl] | -deleteptr name -target target} [-verbose]
+
+CVU related commands in RAC 12c
+srvctl add cvu [-checkinterval check_interval_in_minutes]
+srvctl config cvu
+srvctl start cvu [-node node_name]
+srvctl stop cvu [-force]
+srvctl relocate cvu [-node node_name]
+srvctl status cvu [-node node_name]
+srvctl enable cvu [-node node_name]
+srvctl disable cvu [-node node_name]
+srvctl modify cvu -checkinterval check_interval_in_minutes
+srvctl remove cvu [-force]
+
+MGMT DB related commands in Oracle RAC 12c
+srvctl add mgmtdb [-domain domain_name]
+srvctl config mgmtdb [-verbose] [-all]
+srvctl start mgmtdb [-startoption start_option] [-node node_name]
+srvctl stop mgmtdb [-stopoption stop_option] [-force]
+srvctl update mgmtdb -startoption start_options
+srvctl status mgmtdb [-verbose]
+srvctl enable mgmtdb [-node node_name]
+srvctl disable mgmtdb [-node node_name]
+srvctl modify mgmtdb [-pwfile password_file_path] [-spfile server_parameter_file]
+srvctl remove mgmtdb [-force] [-noprompt] [-verbose]
+srvctl getenv mgmtdb [-envs "name[,...]"]
+srvctl setenv mgmtdb {-envs "name=value[,...]" | -env "name=value"}
+srvctl unsetenv mgmtdb -envs "name[,..]"
+srvctl relocate mgmtdb [-node node_name]
+
+RAC 12c srvctl - MGMT Listener related commands
+srvctl add mgmtlsnr [-endpoints "[TCP:]port[, ...][/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]"] [-skip]
+srvctl config mgmtlsnr [-all]
+srvctl start mgmtlsnr [-node node_name]
+srvctl stop mgmtlsnr [-node node_name] [-force]
+srvctl status mgmtlsnr [-verbose]
+srvctl enable mgmtlsnr [-node node_name]
+srvctl disable mgmtlsnr [-node node_name]
+srvctl modify mgmtlsnr -endpoints "[TCP:]port[,...][/IPC:key][/NMP:pipe_name][/TCPS:s_port] [/SDP:port]"
+srvctl remove mgmtlsnr [-force]
+srvctl getenv mgmtlsnr [ -envs "name[,...]"]
+srvctl setenv mgmtlsnr { -envs "name=val[,...]" | -env "name=value"}
+srvctl unsetenv mgmtlsnr -envs "name[,...]"
+
+Mount FS related commands in RAC 12c
+srvctl add mountfs -name mountfs_name -path mount_path -exportserver server_name -exportpath path [-mountoptions mount_options] [-user user]
+srvctl config mountfs [-name mountfs_name]
+srvctl start mountfs -name mountfs_name [-node node_list]
+srvctl stop mountfs -name mountfs_name [-node node_list] [-force]
+srvctl status mountfs -name mountfs_name
+srvctl enable mountfs -name mountfs_name [-node node_list]
+srvctl disable mountfs -name mountfs_name [-node node_list]
+srvctl modify mountfs -name mountfs_name [-path mount_path] [-exportserver server_name] [-exportpath path] [-mountoptions mount_options] [-user user]
+srvctl remove mountfs -name mountfs_name [-force]

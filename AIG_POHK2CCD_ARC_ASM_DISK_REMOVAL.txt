@@ -1,0 +1,140 @@
+PROD:
+=====
+
+TABLESPACE_NAME                PERCENTAGE_USED SPACE_ALLOCATED SPACE_USED SPACE_FREE  DATAFILES
+------------------------------ --------------- --------------- ---------- ---------- ----------
+TS_CC_ARC_GL_RAC                           .01      1654.92969        .15    1654.78         81
+
+Login to HKLPDPS2B001
+
+. oraenv -> POHK2CCD1
+
+sqlplus sys as sysdba
+
+alter session set container=PDBP_NGO;
+
+drop tablespace TS_CC_ARC_GL_RAC including contents and datafiles;
+
+DR:
+====
+
+NAME                           File Size (MB) Used Size (MB) Pct. Used
+------------------------------ -------------- -------------- ---------
+DATA_CCD02                         10,241,200      9,621,844     93.95
+
+NAME                           PATH                                                                                                 HEADER_STATU
+------------------------------ ---------------------------------------------------------------------------------------------------- ------------
+DATA_CCD02_0029                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_023                                                   MEMBER
+DATA_CCD02_0022                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_016                                                   MEMBER
+DATA_CCD02_0026                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_020                                                   MEMBER
+DATA_CCD02_0025                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_019                                                   MEMBER
+DATA_CCD02_0018                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_012                                                   MEMBER
+DATA_CCD02_0024                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_018                                                   MEMBER
+DATA_CCD02_0035                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_029                                                   MEMBER
+DATA_CCD02_0021                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_015                                                   MEMBER
+DATA_CCD02_0031                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_025                                                   MEMBER
+DATA_CCD02_0034                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_028                                                   MEMBER
+DATA_CCD02_0032                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_026                                                   MEMBER
+DATA_CCD02_0020                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_014                                                   MEMBER
+DATA_CCD02_0019                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_013                                                   MEMBER
+DATA_CCD02_0033                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_027                                                   MEMBER
+DATA_CCD02_0030                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_024                                                   MEMBER
+DATA_CCD02_0087                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087                                                   MEMBER
+DATA_CCD02_0023                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_017                                                   MEMBER
+DATA_CCD02_094                 /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_094                                                   MEMBER
+DATA_CCD02_0028                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_022                                                   MEMBER
+DATA_CCD02_0027                /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_021                                                   MEMBER
+
+20 rows selected.
+
+We are dropping below disks
+
+DATA_CCD02_0087 -->/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087
+DATA_CCD02_094 --> /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_094
+DATA_CCD02_0027 --> /dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_021
+
+Login to HKLPDSS2B001
+
+set oraenv to ASM instance,
+
+sqlplus sys as sysasm
+
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_0087 rebalance power 100;
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_094 rebalance power 100;
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_0027 rebalance power 100;
+
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont give the confirmaton to unix/storage team.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_087%'; --> Status should be candidate or former, shoudl not be member
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_094%'; --> Status should be candidate or former, shoudl not be member
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_JVSP5500-A_flash_021%'; --> Status should be candidate or former, shoudl not be member
+
+Once ASM rebalance completed, inform the respective teams to proceed further
+
+PROD:
+
+NAME                           File Size (MB) Used Size (MB) Pct. Used
+------------------------------ -------------- -------------- ---------
+DATA_CCD02                         10,241,200      9,765,404     95.35
+
+NAME                           PATH                                                                   HEADER_STATU
+------------------------------ ---------------------------------------------------------------------- ------------
+DATA_CCD02_0029                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_029                     MEMBER
+DATA_CCD02_0026                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_026                     MEMBER
+DATA_CCD02_0028                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_028                     MEMBER
+DATA_CCD02_0027                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_027                     MEMBER
+DATA_CCD02_0023                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_023                     MEMBER
+DATA_CCD02_0024                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_024                     MEMBER
+DATA_CCD02_0025                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_025                     MEMBER
+DATA_CCD02_0022                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_022                     MEMBER
+DATA_CCD02_0020                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_020                     MEMBER
+DATA_CCD02_0021                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_021                     MEMBER
+DATA_CCD02_0019                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_019                     MEMBER
+DATA_CCD02_0016A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_016                     MEMBER
+DATA_CCD02_0017A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_017                     MEMBER
+DATA_CCD02_0015A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_015                     MEMBER
+DATA_CCD02_0018                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_018                     MEMBER
+DATA_CCD02_0014A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_014                     MEMBER
+DATA_CCD02_0012A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_012                     MEMBER
+DATA_CCD02_0013A               /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_013                     MEMBER
+DATA_CCD02_094                 /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_094                     MEMBER
+DATA_CCD02_0087                /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087                     MEMBER
+
+20 rows selected.
+
+TABLESPACE_NAME                PERCENTAGE_USED SPACE_ALLOCATED SPACE_USED SPACE_FREE  DATAFILES
+------------------------------ --------------- --------------- ---------- ---------- ----------
+TS_CC_ARC_GL_RAC                           .01      1654.92969        .15    1654.78         81
+
+We are dropping below disks
+
+DATA_CCD02_0087 -->/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087
+DATA_CCD02_094 --> /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_094
+DATA_CCD02_0013A --> /dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_013   
+
+Login to HKLPDPS2B001
+
+set oraenv to ASM instance,
+
+sqlplus sys as sysasm
+
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_0087 rebalance power 100;
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_094 rebalance power 100;
+ALTER DISKGROUP DATA_CCD02 DROP DISK DATA_CCD02_0013A rebalance power 100;
+
+Monitor rebalance opeartion. Without completing rebalance operation, dont give the confirmaton to unix/storage team.
+
+select * from v$asm_operation;
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_087%'; --> Status should be candidate or former, shoudl not be member
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_094%'; --> Status should be candidate or former, shoudl not be member
+
+select MOUNT_STATUS,HEADER_STATUS,STATE,REDUNDANCY,FAILGROUP,PATH from v$asm_disk where path like '%/dev/oracleasm/disks/asm_disk_MVSP5500-A_flash_013%'; --> Status should be candidate or former, shoudl not be member
+
+Once ASM rebalance completed, inform the respective teams to proceed further

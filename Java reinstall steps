@@ -1,0 +1,722 @@
+> srvctl status database -d DOHK1NGW
+Instance DOHK1NGW1 is running on node hklpdds2b002
+Instance DOHK1NGW2 is running on node hklpdds2b003
+Instance DOHK1NGW3 is running on node hklpdds2b004
+oracle@HKLPDDS2B002:/home/oracle [DOHK1NGW1]
+> srvctl status database -d DOHK1NGW -v
+Instance DOHK1NGW1 is running on node hklpdds2b002. Instance status: Open.
+Instance DOHK1NGW2 is running on node hklpdds2b003 with online services svc_ngw_in_cit2,svc_ngw_in_sit2. Instance status: Open.
+Instance DOHK1NGW3 is running on node hklpdds2b004 with online services svc_cda_gl_dev,svc_ngw_gl_cit1,svc_ngw_gl_cit2,svc_ngw_gl_cui,svc_ngw_gl_dev,svc_ngw_gl_drh,svc_ngw_gl_mig2,svc_ngw_gl_oat,svc_ngw_gl_pt,svc_ngw_gl_sit1,svc_ngw_gl_sit2,svc_ngw_gl_uat2,svc_ngw_in_cit1,svc_ngw_in_pt,svc_ngw_in_sit1. Instance status: Open.
+
+10.20
+> srvctl stop database -d DOHK1NGW
+
+10:23:46 SYS @ idle:>startup mount
+ORACLE instance started.
+
+Total System Global Area 3.2212E+11 bytes
+Fixed Size                 37519184 bytes
+Variable Size            6.2814E+10 bytes
+Database Buffers         2.5877E+11 bytes
+Redo Buffers              499351552 bytes
+Database mounted.
+10:24:12 SYS @ idle:>show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       MOUNTED
+         3 PDBD_NGW                       MOUNTED
+         4 PDBD_INS1_NGW                  MOUNTED
+         5 PDBD_SIT1_NGW                  MOUNTED
+         6 PDBD_PT_NGW                    MOUNTED
+         7 PDBD_DEV_CDA                   MOUNTED
+         8 PDBD_ROW_NGW                   MOUNTED
+         9 PDBD_DRH_NGW                   MOUNTED
+        10 PDBD_OAT_NGW                   MOUNTED
+        11 PDBD_CUI_NGW                   MOUNTED
+        12 PDBD_UAT2_NGW                  MOUNTED
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+        13 PDBD_SIT2_NGW                  MOUNTED
+        14 PDBD_CIT1_NGW                  MOUNTED
+        15 PDBD_CIT2_NGW                  MOUNTED
+        16 PDBD_INP_NGW                   MOUNTED
+        17 PDBD_INS2_NGW                  MOUNTED
+        18 PDBD_MIG2_NGW                  MOUNTED
+        19 PDBD_INC1_NGW                  MOUNTED
+        20 PDBD_INC2_NGW                  MOUNTED
+10:24:15 SYS @ idle:>show parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          TRUE
+10:24:25 SYS @ idle:>create pfile='/home/oracle/initdohk1ngw_bak_08JUL23.ora' from spfile;
+
+File created.
+
+10:25:04 SYS @ idle:>
+10:25:06 SYS @ idle:>alter system set java_jit_enabled=false scope=both sid='*';
+
+System altered.
+
+10:25:34 SYS @ idle:>show parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          FALSE
+
+
+
+10:31:51 SYS @ idle:>alter system set cluster_database=FALSE scope=spfile sid='*';
+
+System altered.
+
+10:31:59 SYS @ idle:>shu immediate
+ORA-01109: database not open
+
+10:32:42 SYS @ idle:>startup upgrade
+ORACLE instance started.
+
+Total System Global Area 3.2212E+11 bytes
+Fixed Size                 37519184 bytes
+Variable Size            6.2814E+10 bytes
+Database Buffers         2.5877E+11 bytes
+Redo Buffers              499351552 bytes
+Database mounted.
+Database opened.
+
+> srvctl status database -d DOHK1NGW
+Instance DOHK1NGW1 is running on node hklpdds2b002
+Instance DOHK1NGW2 is not running on node hklpdds2b003
+Instance DOHK1NGW3 is not running on node hklpdds2b004
+oracle@HKLPDDS2B002:/home/oracle [DOHK1NGW1]
+> srvctl status database -d DOHK1NGW -v
+Instance DOHK1NGW1 is running on node hklpdds2b002. Instance status: Open.
+Instance DOHK1NGW2 is not running on node hklpdds2b003
+Instance DOHK1NGW3 is not running on node hklpdds2b004
+
+10:34:18 SYS @ DOHK1NGW1:CDB$ROOT:>show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       MIGRATE    YES
+         3 PDBD_NGW                       MOUNTED
+         4 PDBD_INS1_NGW                  MOUNTED
+         5 PDBD_SIT1_NGW                  MOUNTED
+         6 PDBD_PT_NGW                    MOUNTED
+         7 PDBD_DEV_CDA                   MOUNTED
+         8 PDBD_ROW_NGW                   MOUNTED
+         9 PDBD_DRH_NGW                   MOUNTED
+        10 PDBD_OAT_NGW                   MOUNTED
+        11 PDBD_CUI_NGW                   MOUNTED
+        12 PDBD_UAT2_NGW                  MOUNTED
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+        13 PDBD_SIT2_NGW                  MOUNTED
+        14 PDBD_CIT1_NGW                  MOUNTED
+        15 PDBD_CIT2_NGW                  MOUNTED
+        16 PDBD_INP_NGW                   MOUNTED
+        17 PDBD_INS2_NGW                  MOUNTED
+        18 PDBD_MIG2_NGW                  MOUNTED
+        19 PDBD_INC1_NGW                  MOUNTED
+        20 PDBD_INC2_NGW                  MOUNTED
+10:34:22 SYS @ DOHK1NGW1:CDB$ROOT:>alter pluggable database all open upgrade;
+
+Pluggable database altered.
+
+10:35:00 SYS @ DOHK1NGW1:CDB$ROOT:>show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       MIGRATE    YES
+         3 PDBD_NGW                       MIGRATE    YES
+         4 PDBD_INS1_NGW                  MIGRATE    YES
+         5 PDBD_SIT1_NGW                  MIGRATE    YES
+         6 PDBD_PT_NGW                    MIGRATE    YES
+         7 PDBD_DEV_CDA                   MIGRATE    YES
+         8 PDBD_ROW_NGW                   MIGRATE    YES
+         9 PDBD_DRH_NGW                   MIGRATE    YES
+        10 PDBD_OAT_NGW                   MIGRATE    YES
+        11 PDBD_CUI_NGW                   MIGRATE    YES
+        12 PDBD_UAT2_NGW                  MIGRATE    YES
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+        13 PDBD_SIT2_NGW                  MIGRATE    YES
+        14 PDBD_CIT1_NGW                  MIGRATE    YES
+        15 PDBD_CIT2_NGW                  MIGRATE    YES
+        16 PDBD_INP_NGW                   MIGRATE    YES
+        17 PDBD_INS2_NGW                  MIGRATE    YES
+        18 PDBD_MIG2_NGW                  MIGRATE    YES
+        19 PDBD_INC1_NGW                  MIGRATE    YES
+        20 PDBD_INC2_NGW                  MIGRATE    YES
+10:35:04 SYS @ DOHK1NGW1:CDB$ROOT:>
+
+10:35:04 SYS @ DOHK1NGW1:CDB$ROOT:>alter session set container=PDBD_NGW;
+
+Session altered.
+
+10:35:44 SYS @ DOHK1NGW1:CDB$ROOT:>show parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          FALSE
+10:35:50 SYS @ DOHK1NGW1:CDB$ROOT:>alter session set container=PDBD_INC1_NGW
+10:36:07   2  ;
+
+Session altered.
+
+10:36:10 SYS @ DOHK1NGW1:CDB$ROOT:>show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+        19 PDBD_INC1_NGW                  MIGRATE    YES
+10:36:18 SYS @ DOHK1NGW1:CDB$ROOT:>show parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          FALSE
+
+
+10:36:58 SYS @ DOHK1NGW1:CDB$ROOT:>alter session set "_ORACLE_SCRIPT" = true;
+
+Session altered.
+
+10:37:39 SYS @ DOHK1NGW1:CDB$ROOT:>drop table java$policy$shared$table;
+
+Table dropped.
+
+10:37:55 SYS @ DOHK1NGW1:CDB$ROOT:>exec initjvmaux.drop_sros;
+
+PL/SQL procedure successfully completed.
+
+10:38:21 SYS @ DOHK1NGW1:CDB$ROOT:> create or replace java system
+10:38:30   2  /
+
+Java created.
+
+10:39:04 SYS @ DOHK1NGW1:CDB$ROOT:>@?/javavm/install/jvmsec6
+
+Call completed.
+
+
+Call completed.
+
+
+Call completed.
+
+
+Commit complete.
+
+
+10:40:18 SYS @ DOHK1NGW1:CDB$ROOT:>/
+
+COMP_ID                        COMP_NAME                                          STATUS                                       VERSION
+------------------------------ -------------------------------------------------- -------------------------------------------- ---------------
+CATALOG                        Oracle Database Catalog Views                      VALID                                        19.0.0.0.0
+CATPROC                        Oracle Database Packages and Types                 VALID                                        19.0.0.0.0
+RAC                            Oracle Real Application Clusters                   VALID                                        19.0.0.0.0
+JAVAVM                         JServer JAVA Virtual Machine                       VALID                                        19.0.0.0.0
+XML                            Oracle XDK                                         VALID                                        19.0.0.0.0
+CATJAVA                        Oracle Database Java Packages                      VALID                                        19.0.0.0.0
+APS                            OLAP Analytic Workspace                            VALID                                        19.0.0.0.0
+XDB                            Oracle XML Database                                VALID                                        19.0.0.0.0
+OWM                            Oracle Workspace Manager                           VALID                                        19.0.0.0.0
+CONTEXT                        Oracle Text                                        VALID                                        19.0.0.0.0
+ORDIM                          Oracle Multimedia                                  VALID                                        19.0.0.0.0
+
+COMP_ID                        COMP_NAME                                          STATUS                                       VERSION
+------------------------------ -------------------------------------------------- -------------------------------------------- ---------------
+SDO                            Spatial                                            VALID                                        19.0.0.0.0
+XOQ                            Oracle OLAP API                                    VALID                                        19.0.0.0.0
+OLS                            Oracle Label Security                              VALID                                        19.0.0.0.0
+DV                             Oracle Database Vault                              VALID                                        19.0.0.0.0
+
+
+
+
+
+oracle@HKLPDDS2B002:/home/oracle [DOHK1NGW1]
+> mkdir -p /tmp/mtest
+oracle@HKLPDDS2B002:/home/oracle [DOHK1NGW1]
+> cd $ORACLE_HOME/rdbms/admin
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> $ORACLE_HOME/perl/bin/perl catcon.pl -e -l /tmp/mtest -b disable_llsts -- --x"alter trigger sys.llsts_grant disable"
+catcon::set_log_file_base_path: ALL catcon-related output will be written to [/tmp/mtest/disable_llsts_catcon_184006.lst]
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_llsts*.log] files for output generated by scripts
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_llsts_*.lst] files for spool files, if any
+
+catcon.pl: completed successfully
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> $ORACLE_HOME/perl/bin/perl catcon.pl -e -l /tmp/mtest -b disable_RESTRICT_CREATE_USER -- --x"alter trigger sys.RESTRICT_CREATE_USER disable"
+catcon::set_log_file_base_path: ALL catcon-related output will be written to [/tmp/mtest/disable_RESTRICT_CREATE_USER_catcon_185897.lst]
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_RESTRICT_CREATE_USER*.log] files for output generated by scripts
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_RESTRICT_CREATE_USER_*.lst] files for spool files, if any
+
+catcon.pl: completed successfully
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> cd $ORACLE_HOME/OPatch
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/OPatch [DOHK1NGW1]
+> ./datapatch -verbose
+SQL Patching tool version 19.18.0.0.0 Production on Sat Jul  8 11:03:51 2023
+Copyright (c) 2012, 2023, Oracle.  All rights reserved.
+
+Log file for this invocation: /u01/app/oracle/product/db/19.7.0.0.Apr2020/cfgtoollogs/sqlpatch/sqlpatch_189616_2023_07_08_11_03_51/sqlpatch_invocation.log
+
+Connecting to database...OK
+Gathering database info...done
+
+Note:  Datapatch will only apply or rollback SQL fixes for PDBs
+       that are in an open state, no patches will be applied to closed PDBs.
+       Please refer to Note: Datapatch: Database 12c Post Patch SQL Automation
+       (Doc ID 1585822.1)
+
+Bootstrapping registry and package to current versions...done
+Determining current state...done
+
+Current state of interim SQL patches:
+Interim patch 29613245 (ORA-31684 ORA-39112 WITH FIX 28539085 AND VERSION=11.2):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 29-SEP-22 07.29.39.456969
+  PDB PDB$SEED: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.59.932361
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 29-SEP-22 07.31.06.477620
+  PDB PDBD_CUI_NGW: Rolled back successfully on 29-SEP-22 07.30.39.528534
+  PDB PDBD_DEV_CDA: Rolled back successfully on 29-SEP-22 07.30.19.329324
+  PDB PDBD_DRH_NGW: Rolled back successfully on 29-SEP-22 07.30.25.988387
+  PDB PDBD_INC1_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_INC2_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_INP_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_INS1_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_INS2_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 29-SEP-22 07.31.26.287898
+  PDB PDBD_NGW: Rolled back successfully on 29-SEP-22 07.29.52.452093
+  PDB PDBD_OAT_NGW: Rolled back successfully on 29-SEP-22 07.30.32.777128
+  PDB PDBD_PT_NGW: Rolled back successfully on 29-SEP-22 07.30.12.570661
+  PDB PDBD_ROW_NGW: Rolled back successfully on 29-SEP-22 07.29.45.945830
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.05.463745
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 29-SEP-22 07.30.53.339959
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 29-SEP-22 07.30.46.312342
+Interim patch 29613245 (ORA-31684 ORA-39112 WITH FIX 28539085 AND VERSION=11.2):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 16-MAR-23 10.39.40.596440
+  PDB PDB$SEED: Rolled back successfully on 16-MAR-23 10.39.45.021710
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 16-MAR-23 10.40.38.800938
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 16-MAR-23 10.40.43.353860
+  PDB PDBD_CUI_NGW: Rolled back successfully on 16-MAR-23 10.40.25.469256
+  PDB PDBD_DEV_CDA: Rolled back successfully on 16-MAR-23 10.40.07.366968
+  PDB PDBD_DRH_NGW: Rolled back successfully on 16-MAR-23 10.40.16.511121
+  PDB PDBD_INC1_NGW: Rolled back successfully on 16-MAR-23 10.41.01.126959
+  PDB PDBD_INC2_NGW: Rolled back successfully on 16-MAR-23 10.39.45.021710
+  PDB PDBD_INP_NGW: Rolled back successfully on 16-MAR-23 10.39.45.021710
+  PDB PDBD_INS1_NGW: Rolled back successfully on 16-MAR-23 10.39.45.021710
+  PDB PDBD_INS2_NGW: Rolled back successfully on 16-MAR-23 10.39.45.021710
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 16-MAR-23 10.40.56.698718
+  PDB PDBD_NGW: Rolled back successfully on 16-MAR-23 10.39.49.428833
+  PDB PDBD_OAT_NGW: Rolled back successfully on 16-MAR-23 10.40.20.994361
+  PDB PDBD_PT_NGW: Rolled back successfully on 16-MAR-23 10.40.02.892716
+  PDB PDBD_ROW_NGW: Rolled back successfully on 16-MAR-23 10.40.11.911001
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 16-MAR-23 10.39.58.372814
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 16-MAR-23 10.40.34.352430
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 16-MAR-23 10.40.29.939828
+Interim patch 29613245 (ORA-31684 ORA-39112 WITH FIX 28539085 AND VERSION=11.2):
+  Binary registry: Installed
+  PDB CDB$ROOT: Applied successfully on 16-MAR-23 10.39.44.948516
+  PDB PDB$SEED: Applied successfully on 16-MAR-23 10.39.49.361491
+  PDB PDBD_CIT1_NGW: Applied successfully on 16-MAR-23 10.40.43.282492
+  PDB PDBD_CIT2_NGW: Applied successfully on 16-MAR-23 10.40.47.710948
+  PDB PDBD_CUI_NGW: Applied successfully on 16-MAR-23 10.40.29.863806
+  PDB PDBD_DEV_CDA: Applied successfully on 16-MAR-23 10.40.11.849222
+  PDB PDBD_DRH_NGW: Applied successfully on 16-MAR-23 10.40.20.910132
+  PDB PDBD_INC1_NGW: Applied successfully on 16-MAR-23 10.41.05.527765
+  PDB PDBD_INC2_NGW: Applied successfully on 16-MAR-23 10.39.49.361491
+  PDB PDBD_INP_NGW: Applied successfully on 16-MAR-23 10.39.49.361491
+  PDB PDBD_INS1_NGW: Applied successfully on 16-MAR-23 10.39.49.361491
+  PDB PDBD_INS2_NGW: Applied successfully on 16-MAR-23 10.39.49.361491
+  PDB PDBD_MIG2_NGW: Applied successfully on 16-MAR-23 10.41.01.054885
+  PDB PDBD_NGW: Applied successfully on 16-MAR-23 10.39.53.874932
+  PDB PDBD_OAT_NGW: Applied successfully on 16-MAR-23 10.40.25.428697
+  PDB PDBD_PT_NGW: Applied successfully on 16-MAR-23 10.40.07.283027
+  PDB PDBD_ROW_NGW: Applied successfully on 16-MAR-23 10.40.16.441334
+  PDB PDBD_SIT1_NGW: Applied successfully on 16-MAR-23 10.40.02.842659
+  PDB PDBD_SIT2_NGW: Applied successfully on 16-MAR-23 10.40.38.724241
+  PDB PDBD_UAT2_NGW: Applied successfully on 16-MAR-23 10.40.34.298711
+Interim patch 29774421 (OJVM RELEASE UPDATE: 19.4.0.0.190716 (29774421)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Not installed
+  PDB PDB$SEED: Not installed
+  PDB PDBD_CIT1_NGW: Not installed
+  PDB PDBD_CIT2_NGW: Not installed
+  PDB PDBD_CUI_NGW: Not installed
+  PDB PDBD_DEV_CDA: Not installed
+  PDB PDBD_DRH_NGW: Not installed
+  PDB PDBD_INC1_NGW: Not installed
+  PDB PDBD_INC2_NGW: Not installed
+  PDB PDBD_INP_NGW: Not installed
+  PDB PDBD_INS1_NGW: Not installed
+  PDB PDBD_INS2_NGW: Not installed
+  PDB PDBD_MIG2_NGW: Not installed
+  PDB PDBD_NGW: Not installed
+  PDB PDBD_OAT_NGW: Not installed
+  PDB PDBD_PT_NGW: Not installed
+  PDB PDBD_ROW_NGW: Not installed
+  PDB PDBD_SIT1_NGW: Not installed
+  PDB PDBD_SIT2_NGW: Not installed
+  PDB PDBD_UAT2_NGW: Not installed
+Interim patch 30484981 (OJVM RELEASE UPDATE: 19.6.0.0.200114 (30484981)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Not installed
+  PDB PDB$SEED: Not installed
+  PDB PDBD_CIT1_NGW: Not installed
+  PDB PDBD_CIT2_NGW: Not installed
+  PDB PDBD_CUI_NGW: Not installed
+  PDB PDBD_DEV_CDA: Not installed
+  PDB PDBD_DRH_NGW: Not installed
+  PDB PDBD_INC1_NGW: Not installed
+  PDB PDBD_INC2_NGW: Not installed
+  PDB PDBD_INP_NGW: Not installed
+  PDB PDBD_INS1_NGW: Not installed
+  PDB PDBD_INS2_NGW: Not installed
+  PDB PDBD_MIG2_NGW: Not installed
+  PDB PDBD_NGW: Not installed
+  PDB PDBD_OAT_NGW: Not installed
+  PDB PDBD_PT_NGW: Not installed
+  PDB PDBD_ROW_NGW: Not installed
+  PDB PDBD_SIT1_NGW: Not installed
+  PDB PDBD_SIT2_NGW: Not installed
+  PDB PDBD_UAT2_NGW: Not installed
+Interim patch 30805684 (OJVM RELEASE UPDATE: 19.7.0.0.200414 (30805684)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 07-AUG-21 01.31.09.559211
+  PDB PDB$SEED: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_CUI_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_DEV_CDA: Rolled back successfully on 07-AUG-21 01.31.10.498811
+  PDB PDBD_DRH_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_INC1_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_INC2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_INP_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_INS1_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_INS2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_NGW: Rolled back successfully on 07-AUG-21 01.31.09.816140
+  PDB PDBD_OAT_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_PT_NGW: Rolled back successfully on 07-AUG-21 01.31.10.344044
+  PDB PDBD_ROW_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 07-AUG-21 01.31.10.177827
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 07-AUG-21 01.31.09.648210
+Interim patch 32399816 (OJVM RELEASE UPDATE: 19.11.0.0.210420 (32399816)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 27-NOV-21 06.19.29.025360
+  PDB PDB$SEED: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 27-NOV-21 06.20.13.511293
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 27-NOV-21 06.20.16.817546
+  PDB PDBD_CUI_NGW: Rolled back successfully on 27-NOV-21 06.20.03.531420
+  PDB PDBD_DEV_CDA: Rolled back successfully on 27-NOV-21 06.19.36.261850
+  PDB PDBD_DRH_NGW: Rolled back successfully on 27-NOV-21 06.19.56.866947
+  PDB PDBD_INC1_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_INC2_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_INP_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_INS1_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_INS2_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_NGW: Rolled back successfully on 27-NOV-21 06.19.43.475300
+  PDB PDBD_OAT_NGW: Rolled back successfully on 27-NOV-21 06.20.00.183848
+  PDB PDBD_PT_NGW: Rolled back successfully on 27-NOV-21 06.19.53.539992
+  PDB PDBD_ROW_NGW: Rolled back successfully on 27-NOV-21 06.19.32.607370
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 27-NOV-21 06.19.50.218654
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 27-NOV-21 06.20.10.203572
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 27-NOV-21 06.20.06.876286
+Interim patch 32924796 (FILTER ON AUTO_CAPTURE_PARSING_SCHEMA_NAME NOT WORKING AS EXPECTED):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 01-APR-22 17.32.19.604270
+  PDB PDB$SEED: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 01-APR-22 17.32.53.093438
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 01-APR-22 17.32.55.969735
+  PDB PDBD_CUI_NGW: Rolled back successfully on 01-APR-22 17.32.44.755409
+  PDB PDBD_DEV_CDA: Rolled back successfully on 01-APR-22 17.32.36.468331
+  PDB PDBD_DRH_NGW: Rolled back successfully on 01-APR-22 17.32.39.245136
+  PDB PDBD_INC1_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_INC2_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_INP_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_INS1_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_INS2_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 01-APR-22 17.33.04.395573
+  PDB PDBD_NGW: Rolled back successfully on 01-APR-22 17.32.25.248199
+  PDB PDBD_OAT_NGW: Rolled back successfully on 01-APR-22 17.32.42.044148
+  PDB PDBD_PT_NGW: Rolled back successfully on 01-APR-22 17.32.33.603422
+  PDB PDBD_ROW_NGW: Rolled back successfully on 01-APR-22 17.32.22.464280
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 01-APR-22 17.32.30.805855
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 01-APR-22 17.32.50.354983
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 01-APR-22 17.32.47.491928
+Interim patch 32924796 (FILTER ON AUTO_CAPTURE_PARSING_SCHEMA_NAME NOT WORKING AS EXPECTED):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 29-SEP-22 07.29.39.476130
+  PDB PDB$SEED: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.59.951362
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 29-SEP-22 07.31.06.496545
+  PDB PDBD_CUI_NGW: Rolled back successfully on 29-SEP-22 07.30.39.548491
+  PDB PDBD_DEV_CDA: Rolled back successfully on 29-SEP-22 07.30.19.348273
+  PDB PDBD_DRH_NGW: Rolled back successfully on 29-SEP-22 07.30.26.008484
+  PDB PDBD_INC1_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_INC2_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_INP_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_INS1_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_INS2_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 29-SEP-22 07.31.26.312714
+  PDB PDBD_NGW: Rolled back successfully on 29-SEP-22 07.29.52.471368
+  PDB PDBD_OAT_NGW: Rolled back successfully on 29-SEP-22 07.30.32.796624
+  PDB PDBD_PT_NGW: Rolled back successfully on 29-SEP-22 07.30.12.590731
+  PDB PDBD_ROW_NGW: Rolled back successfully on 29-SEP-22 07.29.45.965064
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.05.482914
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 29-SEP-22 07.30.53.359381
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 29-SEP-22 07.30.46.332240
+Interim patch 33192694 (OJVM RELEASE UPDATE: 19.13.0.0.211019 (33192694)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 01-APR-22 17.32.19.584267
+  PDB PDB$SEED: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 01-APR-22 17.32.53.070361
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 01-APR-22 17.32.55.943952
+  PDB PDBD_CUI_NGW: Rolled back successfully on 12-APR-22 15.14.22.909495
+  PDB PDBD_DEV_CDA: Rolled back successfully on 01-APR-22 17.32.36.446159
+  PDB PDBD_DRH_NGW: Rolled back successfully on 01-APR-22 17.32.39.220894
+  PDB PDBD_INC1_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_INC2_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_INP_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_INS1_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_INS2_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 01-APR-22 17.33.04.372953
+  PDB PDBD_NGW: Rolled back successfully on 01-APR-22 17.32.25.219172
+  PDB PDBD_OAT_NGW: Rolled back successfully on 01-APR-22 17.32.42.019958
+  PDB PDBD_PT_NGW: Rolled back successfully on 01-APR-22 17.32.33.580853
+  PDB PDBD_ROW_NGW: Rolled back successfully on 01-APR-22 17.32.22.441708
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 01-APR-22 17.32.30.782771
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 01-APR-22 17.32.50.330342
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 01-APR-22 17.32.47.468709
+Interim patch 33561310 (OJVM RELEASE UPDATE: 19.14.0.0.220118 (33561310)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 29-SEP-22 07.29.38.006780
+  PDB PDB$SEED: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.58.471957
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 29-SEP-22 07.31.05.031696
+  PDB PDBD_CUI_NGW: Rolled back successfully on 29-SEP-22 07.30.38.044507
+  PDB PDBD_DEV_CDA: Rolled back successfully on 29-SEP-22 07.30.17.802481
+  PDB PDBD_DRH_NGW: Rolled back successfully on 29-SEP-22 07.30.24.505839
+  PDB PDBD_INC1_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_INC2_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_INP_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_INS1_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_INS2_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 29-SEP-22 07.31.24.825429
+  PDB PDBD_NGW: Rolled back successfully on 29-SEP-22 07.29.50.989039
+  PDB PDBD_OAT_NGW: Rolled back successfully on 29-SEP-22 07.30.31.302953
+  PDB PDBD_PT_NGW: Rolled back successfully on 29-SEP-22 07.30.10.757817
+  PDB PDBD_ROW_NGW: Rolled back successfully on 29-SEP-22 07.29.44.498621
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 29-SEP-22 07.30.04.009177
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 29-SEP-22 07.30.51.598841
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 29-SEP-22 07.30.44.802474
+Interim patch 34086870 (OJVM RELEASE UPDATE: 19.16.0.0.220719 (34086870)):
+  Binary registry: Not installed
+  PDB CDB$ROOT: Rolled back successfully on 16-MAR-23 10.39.40.593961
+  PDB PDB$SEED: Rolled back successfully on 16-MAR-23 10.39.45.017173
+  PDB PDBD_CIT1_NGW: Rolled back successfully on 16-MAR-23 10.40.38.795857
+  PDB PDBD_CIT2_NGW: Rolled back successfully on 16-MAR-23 10.40.43.348221
+  PDB PDBD_CUI_NGW: Rolled back successfully on 16-MAR-23 10.40.25.463980
+  PDB PDBD_DEV_CDA: Rolled back successfully on 16-MAR-23 10.40.07.361917
+  PDB PDBD_DRH_NGW: Rolled back successfully on 16-MAR-23 10.40.16.505826
+  PDB PDBD_INC1_NGW: Rolled back successfully on 16-MAR-23 10.41.01.122504
+  PDB PDBD_INC2_NGW: Rolled back successfully on 16-MAR-23 10.39.45.017173
+  PDB PDBD_INP_NGW: Rolled back successfully on 16-MAR-23 10.39.45.017173
+  PDB PDBD_INS1_NGW: Rolled back successfully on 16-MAR-23 10.39.45.017173
+  PDB PDBD_INS2_NGW: Rolled back successfully on 16-MAR-23 10.39.45.017173
+  PDB PDBD_MIG2_NGW: Rolled back successfully on 16-MAR-23 10.40.56.694100
+  PDB PDBD_NGW: Rolled back successfully on 16-MAR-23 10.39.49.424232
+  PDB PDBD_OAT_NGW: Rolled back successfully on 16-MAR-23 10.40.20.987242
+  PDB PDBD_PT_NGW: Rolled back successfully on 16-MAR-23 10.40.02.888276
+  PDB PDBD_ROW_NGW: Rolled back successfully on 16-MAR-23 10.40.11.906135
+  PDB PDBD_SIT1_NGW: Rolled back successfully on 16-MAR-23 10.39.58.367779
+  PDB PDBD_SIT2_NGW: Rolled back successfully on 16-MAR-23 10.40.34.347185
+  PDB PDBD_UAT2_NGW: Rolled back successfully on 16-MAR-23 10.40.29.934735
+Interim patch 34786990 (OJVM RELEASE UPDATE: 19.18.0.0.230117 (34786990)):
+  Binary registry: Installed
+  PDB CDB$ROOT: Applied successfully on 16-MAR-23 10.39.43.632408
+  PDB PDB$SEED: Applied successfully on 16-MAR-23 10.39.48.029663
+  PDB PDBD_CIT1_NGW: Applied successfully on 16-MAR-23 10.40.41.962506
+  PDB PDBD_CIT2_NGW: Applied successfully on 16-MAR-23 10.40.46.385169
+  PDB PDBD_CUI_NGW: Applied successfully on 16-MAR-23 10.40.28.489130
+  PDB PDBD_DEV_CDA: Applied successfully on 16-MAR-23 10.40.10.440219
+  PDB PDBD_DRH_NGW: Applied successfully on 16-MAR-23 10.40.19.592485
+  PDB PDBD_INC1_NGW: Applied successfully on 16-MAR-23 10.41.04.195381
+  PDB PDBD_INC2_NGW: Applied successfully on 16-MAR-23 10.39.48.029663
+  PDB PDBD_INP_NGW: Applied successfully on 16-MAR-23 10.39.48.029663
+  PDB PDBD_INS1_NGW: Applied successfully on 16-MAR-23 10.39.48.029663
+  PDB PDBD_INS2_NGW: Applied successfully on 16-MAR-23 10.39.48.029663
+  PDB PDBD_MIG2_NGW: Applied successfully on 16-MAR-23 10.40.59.725205
+  PDB PDBD_NGW: Applied successfully on 16-MAR-23 10.39.52.536443
+  PDB PDBD_OAT_NGW: Applied successfully on 16-MAR-23 10.40.24.081886
+  PDB PDBD_PT_NGW: Applied successfully on 16-MAR-23 10.40.05.935761
+  PDB PDBD_ROW_NGW: Applied successfully on 16-MAR-23 10.40.15.092210
+  PDB PDBD_SIT1_NGW: Applied successfully on 16-MAR-23 10.40.01.481792
+  PDB PDBD_SIT2_NGW: Applied successfully on 16-MAR-23 10.40.37.402072
+  PDB PDBD_UAT2_NGW: Applied successfully on 16-MAR-23 10.40.32.972996
+Interim patch 35058067 (MERGE ON DATABASE RU 19.18.0.0.0 OF 32485961 33745199 34219756 34878842):
+  Binary registry: Installed
+  PDB CDB$ROOT: Applied successfully on 23-MAR-23 21.51.39.000250
+  PDB PDB$SEED: Applied successfully on 23-MAR-23 21.51.39.029811
+  PDB PDBD_CIT1_NGW: Applied successfully on 23-MAR-23 21.51.39.437377
+  PDB PDBD_CIT2_NGW: Applied successfully on 23-MAR-23 21.51.39.466326
+  PDB PDBD_CUI_NGW: Applied successfully on 23-MAR-23 21.51.39.322772
+  PDB PDBD_DEV_CDA: Applied successfully on 23-MAR-23 21.51.39.201991
+  PDB PDBD_DRH_NGW: Applied successfully on 23-MAR-23 21.51.39.253592
+  PDB PDBD_INC1_NGW: Applied successfully on 23-MAR-23 21.51.39.590262
+  PDB PDBD_INC2_NGW: Applied successfully on 23-MAR-23 21.51.39.029811
+  PDB PDBD_INP_NGW: Applied successfully on 23-MAR-23 21.51.39.029811
+  PDB PDBD_INS1_NGW: Applied successfully on 23-MAR-23 21.51.39.029811
+  PDB PDBD_INS2_NGW: Applied successfully on 23-MAR-23 21.51.39.029811
+  PDB PDBD_MIG2_NGW: Applied successfully on 23-MAR-23 21.51.39.565557
+  PDB PDBD_NGW: Applied successfully on 23-MAR-23 21.51.39.055347
+  PDB PDBD_OAT_NGW: Applied successfully on 23-MAR-23 21.51.39.294340
+  PDB PDBD_PT_NGW: Applied successfully on 23-MAR-23 21.51.39.172152
+  PDB PDBD_ROW_NGW: Applied successfully on 23-MAR-23 21.51.39.227260
+  PDB PDBD_SIT1_NGW: Applied successfully on 23-MAR-23 21.51.39.105797
+  PDB PDBD_SIT2_NGW: Applied successfully on 23-MAR-23 21.51.39.379684
+  PDB PDBD_UAT2_NGW: Applied successfully on 23-MAR-23 21.51.39.350530
+
+Current state of release update SQL patches:
+  Binary registry:
+    19.18.0.0.0 Release_Update 230127005551: Installed
+  PDB CDB$ROOT:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.43.627505
+  PDB PDB$SEED:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.48.025009
+  PDB PDBD_CIT1_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.41.958366
+  PDB PDBD_CIT2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.46.381153
+  PDB PDBD_CUI_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.28.484863
+  PDB PDBD_DEV_CDA:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.10.435732
+  PDB PDBD_DRH_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.19.588296
+  PDB PDBD_INC1_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.41.04.191498
+  PDB PDBD_INC2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.48.025009
+  PDB PDBD_INP_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.48.025009
+  PDB PDBD_INS1_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.48.025009
+  PDB PDBD_INS2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.48.025009
+  PDB PDBD_MIG2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.59.721113
+  PDB PDBD_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.39.52.532331
+  PDB PDBD_OAT_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.24.077749
+  PDB PDBD_PT_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.05.931717
+  PDB PDBD_ROW_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.15.087947
+  PDB PDBD_SIT1_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.01.477558
+  PDB PDBD_SIT2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.37.397900
+  PDB PDBD_UAT2_NGW:
+    Applied 19.18.0.0.0 Release_Update 230127005551 successfully on 16-MAR-23 10.40.32.968672
+
+Adding patches to installation queue and performing prereq checks...done
+Installation queue:
+  For the following PDBs: CDB$ROOT PDB$SEED PDBD_NGW PDBD_INS1_NGW PDBD_SIT1_NGW PDBD_PT_NGW PDBD_DEV_CDA PDBD_ROW_NGW PDBD_DRH_NGW PDBD_OAT_NGW PDBD_CUI_NGW PDBD_UAT2_NGW PDBD_SIT2_NGW PDBD_CIT1_NGW PDBD_CIT2_NGW PDBD_INP_NGW PDBD_INS2_NGW PDBD_MIG2_NGW PDBD_INC1_NGW PDBD_INC2_NGW
+    No interim patches need to be rolled back
+    No release update patches need to be installed
+    No interim patches need to be applied
+
+SQL Patching tool complete on Sat Jul  8 11:04:48 2023
+
+
+> $ORACLE_HOME/perl/bin/perl catcon.pl -e -l /tmp/mtest -b disable_llsts -- --x"alter trigger sys.llsts_grant enable"
+catcon::set_log_file_base_path: ALL catcon-related output will be written to [/tmp/mtest/disable_llsts_catcon_266532.lst]
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_llsts*.log] files for output generated by scripts
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_llsts_*.lst] files for spool files, if any
+
+catcon.pl: completed successfully
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> $ORACLE_HOME/perl/bin/perl catcon.pl -e -l /tmp/mtest -b disable_RESTRICT_CREATE_USER -- --x"alter trigger sys.RESTRICT_CREATE_USER enable"
+catcon::set_log_file_base_path: ALL catcon-related output will be written to [/tmp/mtest/disable_RESTRICT_CREATE_USER_catcon_268534.lst]
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_RESTRICT_CREATE_USER*.log] files for output generated by scripts
+
+catcon::set_log_file_base_path: catcon: See [/tmp/mtest/disable_RESTRICT_CREATE_USER_*.lst] files for spool files, if any
+
+catcon.pl: completed successfully
+s13:19:35 SYS @ DOHK1NGW1:CDB$ROOT:>how parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          FALSE
+13:19:41 SYS @ DOHK1NGW1:CDB$ROOT:>alter system set java_jit_enabled=TRUE scope=both sid='*';
+
+System altered.
+
+13:19:59 SYS @ DOHK1NGW1:CDB$ROOT:>show parameter cluster
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+cdb_cluster                          boolean                          FALSE
+cdb_cluster_name                     string
+cluster_database                     boolean                          FALSE
+cluster_database_instances           integer                          1
+cluster_interconnects                string
+13:20:10 SYS @ DOHK1NGW1:CDB$ROOT:>alter system set cluster_database=TRUE scope=spfile sid='*';
+
+System altered.
+
+13:21:10 SYS @ DOHK1NGW1:CDB$ROOT:>show parameter java_jit_enabled
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+java_jit_enabled                     boolean                          TRUE
+13:21:20 SYS @ DOHK1NGW1:CDB$ROOT:>
+
+> srvctl status database -d DOHK1NGW
+Instance DOHK1NGW1 is not running on node hklpdds2b002
+Instance DOHK1NGW2 is not running on node hklpdds2b003
+Instance DOHK1NGW3 is not running on node hklpdds2b004
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> srvctl start database -d DOHK1NGW
+oracle@HKLPDDS2B002:/u01/app/oracle/product/db/19.7.0.0.Apr2020/rdbms/admin [DOHK1NGW1]
+> srvctl status database -d DOHK1NGW -v
+Instance DOHK1NGW1 is running on node hklpdds2b002. Instance status: Open.
+Instance DOHK1NGW2 is running on node hklpdds2b003. Instance status: Open.
+Instance DOHK1NGW3 is running on node hklpdds2b004 with online services svc_cda_gl_dev,svc_ngw_gl_cit1,svc_ngw_gl_cit2,svc_ngw_gl_cui,svc_ngw_gl_dev,svc_ngw_gl_drh,svc_ngw_gl_mig2,svc_ngw_gl_oat,svc_ngw_gl_pt,svc_ngw_gl_sit1,svc_ngw_gl_sit2,svc_ngw_gl_uat2,svc_ngw_in_cit1,svc_ngw_in_cit2,svc_ngw_in_pt,svc_ngw_in_sit1,svc_ngw_in_sit2. Instance status: Open.
+> srvctl status service -d DOHK1NGW
+Service oltp_rw_srvc is not running.
+Service svc_cda_gl_dev is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_cit1 is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_cit2 is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_cui is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_dev is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_drh is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_mig2 is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_oat is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_pt is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_sit1 is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_sit2 is running on instance(s) DOHK1NGW3
+Service svc_ngw_gl_uat2 is running on instance(s) DOHK1NGW3
+Service svc_ngw_in_cit1 is running on instance(s) DOHK1NGW3
+Service svc_ngw_in_cit2 is running on instance(s) DOHK1NGW3
+Service svc_ngw_in_pt is running on instance(s) DOHK1NGW3
+Service svc_ngw_in_sit1 is running on instance(s) DOHK1NGW3
+Service svc_ngw_in_sit2 is running on instance(s) DOHK1NGW3

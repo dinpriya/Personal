@@ -1,0 +1,149 @@
+
+
+08:11:34 SYS @ POHK1CCD1:CDB$ROOT:>SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='&SQL_ID');
+Enter value for sql_id: c49gjyq0zjtj1
+
+SQL_HANDLE                     PLAN_NAME
+------------------------------ --------------------------------------------------------------------------------------------------------------------------------
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs031e7c8c
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs0af1962c
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs85df5fd9
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs9deb4ad6
+
+08:11:49 SYS @ POHK1CCD1:CDB$ROOT:>spool drop_baseline.log
+08:12:16 SYS @ POHK1CCD1:CDB$ROOT:>select ADDRESS, HASH_VALUE from V$SQLAREA where SQL_ID like 'c49gjyq0zjtj1';
+
+ADDRESS          HASH_VALUE
+---------------- ----------
+000000074BFB92F8 2180572705
+
+08:12:45 SYS @ POHK1CCD1:CDB$ROOT:>SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='&SQL_ID');
+Enter value for sql_id: c49gjyq0zjtj1
+
+SQL_HANDLE                     PLAN_NAME
+------------------------------ --------------------------------------------------------------------------------------------------------------------------------
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs031e7c8c
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs0af1962c
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs85df5fd9
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs9deb4ad6
+
+08:12:52 SYS @ POHK1CCD1:CDB$ROOT:>declare
+drop_result pls_integer;
+begin
+drop_result:=dbms_spm.drop_sql_plan_baseline(
+sql_handle => 'SQL_4b44f071c33815f8');
+end;
+/
+08:14:23   2  08:14:23   3  08:14:23   4  08:14:23   5  08:14:23   6  08:14:23   7
+PL/SQL procedure successfully completed.
+
+08:14:23 SYS @ POHK1CCD1:CDB$ROOT:>SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='&SQL_ID');
+Enter value for sql_id: c49gjyq0zjtj1
+
+no rows selected
+
+08:14:34 SYS @ POHK1CCD1:CDB$ROOT:>exec dbms_sqltune.create_sqlset(sqlset_name => 'c49gjyq0zjtj1_set', description => 'Orig Plan with better performance new hash value 3827247053 ');
+
+PL/SQL procedure successfully completed.
+
+08:15:16 SYS @ POHK1CCD1:CDB$ROOT:>set serveroutput on
+08:15:51 SYS @ POHK1CCD1:CDB$ROOT:>declare
+08:15:52   2  v_int pls_integer;
+begin
+v_int := dbms_spm.load_plans_from_sqlset (
+sqlset_name => 'c49gjyq0zjtj1_set',
+sqlset_owner => 'SYS',
+basic_filter => 'sql_id=''c49gjyq0zjtj1'' and plan_hash_value=''3827247053''', fixed => 'YES', enabled => 'YES');
+DBMS_OUTPUT.PUT_LINE(v_int);
+end;
+08:15:52   3  08:15:52   4  08:15:52   5  08:15:52   6  08:15:52   7  08:15:52   8  08:15:52   9  08:15:52  10
+08:15:53  11  /
+0
+
+PL/SQL procedure successfully completed.
+
+08:15:55 SYS @ POHK1CCD1:CDB$ROOT:>SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='&SQL_ID');
+Enter value for sql_id:
+
+no rows selected
+
+08:16:08 SYS @ POHK1CCD1:CDB$ROOT:>/
+Enter value for sql_id: c49gjyq0zjtj1
+
+SQL_HANDLE                     PLAN_NAME
+------------------------------ --------------------------------------------------------------------------------------------------------------------------------
+SQL_4b44f071c33815f8           SQL_PLAN_4qj7hf71mh5gs9deb4ad6
+
+18:01:43 SYS @ POHK1CCD3:CDB$ROOT:>set serveroutput on
+18:02:34 SYS @ POHK1CCD3:CDB$ROOT:>declare
+18:02:34   2    v_sql_plan_id  pls_integer;
+begin
+  v_sql_plan_id := dbms_spm.alter_sql_plan_baseline(
+    sql_handle      => 'SQL_4b44f071c33815f8',
+    plan_name       => 'SQL_PLAN_4qj7hf71mh5gs9deb4ad6',
+    attribute_name  => 'fixed',
+    attribute_value => 'YES');
+end;
+/
+18:02:34   3  18:02:34   4  18:02:34   5  18:02:34   6  18:02:34   7  18:02:34   8  18:02:34   9  18:02:34  10
+PL/SQL procedure successfully completed.
+
+18:02:34 SYS @ POHK1CCD3:CDB$ROOT:>
+18:02:36 SYS @ POHK1CCD3:CDB$ROOT:> select plan_name,enabled,accepted,fixed,executions from dba_sql_plan_baselines where plan_name='SQL_PLAN_4qj7hf71mh5gs9deb4ad6';
+
+PLAN_NAME                                                                                                                        ENA ACC FIX EXECUTIONS
+-------------------------------------------------------------------------------------------------------------------------------- --- --- --- ----------
+SQL_PLAN_4qj7hf71mh5gs9deb4ad6                                                                                                   YES YES YES          0
+
+
+08:16:13 SYS @ POHK1CCD1:CDB$ROOT:>select * from table(dbms_xplan.display_sql_plan_baseline('SQL_4b44f071c33815f8',format => 'all'));
+
+PLAN_TABLE_OUTPUT
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+SQL handle: SQL_4b44f071c33815f8
+SQL text: SELECT RITSEQNO FROM CCS_RUN_ENHREP_INSTRUCTIONS WHERE RITSEQNO =
+          :RITSEQNO AND RITGENSTATUS = :RITGENSTATUS FOR UPDATE OF RITGENSTATUS
+          NOWAIT
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Plan name: SQL_PLAN_4qj7hf71mh5gs9deb4ad6         Plan id: 2649443030
+Enabled: YES     Fixed: NO      Accepted: YES     Origin: AUTO-CAPTURE
+Plan rows: From dictionary
+--------------------------------------------------------------------------------
+
+Plan hash value: 3827247053
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                    | Name                           | Rows  | Bytes | Cost (%CPU)| Time     | Pstart| Pstop |
+-----------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                             |                                |     1 |    12 |     4   (0)| 00:00:01 |       |       |
+|   1 |  FOR UPDATE                                  |                                |       |       |            |          |       |       |
+|   2 |   BUFFER SORT                                |                                |       |       |            |          |       |       |
+|*  3 |    TABLE ACCESS BY GLOBAL INDEX ROWID BATCHED| CCS_RUN_ENHREP_INSTRUCTIONS    |     1 |    12 |     4   (0)| 00:00:01 |ROW LOC| ROWID |
+|*  4 |     INDEX RANGE SCAN                         | CCS_RUN_ENHREP_INSTRUCTIONS_PK |     1 |       |     3   (0)| 00:00:01 |       |       |
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Query Block Name / Object Alias (identified by operation id):
+-------------------------------------------------------------
+
+   1 - SEL$1
+   3 - SEL$1 / CCS_RUN_ENHREP_INSTRUCTIONS@SEL$1
+   4 - SEL$1 / CCS_RUN_ENHREP_INSTRUCTIONS@SEL$1
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   3 - filter("RITGENSTATUS"=:RITGENSTATUS)
+   4 - access("RITSEQNO"=TO_NUMBER(:RITSEQNO))
+
+Column Projection Information (identified by operation id):
+-----------------------------------------------------------
+
+   2 - (#keys=0) "CCS_RUN_ENHREP_INSTRUCTIONS".ROWID[ROWID,10], "RITSEQNO"[NUMBER,22], "RITGENSTATUS"[VARCHAR2,4], SYSDEF[8]
+   3 - "CCS_RUN_ENHREP_INSTRUCTIONS".ROWID[ROWID,10], "RITSEQNO"[NUMBER,22], "RITGENSTATUS"[VARCHAR2,4], SYSDEF[8]
+   4 - "CCS_RUN_ENHREP_INSTRUCTIONS".ROWID[ROWID,10], "RITSEQNO"[NUMBER,22]
+
+45 rows selected.

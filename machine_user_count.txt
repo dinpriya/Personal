@@ -1,0 +1,2 @@
+select username, osuser, machine, program, count(1) from gv$session where username in ('S2BV4IM_USER','S2BV4CDS_USER') group by  username, osuser, machine, program order by 1,2,3
+/

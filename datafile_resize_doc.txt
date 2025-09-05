@@ -1,0 +1,193 @@
+1.	SG DBA Team -- Check PROD and DR database are in sync up for Data Guard status
+
+$ dgmgrl / as sysdba
+DGMGRL> show configuration
+DGMGRL> show database POHK1ICM
+DGMGRL> show database POHK1ICM_DG
+
+2.	BUR Team -- Get latest valid RMAN database full & incremental backup information from Backup team for precaution
+
+	--> Need Backup team (bur.hongkong <bur.hongkong@atos.net> ) to provide the latest valid RMAN database backup list (full and/or incremental) for this database :
+	
+	DATABASE SERVER : HKLVDPAPP074
+	CDB : POHK1ICM
+
+3.	SG DBA Team -- Get the current data file details belong to tablespace ICM_PK_AP_TS such as :
+-	Data file name
+-	Current size
+-	Maximum size
+-	Auto-extend or not
+-	Data file status
+
+SQL> select TABLESPACE_NAME,FILE_NAME,BYTES/1024/1024 "SIZE_IN_MB",MAXBYTES/1024/1024 "MAX_SIZE_IN_MB",AUTOEXTENSIBLE,STATUS from dba_data_files where tablespace_name='ICM_PK_AP_TS';
+
+4.	SG DBA Team -- Get the current /oradata filesystem space usage vs free space percentage
+
+$ df -h /ora*
+
+5.	SG DBA Team -- Get the current tablespace ICM_PK_AP_TS total allocation size, available size and usage percentage
+
+$ cd /home/oracle
+$ sqlplus / as sysdba
+SQL> @chk_tbs.sql
+
+6.	SG DBA Team -- Get the output of possible space saving of each data files belong to tablespace ICM_PK_AP_TS
+
+set verify off
+column file_name format a50 word_wrapped
+column smallest format 999,990 heading "Smallest|Size|Poss."
+column currsize format 999,990 heading "Current|Size"
+column savings  format 999,990 heading "Poss.|Savings"
+break on report
+compute sum of savings on report
+column value new_val blksize
+select value from v$parameter where name = 'db_block_size';
+/
+select file_name,
+       ceil( (nvl(hwm,1)*&&blksize)/1024/1024 ) smallest,
+       ceil( blocks*&&blksize/1024/1024) currsize,
+       ceil( blocks*&&blksize/1024/1024) -
+       ceil( (nvl(hwm,1)*&&blksize)/1024/1024 ) savings
+from dba_data_files a,
+     ( select file_id, max(block_id+blocks-1) hwm
+         from dba_extents
+        group by file_id ) b
+where a.file_id = b.file_id(+) order by savings desc
+/
+
+
+OUTPUT AS OF 4 JANUARY 2023
+===========================
+                                                   Smallest
+                                                       Size  Current    Poss.
+FILE_NAME                                             Poss.     Size  Savings
+-------------------------------------------------- -------- -------- --------
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858    4,098   30,720   26,622
+/datafile/o1_mf_icm_pk_a_kf2lx1sj_04.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858    4,226   30,720   26,494
+/datafile/o1_mf_icm_pk_a_kf2lx1sj_03.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   16,138   30,720   14,582
+/datafile/o1_mf_icm_pk_a_kf2lx1sj_02.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   16,457   30,720   14,263
+/datafile/o1_mf_icm_pk_a_kf2lx1sj_01.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   23,817   30,720    6,903
+/datafile/o1_mf_icm_pk_a_kf2lx1sj_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,661   30,720       59
+/datafile/o1_mf_icm_pk_a_kbmknknh_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,669   30,720       51
+/datafile/o1_mf_icm_pk_a_kbmkj6vx_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,730   32,768       38
+/datafile/o1_mf_icm_pk_a_jbbfpml4_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,692   30,720       28
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_5.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   23,167   23,168        1
+/datafile/o1_mf_icm_pk_a_jbbfspom_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,767   32,768        1
+/datafile/o1_mf_icm_pk_a_jbbfqhvs_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   23,167   23,168        1
+/datafile/o1_mf_icm_pk_a_jbbfrtjk_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   23,168   23,168        0
+/datafile/o1_mf_icm_pk_a_jbbfs8mc_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,768   32,768        0
+/datafile/o1_mf_icm_pk_a_jbbfp516_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,768   32,768        0
+/datafile/o1_mf_icm_pk_a_jbbfqylp_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,000   32,000        0
+/datafile/o1_mf_icm_pk_a_jbbftmjx_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,720   30,720        0
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_2.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,768   32,768        0
+/datafile/o1_mf_icm_pk_a_jbbfocvx_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,000   32,000        0
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_4.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,768   32,768        0
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,720   30,720        0
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_1.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   30,720   30,720        0
+/datafile/o1_mf_icm_pk_a_jbbfnqsq_3.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,000   32,000        0
+/datafile/o1_mf_icm_pk_a_jbbft492_.dbf
+
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858   32,000   32,000        0
+/datafile/o1_mf_icm_pk_a_jbbfrdf4_.dbf
+
+
+7. SG DBA Team -- Perform resize data file to smallest possible size as per output from Step 6 above
+
+NOTE: BELOW ARE DATA FILES BELONG TO TABLESPACE ICM_PK_AP_TS
+
+FILE_NAME                                                                                     SIZE_IN_MB MAX_SIZE_IN_MB AUT STATUS
+--------------------------------------------------------------------------------------------- ---------- -------------- --- ---------
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfocvx_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfp516_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfpml4_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfqhvs_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfqylp_.dbf      32767.9844     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfrdf4_.dbf           32000     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfrtjk_.dbf           23168              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfs8mc_.dbf           23168              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfspom_.dbf           23168              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbft492_.dbf           32000     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbftmjx_.dbf           32000     32767.9844 YES AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_1.dbf          30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_2.dbf          30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_3.dbf          30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_4.dbf          32000              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_jbbfnqsq_5.dbf          30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kbmkj6vx_.dbf           30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kbmknknh_.dbf           30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_.dbf           30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_01.dbf         30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_02.dbf         30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_03.dbf         30720              0 NO  AVAILABLE
+/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_04.dbf         30720              0 NO  AVAILABLE
+
+
+RESIZE TO SMALLEST POSSIBLE SIZE
+================================
+$ export ORACLE_SID=POHK1ICM
+$ sqlplus / as sysdba
+
+-- resize data file
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_04.dbf' resize 4098M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_03.dbf' resize 4226M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_02.dbf' resize 16138M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_01.dbf' resize 16457M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_.dbf' resize 23817M;
+
+-- set autoextend on to max 30720MB
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_04.dbf' autoextend on maxsize 30720M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_03.dbf' autoextend on maxsize 30720M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_02.dbf' autoextend on maxsize 30720M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_01.dbf' autoextend on maxsize 30720M;
+SQL> alter database datafile '/oradata/POHK1ICM/C28399558E8646B7E053D25A170A9858/datafile/o1_mf_icm_pk_a_kf2lx1sj_.dbf' autoextend on maxsize 30720M;
+
+
+8. SG DBA Team -- Provide output of step 3,4,5,6 above
+
+9. PSS Team -- Perform UVT

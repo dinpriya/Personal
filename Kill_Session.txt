@@ -1,0 +1,29 @@
+select 'Alter system kill session ''' ||sid|| ',' ||serial#||',@'||INST_ID ||''' immediate;'  from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl' and inst_id in(2) and status='INACTIVE';
+
+
+select 'Alter system kill session ''' ||sid|| ',' ||serial#||',@'||INST_ID ||''' immediate;'  from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl' and inst_id in(2,3) and status='INACTIVE';
+
+select inst_id,service_name,count(status) from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl' and inst_id=2 and status='INACTIVE' group by inst_id,service_name order by 2,1;
+
+
+set lines 300
+
+set pages 99
+
+select inst_id,service_name,count(*),min(logon_time)mint,max(logon_time)maxt from gv$session where service_name like  'svc%'  group by inst_id,service_name order by 2,1;
+
+ 
+
+select inst_id,service_name,count(*),min(logon_time)mint,max(logon_time)maxt from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl'  group by inst_id,service_name order by 2,1;
+
+select inst_id,service_name,count(*),min(logon_time)mint,max(logon_time)maxt from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl'  group by inst_id,service_name order by 2,1;
+
+
+select 'Alter system kill session ''' ||sid|| ',' ||serial#||',@'||INST_ID ||''' immediate;'  from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl' and inst_id in(2,3) and status='INACTIVE';
+
+ 
+select 'Alter system kill session ''' ||sid|| ',' ||serial#||',@'||INST_ID ||''' immediate;'  from gv$session where service_name = 'svc_pohk3ccd_tng_gl_onl' and inst_id in(2,3) and status='ACTIVE';
+
+ 
+
+

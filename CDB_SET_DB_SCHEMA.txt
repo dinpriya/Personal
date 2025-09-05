@@ -1,0 +1,7 @@
+CDB$ROOT:>alter session set container=PDBP_NGW;
+
+
+
+CDB$ROOT:>alter session set current_schema=QLDSADMIN;
+
+

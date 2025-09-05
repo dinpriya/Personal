@@ -1,0 +1,10 @@
+RMAN > run
+{
+allocate channel CH1 type 'SBT_TAPE';
+allocate channel CH2 type 'SBT_TAPE';
+send 'NSR_ENV=(NSR_SERVER=HKLVIPAPP021,NSR_CLIENT=HKLPDSS2B002,NSR_RECOVER_POOL="DC1 DB Clone DD11",NSR_DEBUG_LEVEL=1,NSR_DPRINTF=TRUE,NSR_DIAGNOSTIC_DEST=/oradump/POHK2CCD_19c/nsr/apps/logs)';
+restore  primary controlfile from 'control_POHK2CCD_8c0rndje_234764_1_1';  -- Get piece details from backup log
+release channel CH1;
+release channel CH2;
+}
+RMAN > Exit;

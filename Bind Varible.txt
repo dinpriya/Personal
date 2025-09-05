@@ -1,0 +1,1 @@
+SELECT NAME,SQL_ID,POSITION,DATATYPE_STRING,VALUE_STRINGFROM v$sql_bind_capture WHERE sql_id='&sqlid' order by Position;

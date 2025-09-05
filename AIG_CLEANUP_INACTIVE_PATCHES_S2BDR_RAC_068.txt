@@ -1,0 +1,160 @@
+Login to server HKLPDSS2B001
+=============================
+   
+Go to user grid
+
+sudo -u grid -i
+
+Take a screenshot of df -h
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Now go to oracle home,
+
+sudo -u oracle -i
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Take a screenshot of df -h again and compare with befrore screenshot to verify space reclaim from oracle & grid homes.
+
+============================================================================================================================================================================
+
+Login to server HKLPDSS2B002 
+=============================
+
+Go to user grid
+
+sudo -u grid -i
+
+Take a screenshot of df -h
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Now go to oracle home,
+
+sudo -u oracle -i
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Take a screenshot of df -h again and compare with befrore screenshot to verify space reclaim from oracle & grid homes.
+
+============================================================================================================================================================================
+
+Login to server HKLPDSS2B003
+=============================
+
+Go to user grid
+
+sudo -u grid -i
+
+Take a screenshot of df -h
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Now go to oracle home,
+
+sudo -u oracle -i
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Take a screenshot of df -h again and compare with befrore screenshot to verify space reclaim from oracle & grid homes.
+
+============================================================================================================================================================================
+
+Login to HKLVDSAPP068
+=============================
+
+Take a screenshot of df -h
+
+Go to oracle home,
+
+sudo -u oracle -i
+
+cd $ORACLE_HOME/OPatch
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+* cleans up oneoffs and .patch_storage directories.
+
+opatch util DeleteInactivePatches
+
+* shows the list of inactive patches
+
+opatch util ListOrderedInactivePatches
+
+Take a screenshot of df -h again and compare with befrore screenshot to verify space reclaim from oracle homes
+

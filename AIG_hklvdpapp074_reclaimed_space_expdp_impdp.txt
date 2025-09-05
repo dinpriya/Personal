@@ -1,0 +1,575 @@
+Please prepare the AIG only for the schema ICM_PK_AP backup and restoring the backup after Datafile shrink.
+Table Space and data files Need to be shrink. Also share the list of DBF files. ICM_PK_AP_TS
+Need to remove the table space ICM_PK_AP_LOB_TS and during restore we need to remap the ICM_PK_AP_LOB_TS to ICM_PK_AP_TS
+
+condition segments :
+OWNER                          TABLESPACE_NAME                SUM(BYTES)/1024/1024/1024
+------------------------------ ------------------------------ -------------------------
+ICM_PK_AP                      ICM_PK_AP_LOB_TS                              221.203918
+ICM_PK_AP                      ICM_PK_AP_TS                                  128.853577
+SYS                            ICM_PK_AP_LOB_TS                              .031616211
+
+  1* select owner, segment_name, segment_type, tablespace_name  from dba_segments where tablespace_name = 'ICM_PK_AP_LOB_TS'
+10:31:26 SYS @ POHK1ICM:CDB$ROOT:>/
+
+OWNER                          SEGMENT_NAME                             SEGMENT_TYPE       TABLESPACE_NAME
+------------------------------ ---------------------------------------- ------------------ ------------------------------
+SYS                            BIN$73+pHePYLiDgU9JaFwqL8g==$0           TABLE              ICM_PK_AP_LOB_TS
+ICM_PK_AP                      INTE_IN_OUT_MESSAGES                     TABLE              ICM_PK_AP_LOB_TS
+SYS                            BIN$73+pHePXLiDgU9JaFwqL8g==$0           TABLE PARTITION    ICM_PK_AP_LOB_TS
+SYS                            BIN$73+pHePXLiDgU9JaFwqL8g==$0           TABLE PARTITION    ICM_PK_AP_LOB_TS
+SYS                            SYS_IL0000118367C00007$$                 LOBINDEX           ICM_PK_AP_LOB_TS
+ICM_PK_AP                      SYS_IL0000118379C00007$$                 LOBINDEX           ICM_PK_AP_LOB_TS
+ICM_PK_AP                      SYS_IL0000118379C00017$$                 LOBINDEX           ICM_PK_AP_LOB_TS
+SYS                            SYS_IL0000118358C00011$$                 INDEX PARTITION    ICM_PK_AP_LOB_TS
+SYS                            SYS_IL0000118358C00011$$                 INDEX PARTITION    ICM_PK_AP_LOB_TS
+SYS                            SYS_LOB0000118367C00007$$                LOBSEGMENT         ICM_PK_AP_LOB_TS
+ICM_PK_AP                      SYS_LOB0000118379C00007$$                LOBSEGMENT         ICM_PK_AP_LOB_TS
+ICM_PK_AP                      SYS_LOB0000118379C00017$$                LOBSEGMENT         ICM_PK_AP_LOB_TS
+SYS                            SYS_LOB0000118358C00011$$                LOB PARTITION      ICM_PK_AP_LOB_TS
+SYS                            SYS_LOB0000118358C00011$$                LOB PARTITION      ICM_PK_AP_LOB_TS
+
+1. EXPDP source : expdp for schemas=ICM_PK_AP
+expdp directory=ICM_DIR dumpfile=expbkp_ICM_PK_AP_ICM_PK_AP_TS_%U.dmp logfile=expbkp_ICM_PK_AP_ICM_PK_AP_TS.log schemas=ICM_PK_AP parallel=4 filesize=30g
+
+2. disable constraint of ICM_PK_AP
+11:42:27 SYS @ POHK1ICM:PDBP_ICM_PK:>1
+  1* select 'alter table '||owner||'.'||table_name||' disable constraint '||constraint_name||';'
+11:42:28 SYS @ POHK1ICM:PDBP_ICM_PK:>2
+  2* from dba_constraints where owner = 'ICM_PK_AP' and constraint_type = 'R'
+11:42:29 SYS @ POHK1ICM:PDBP_ICM_PK:>/
+
+'ALTERTABLE'||OWNER||'.'||TABLE_NAME||'DISABLECONSTRAINT'||CONSTRAINT_NAME||';'
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+alter table ICM_PK_AP.CUST_EXT_SYS_REFERENCES disable constraint FK_PROF_EXTSYSREF;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS disable constraint FK_CURR_EMPLOY;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS disable constraint FK_PROF_EMPLOY;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS disable constraint FK_PROF_EMPLOYMENTS;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS disable constraint FK_EMPL_EMP;
+alter table ICM_PK_AP.UI_DWN_EXTRACT_CRITERIAS disable constraint FK_UI_DWN_EXTRACT_CRITERIAS;
+alter table ICM_PK_AP.HHOSTREF_INFO_TYPES disable constraint FKHHOSTREF_INFO_TYPES;
+alter table ICM_PK_AP.HHOSTREF_SEGMENT_CUST_SEGMENTS disable constraint FKHHOSTREF_SEGMENT_CUST_SEG;
+alter table ICM_PK_AP.CUST_DWN_EXTRACT_DETAILS disable constraint FK_CUST_DWN_EXTRACT_DETAILS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS disable constraint FK_SER_PROFBUS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS disable constraint FK_HARM_PROFB;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS disable constraint FK_PROFILE_BUSINESS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS disable constraint FK_REASON_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS disable constraint FK_HSEG_PROFB;
+alter table ICM_PK_AP.CUST_REFERENCE_CODE_DETAILS disable constraint FK_REFCODE_DETAILS;
+alter table ICM_PK_AP.HCOUNTRY_PARAM disable constraint FKHCOUNTRY_PARAM;
+alter table ICM_PK_AP.CUST_DWN_EXTRACT_CRITERIAS disable constraint FK_CUST_DWN_EXTRACT_CRITERIAS;
+alter table ICM_PK_AP.HCUST_SALUTATIONS disable constraint FKHCUST_SALUTATIONS;
+alter table ICM_PK_AP.HCUST_REMARK_TYPES disable constraint FKHCUST_REMARK_TYPES;
+alter table ICM_PK_AP.HCUST_PROFESSIONS disable constraint FKHCUST_PROFESSIONS;
+alter table ICM_PK_AP.CUST_RMAILS disable constraint FK_CURR_CRMAILS;
+alter table ICM_PK_AP.HCUST_REASONS disable constraint FKHCUST_REASONS;
+alter table ICM_PK_AP.HRULE_CONFIGS disable constraint FKHRULE_CONFIGS;
+alter table ICM_PK_AP.HRULE_PARAMS disable constraint FKHRULE_PARAMS;
+alter table ICM_PK_AP.CUST_DOCUMENTS disable constraint FK_PROF_DOCUMENTS;
+alter table ICM_PK_AP.CUST_DOCUMENTS disable constraint FK_DOCTYPE_DOCS;
+alter table ICM_PK_AP.CUST_DOCUMENTS disable constraint FK_RDM_DOCUMENTS;
+alter table ICM_PK_AP.CUST_DOCUMENTS disable constraint FK_REASON_DOCUMENTS;
+alter table ICM_PK_AP.CUST_RISK_REASONS disable constraint FK_PROF_REASONS;
+alter table ICM_PK_AP.CUST_RISK_REASONS disable constraint FK_REASON_RISK;
+alter table ICM_PK_AP.CUST_ADDRESS disable constraint FK_RDM_ADDRESS;
+alter table ICM_PK_AP.CUST_ADDRESS disable constraint FK_PROF_ADDRESS;
+alter table ICM_PK_AP.UI_FIELD_MASTER disable constraint FKUI_FIELD_MASTER;
+alter table ICM_PK_AP.CUST_ALIAS disable constraint FK_PROF_ALIAS;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES disable constraint FK_PROF_PROFTEMP;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES disable constraint FK_HARM_PROFT;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES disable constraint FK_SERIND_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES disable constraint FK_RDM_PROFT;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES disable constraint FK_EMP_PROF;
+alter table ICM_PK_AP.HCUST_CONTACT_TYPES disable constraint FKHCUST_CONTACT_TYPES;
+alter table ICM_PK_AP.HCUST_QUALIFICATIONS disable constraint FKHCUST_QUALIFICATIONS;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCES disable constraint FK_PROF_PRODUCT;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCES disable constraint FK_CURR_PROFREF;
+alter table ICM_PK_AP.CUST_CDD_DETAILS disable constraint FK_PROF_CDD_DETAILS;
+alter table ICM_PK_AP.CUST_FATCA_DETAILS disable constraint FK_PROF_FATCA;
+alter table ICM_PK_AP.CUST_PROFILE_GROUP_DETAILS disable constraint FK_RELTYP_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_GROUP_DETAILS disable constraint FK_PROFGRP_DETAILS;
+alter table ICM_PK_AP.HHOSTREF_INFO_DETAILS disable constraint FKHHOSTREF_INFO_DETAILS;
+alter table ICM_PK_AP.JOB_SCHEDULES disable constraint FK_JOB_SCHEDULES;
+alter table ICM_PK_AP.JOB_QUERIES disable constraint FK_JOB_QUERIES;
+alter table ICM_PK_AP.CUST_DOCUMENT_TYPE_RISKS disable constraint FKCUST_DOCUMENT_TYPE_RISKS;
+alter table ICM_PK_AP.HHOSTREF_BRANCH_CODES disable constraint FKHHOSTREF_BRANCH_CODES;
+alter table ICM_PK_AP.HHOSTREF_RISK_CODES disable constraint FKHHOSTREF_RISK_CODES;
+alter table ICM_PK_AP.CUST_INFO_DETAILS disable constraint FK_HINFTYP_CINFO;
+alter table ICM_PK_AP.CUST_INFO_DETAILS disable constraint FK_PROF_INFO;
+alter table ICM_PK_AP.HCUST_STAFF_CATEGORY disable constraint FKHCUST_STAFF_CATEGORY;
+alter table ICM_PK_AP.CUST_RISK_INDICATORS disable constraint FK_PROF_RISK_IND;
+alter table ICM_PK_AP.CUST_RISK_INDICATORS disable constraint FK_RCODE_RIND;
+alter table ICM_PK_AP.CUST_INFO_DETAIL_TEMPLATES disable constraint FK_PROF_TEMPLATES;
+alter table ICM_PK_AP.CUST_ADDRESS_EXCEPTIONS disable constraint FK_PROF_ADD_EXCEPTIONS;
+alter table ICM_PK_AP.CUST_LINKS disable constraint FK_PROF_LINKS;
+alter table ICM_PK_AP.CUST_LINKS disable constraint FK_RELTYP_LINKS;
+alter table ICM_PK_AP.HHOSTREF_CONTENT_TYPES disable constraint FKHHOSTREF_CONTENT_TYPES;
+alter table ICM_PK_AP.UI_DWN_EXTRACT_DETAILS disable constraint FK_UI_DWN_EXTRACT_DETAILS;
+alter table ICM_PK_AP.HHOSTREF_CURRENCY_CODES disable constraint FKHHOSTREF_CURRENCY_CODES;
+alter table ICM_PK_AP.CUST_LIFE_STYLE_DETAILS disable constraint FK_LF_TYPE_DETAILS;
+alter table ICM_PK_AP.CUST_SI_COUNTRIES disable constraint FK_PROF_SI;
+alter table ICM_PK_AP.CUST_SI_COUNTRIES disable constraint FK_RDM_SI;
+alter table ICM_PK_AP.HHOSTREF_ISIC_CODES disable constraint FKHHOSTREF_ISIC_CODES;
+alter table ICM_PK_AP.HHOSTREF_SEGMENT_CODES disable constraint FKHHOSTREF_SEGMENT_CODES;
+alter table ICM_PK_AP.HOSTREF_INFO_DETAILS disable constraint FK_INFOTYPES_INFODETAILS;
+alter table ICM_PK_AP.HHOSTREF_ARM_CODES disable constraint FKHHOSTREF_ARM_CODES;
+alter table ICM_PK_AP.CUST_DEDUP_EXCEPTIONS disable constraint FK_REASON_DEDEXC;
+alter table ICM_PK_AP.HCUST_REL_TYPES disable constraint FKHCUST_REL_TYPES;
+alter table ICM_PK_AP.HCUST_REFERENCE_CODE_DETAILS disable constraint FKHCUST_REFERENCE_CODE_DETAILS;
+alter table ICM_PK_AP.UI_DOCUMENT_TYPE_RISKS disable constraint FKUI_DOCUMENT_TYPE_RISKS;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCE_LINKS disable constraint FK_CURR_PREFLINK;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCE_LINKS disable constraint FK_PROF_REFLINK;
+alter table ICM_PK_AP.UI_LIFE_STYLE_DETAILS disable constraint FK_UI_LF_TYPE_DETAILS;
+alter table ICM_PK_AP.CUST_CONTACTS disable constraint FK_CONTYPE_CONTTYPE;
+alter table ICM_PK_AP.CUST_CONTACTS disable constraint FK_PROF_CONTACTS;
+alter table ICM_PK_AP.CUST_NATIONS disable constraint FK_PROF_NATIONS;
+alter table ICM_PK_AP.CUST_NATIONS disable constraint FK_RDM_NATIONS;
+alter table ICM_PK_AP.HHOSTREF_ARM_SEGMENTS disable constraint FKHHOSTREF_ARM_SEGMENTS;
+alter table ICM_PK_AP.HHOSTREF_CUST_SEGMENTS disable constraint FKHHOSTREF_CUST_SEGMENTS;
+alter table ICM_PK_AP.HCUST_EMPLOYERS disable constraint FKHCUST_EMPLOYERS;
+alter table ICM_PK_AP.CUST_REMARKS disable constraint FK_REMTYP_REMARK;
+alter table ICM_PK_AP.CUST_REMARKS disable constraint FK_PROF_REMARKS;
+alter table ICM_PK_AP.HCUST_SERVICE_INDICATORS disable constraint FKHCUST_SERVICE_INDICATORS;
+alter table ICM_PK_AP.CUST_PROFILES disable constraint FK_SALU_PROF;
+alter table ICM_PK_AP.CUST_PROFILES disable constraint FK_QUAL_PROF;
+alter table ICM_PK_AP.CUST_PROFILES disable constraint FK_RDM_PROFILES;
+alter table ICM_PK_AP.HCUST_DOCUMENT_TYPES disable constraint FKHCUST_DOCUMENT_TYPES;
+alter table ICM_PK_AP.HCUST_REFERENCE_CODES disable constraint FKHCUST_REFERENCE_CODES;
+
+3. truncate table of ICM_PK_AP and tablespace name = 'ICM_PK_AP_TS'
+11:44:01 SYS @ POHK1ICM:PDBP_ICM_PK:>select 'truncate table '||owner||'.'||table_name||';' from dba_tables where owner = 'ICM_PK_AP' and tablespace_name = 'ICM_PK_AP_TS';
+
+'TRUNCATETABLE'||OWNER||'.'||TABLE_NAME||';'
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+truncate table ICM_PK_AP.CUST_CUCOS;
+truncate table ICM_PK_AP.CUST_RULE_VALIDATOR_MAPPING;
+truncate table ICM_PK_AP.HCUST_REASONS;
+truncate table ICM_PK_AP.CUST_CBANK_DETAILS;
+truncate table ICM_PK_AP.UI_NATIONS;
+truncate table ICM_PK_AP.CUST_PROFESSIONS;
+truncate table ICM_PK_AP.RDM_COUNTRIES;
+truncate table ICM_PK_AP.CUST_BATCH_PROCESS_SERVICES;
+truncate table ICM_PK_AP.CUST_PROFILE_GROUP_DETAILS;
+truncate table ICM_PK_AP.CUST_CLINKS;
+truncate table ICM_PK_AP.CUST_CONTACT_TYPES;
+truncate table ICM_PK_AP.HRULE_PARAMS;
+truncate table ICM_PK_AP.CUST_PROCESS_MISC_INFO;
+truncate table ICM_PK_AP.UI_PAGE_CONFIG_DETAILS;
+truncate table ICM_PK_AP.HCUST_AUXILIARY_SETUP;
+truncate table ICM_PK_AP.HCUST_REMARK_TYPES;
+truncate table ICM_PK_AP.CUST_EVENT_CAP_DETAILS;
+truncate table ICM_PK_AP.HHOSTREF_CURRENCY_CODES;
+truncate table ICM_PK_AP.CUST_PURGING_DETAILS;
+truncate table ICM_PK_AP.UI_POTENTIAL_CUCOS_BACKUP;
+truncate table ICM_PK_AP.HOSTREF_INFO_TYPES;
+truncate table ICM_PK_AP.DUAL_DATA_CRITICAL_FIELDS;
+truncate table ICM_PK_AP.UI_INFO_DETAILS;
+truncate table ICM_PK_AP.CUST_AUXILIARY_SETUP_VALUES;
+truncate table ICM_PK_AP.CUST_REFERRAL_DETAILS;
+truncate table ICM_PK_AP.CUST_ML_PROFILES;
+truncate table ICM_PK_AP.HCUST_PROFESSIONS;
+truncate table ICM_PK_AP.HCUST_ADDRESS_FORMAT_TYPE;
+truncate table ICM_PK_AP.DUAL_DATA_FIELD_MAPPING;
+truncate table ICM_PK_AP.CUST_DWN_SETUPS;
+truncate table ICM_PK_AP.INBOX;
+truncate table ICM_PK_AP.CUST_LIFE_STYLES;
+truncate table ICM_PK_AP.CUST_ARCHIVAL_PURGING_SETUP;
+truncate table ICM_PK_AP.UI_LIFE_STYLE_DETAILS;
+truncate table ICM_PK_AP.CUST_CREMARKS;
+truncate table ICM_PK_AP.UI_COUNTRY_PARAM;
+truncate table ICM_PK_AP.HCUST_QUALIFICATIONS;
+truncate table ICM_PK_AP.CUST_FATCA_DETAILS;
+truncate table ICM_PK_AP.CUST_CCDD_DETAILS;
+truncate table ICM_PK_AP.CUST_UPLOAD_FLCHKSUM;
+truncate table ICM_PK_AP.HCUST_CONTACT_TYPES;
+truncate table ICM_PK_AP.CUST_CCUCOS;
+truncate table ICM_PK_AP.UI_CODE_REF_RIGHTS_DETAILS;
+truncate table ICM_PK_AP.HCUST_EMPLOYERS;
+truncate table ICM_PK_AP.HOSTREF_SEGMENT_CODES;
+truncate table ICM_PK_AP.CUST_SERVICES;
+truncate table ICM_PK_AP.CUST_REFERENCE_CODE_MAPPINGS;
+truncate table ICM_PK_AP.HHOSTREF_RISK_CODES;
+truncate table ICM_PK_AP.UI_REFERRAL_DETAILS;
+truncate table ICM_PK_AP.CUST_ACCESS_RESTRICTS_DETAILS;
+truncate table ICM_PK_AP.UI_STAFF_CATEGORY;
+truncate table ICM_PK_AP.UI_UPLOAD_PRE_VALIDATE;
+truncate table ICM_PK_AP.UI_TAB_MASTER;
+truncate table ICM_PK_AP.CUST_ADDRESS_FORMAT_TYPE;
+truncate table ICM_PK_AP.CUST_DOCUMENT_TYPES;
+truncate table ICM_PK_AP.INTE_REQUEST_STATISTICS;
+truncate table ICM_PK_AP.CUST_CODE_MAPPING;
+truncate table ICM_PK_AP.CUST_DWN_EXTRACT_CRITERIAS;
+truncate table ICM_PK_AP.HHOSTREF_BRANCH_CODES;
+truncate table ICM_PK_AP.CUST_PROCESSID_CONFIG_TMP;
+truncate table ICM_PK_AP.CUST_STATIC_REPORT_DETAILS;
+truncate table ICM_PK_AP.CUST_LREFERENCECODE_DETAILS;
+truncate table ICM_PK_AP.CUST_REL_TYPES;
+truncate table ICM_PK_AP.INTE_SERVICECATLOG;
+truncate table ICM_PK_AP.CUST_CCREDIT_DECISIONS;
+truncate table ICM_PK_AP.CUST_PROCESS_EXCEPTIONS;
+truncate table ICM_PK_AP.UI_QUALIFICATIONS;
+truncate table ICM_PK_AP.CUST_CLIFE_STYLES;
+truncate table ICM_PK_AP.HCUST_REL_TYPES;
+truncate table ICM_PK_AP.RECON_DATA_COMPARE_CONFIGS;
+truncate table ICM_PK_AP.UI_CODE_REF_RIGHTS;
+truncate table ICM_PK_AP.USER_ACCESS_TRACES;
+truncate table ICM_PK_AP.UI_ACCESS_RESTRICTS_DETAILS;
+truncate table ICM_PK_AP.CUST_CCONTACT_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_CML_PROFILES;
+truncate table ICM_PK_AP.CUST_RISK_INDICATORS;
+truncate table ICM_PK_AP.CUST_PROFILE_TEMPLATES;
+truncate table ICM_PK_AP.UI_PROFILE_GROUPS;
+truncate table ICM_PK_AP.UI_ALIAS_TYPES;
+truncate table ICM_PK_AP.CUST_REASONS;
+truncate table ICM_PK_AP.BMS_RECON_MISMATCH_DETAILS;
+truncate table ICM_PK_AP.SYS_VERSION_INFO;
+truncate table ICM_PK_AP.UI_DWN_SETUPS;
+truncate table ICM_PK_AP.UI_LINKS;
+truncate table ICM_PK_AP.UI_ML_PROFILES;
+truncate table ICM_PK_AP.UI_DND;
+truncate table ICM_PK_AP.RULE_PARAMS;
+truncate table ICM_PK_AP.RECON_CONFIGS;
+truncate table ICM_PK_AP.CUST_CREDIT_DECISIONS;
+truncate table ICM_PK_AP.CUST_CDND;
+truncate table ICM_PK_AP.HOSTREF_CUST_SEGMENTS;
+truncate table ICM_PK_AP.UI_DOCUMENT_TYPE_RISKS;
+truncate table ICM_PK_AP.CUST_DND;
+truncate table ICM_PK_AP.RECON_STATUS;
+truncate table ICM_PK_AP.CUST_CAUXILIARY_DETAILS;
+truncate table ICM_PK_AP.CUST_TAB_RESTRICTIONS;
+truncate table ICM_PK_AP.CUST_CCQCPMAP;
+truncate table ICM_PK_AP.INTE_INTERFACES;
+truncate table ICM_PK_AP.RULE_CONFIGS;
+truncate table ICM_PK_AP.CUST_MASS_UPLD_MAPPINGS;
+truncate table ICM_PK_AP.HCUST_STAFF_CATEGORY;
+truncate table ICM_PK_AP.UI_DEDUP_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_VALIDATION_SETUP;
+truncate table ICM_PK_AP.CUST_CFATCA_REASONS;
+truncate table ICM_PK_AP.UI_FATCA_DETAILS;
+truncate table ICM_PK_AP.HHOSTREF_SEGMENT_CODES;
+truncate table ICM_PK_AP.HCUST_DOCUMENT_TYPES;
+truncate table ICM_PK_AP.RECON_DATA_LOAD_SETUPS;
+truncate table ICM_PK_AP.UI_FIELD_RESTRICTIONS;
+truncate table ICM_PK_AP.CUST_UPLOAD_FIELD_MAPPINGS;
+truncate table ICM_PK_AP.CUST_EVENT_CONFIG;
+truncate table ICM_PK_AP.DEDUP_INTERFACE_EXCLUSIONS;
+truncate table ICM_PK_AP.HHOSTREF_ISIC_CODES;
+truncate table ICM_PK_AP.UI_EMPLOYERS;
+truncate table ICM_PK_AP.CUST_DWN_COL_ORDER;
+truncate table ICM_PK_AP.HOSTREF_BRANCH_CODES;
+truncate table ICM_PK_AP.CUST_HALERT_RESPONSES;
+truncate table ICM_PK_AP.UI_POTENTIAL_CUCOS;
+truncate table ICM_PK_AP.HHOSTREF_INFO_TYPES;
+truncate table ICM_PK_AP.UI_SERVICE_INDICATORS;
+truncate table ICM_PK_AP.CUST_ADDRESS_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_REFERENCE_CODE_DETAILS;
+truncate table ICM_PK_AP.HHOSTREF_ARM_CODES;
+truncate table ICM_PK_AP.CUST_CODE_REF_RIGHTS_DETAILS;
+truncate table ICM_PK_AP.CUST_ACCESS_RESTRICTS;
+truncate table ICM_PK_AP.ICM_BUSINESS_PARAMETER;
+truncate table ICM_PK_AP.CUST_BATCH_PROCESS_PARAMS;
+truncate table ICM_PK_AP.RECON_DATA_COMP_CONF_DTLS;
+truncate table ICM_PK_AP.REVINFO;
+truncate table ICM_PK_AP.CUST_BANK_DETAILS;
+truncate table ICM_PK_AP.CUST_SERVICE_INDICATORS;
+truncate table ICM_PK_AP.CUST_HAUDIT_DETAILS;
+truncate table ICM_PK_AP.CUST_EMPLOYERS;
+truncate table ICM_PK_AP.CUST_CEXT_SYS_REFERENCES;
+truncate table ICM_PK_AP.CUST_AUXILIARY_SETUP;
+truncate table ICM_PK_AP.UI_RISK_INDICATORS;
+truncate table ICM_PK_AP.HOSTREF_ISIC_CODES;
+truncate table ICM_PK_AP.metadata_audit;
+truncate table ICM_PK_AP.CUST_DEDUP_INPUT_DETAILS;
+truncate table ICM_PK_AP.HCUST_SERVICE_INDICATORS;
+truncate table ICM_PK_AP.HHOSTREF_ARM_SEGMENTS;
+truncate table ICM_PK_AP.CUST_CONTACT_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_REMARK_TYPES;
+truncate table ICM_PK_AP.UI_INFO_DETAIL_TEMPLATES;
+truncate table ICM_PK_AP.CUST_LIFE_STYLE_TYPES;
+truncate table ICM_PK_AP.UI_DWN_EXTRACT_CRITERIAS;
+truncate table ICM_PK_AP.CUST_CFATCA_DETAILS;
+truncate table ICM_PK_AP.UI_LIFE_STYLE_TYPES;
+truncate table ICM_PK_AP.HCUST_SERVICES;
+truncate table ICM_PK_AP.HCOUNTRY_PARAM;
+truncate table ICM_PK_AP.CUST_NATIONS;
+truncate table ICM_PK_AP.CUST_REMARKS;
+truncate table ICM_PK_AP.RDM_NATIONALITIES;
+truncate table ICM_PK_AP.HOST_IN_OUT_MESSAGES;
+truncate table ICM_PK_AP.CUST_CREFERRAL_DETAILS;
+truncate table ICM_PK_AP.UI_SI_COUNTRIES;
+truncate table ICM_PK_AP.UI_BANK_DETAILS;
+truncate table ICM_PK_AP.HCUST_SALUTATIONS;
+truncate table ICM_PK_AP.UI_RISK_REASONS;
+truncate table ICM_PK_AP.UI_CHECKER_REJECT_AUDITS;
+truncate table ICM_PK_AP.SERVER_DETAILS;
+truncate table ICM_PK_AP.HOSTREF_RISK_CODES;
+truncate table ICM_PK_AP.HHOSTREF_SEGMENT_CUST_SEGMENTS;
+truncate table ICM_PK_AP.UI_PAGE_CONFIG;
+truncate table ICM_PK_AP.CUST_EXT_SYS_REFERENCES;
+truncate table ICM_PK_AP.CUST_ALERT_ACK_DETAILS;
+truncate table ICM_PK_AP.CUST_CDD_DETAILS;
+truncate table ICM_PK_AP.CUST_PROFILE_GROUPS;
+truncate table ICM_PK_AP.HHOSTREF_INFO_DETAILS;
+truncate table ICM_PK_AP.CUST_CNATIONS;
+truncate table ICM_PK_AP.CUST_AUDIT_DETAILS;
+truncate table ICM_PK_AP.CUST_DOCUMENT_TYPE_RISKS;
+truncate table ICM_PK_AP.CUST_DOWNLOAD_PROCESS;
+truncate table ICM_PK_AP.UI_ADDRESS_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_HEVENTS_LOG;
+truncate table ICM_PK_AP.CUST_INFO_DETAILS;
+truncate table ICM_PK_AP.CUST_UPLOAD_PROCESS;
+truncate table ICM_PK_AP.UI_TAB_RESTRICTIONS;
+truncate table ICM_PK_AP.UI_DOCUMENT_TYPES;
+truncate table ICM_PK_AP.UI_AUXILIARY_DETAILS;
+truncate table ICM_PK_AP.CUST_FATCA_REASONS;
+truncate table ICM_PK_AP.CUST_HEVENT_CAP_DETAILS;
+truncate table ICM_PK_AP.CUST_UPLOAD_SETUPS;
+truncate table ICM_PK_AP.UI_REMARK_TYPES;
+truncate table ICM_PK_AP.UI_LREFERENCECODE_DETAILS;
+truncate table ICM_PK_AP.UI_UPLOAD_FLDMAPS;
+truncate table ICM_PK_AP.CUST_CSI_COUNTRIES;
+truncate table ICM_PK_AP.CUST_CRISK_INDICATORS;
+truncate table ICM_PK_AP.CUST_CODE_REF_RIGHTS;
+truncate table ICM_PK_AP.UI_FIELD_MASTER;
+truncate table ICM_PK_AP.SYS_HLTCHK;
+truncate table ICM_PK_AP.HOSTREF_CONTENT_TYPES;
+truncate table ICM_PK_AP.CUST_CRISK_REASONS;
+truncate table ICM_PK_AP.UI_PROFILE_TEMPLATES;
+truncate table ICM_PK_AP.UI_REASONS;
+truncate table ICM_PK_AP.USER_CACCESS_TRACES;
+truncate table ICM_PK_AP.CUST_STATIC_REPORTS;
+truncate table ICM_PK_AP.UI_REFERENCE_CODES;
+truncate table ICM_PK_AP.CUST_LINKS;
+truncate table ICM_PK_AP.HCUST_AUXILIARY_SETUP_VALUES;
+truncate table ICM_PK_AP.CUST_UPLOAD_FLDMAPS;
+truncate table ICM_PK_AP.CUST_PROCESS_STATUS;
+truncate table ICM_PK_AP.CUST_INFO_DETAIL_TEMPLATES;
+truncate table ICM_PK_AP.HOSTREF_ARM_CODES;
+truncate table ICM_PK_AP.CUST_CDEDUP_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_SALUTATIONS;
+truncate table ICM_PK_AP.CUST_ADVICES_SETUP;
+truncate table ICM_PK_AP.UI_PROFILE_GROUP_DETAILS;
+truncate table ICM_PK_AP.HOSTREF_INFO_DETAILS;
+truncate table ICM_PK_AP.CUST_REFERENCE_CODES;
+truncate table ICM_PK_AP.HHOSTREF_CONTENT_TYPES;
+truncate table ICM_PK_AP.CUST_FIELD_RESTRICTIONS;
+truncate table ICM_PK_AP.UI_SALUTATIONS;
+truncate table ICM_PK_AP.CUST_CAPTURE_CODE_MAPPINGS;
+truncate table ICM_PK_AP.UI_PROFESSIONS;
+truncate table ICM_PK_AP.UI_CREDIT_DECISIONS;
+truncate table ICM_PK_AP.HHOSTREF_CUST_SEGMENTS;
+truncate table ICM_PK_AP.CUST_SEGMENT_SERVICE_INDICATOR;
+truncate table ICM_PK_AP.INTE_SERVICES;
+truncate table ICM_PK_AP.CUST_POTENTIAL_CUCOS_BACKUP;
+truncate table ICM_PK_AP.HCUST_LIFE_STYLE_TYPES;
+truncate table ICM_PK_AP.HOSTREF_SEGMENT_CUST_SEGMENTS;
+truncate table ICM_PK_AP.COUNTRY_PARAM;
+truncate table ICM_PK_AP.CUST_LIFE_STYLE_DETAILS;
+truncate table ICM_PK_AP.HOSTREF_ARM_CODES_BACKUP;
+truncate table ICM_PK_AP.CUST_QUALIFICATIONS;
+truncate table ICM_PK_AP.CUST_SI_COUNTRIES;
+truncate table ICM_PK_AP.BATCH_PROCESS_HISTORY;
+truncate table ICM_PK_AP.UI_CDD_DETAILS;
+truncate table ICM_PK_AP.SYS_APPLICATION_INFO;
+truncate table ICM_PK_AP.CUST_DEDUP_EXCEPTIONS;
+truncate table ICM_PK_AP.UI_REMARKS;
+truncate table ICM_PK_AP.UI_REFERENCE_CODE_DETAILS;
+truncate table ICM_PK_AP.CUST_CADDRESS_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_ALIAS_TYPES;
+truncate table ICM_PK_AP.CUST_CODE_SETUP_DETAILS;
+truncate table ICM_PK_AP.HCUST_REFERENCE_CODE_DETAILS;
+truncate table ICM_PK_AP.CUST_PROFILE_PROCESS_LOCK;
+truncate table ICM_PK_AP.WORK_FLOW;
+truncate table ICM_PK_AP.HRULE_CONFIGS;
+truncate table ICM_PK_AP.UI_FATCA_REASONS;
+truncate table ICM_PK_AP.UI_REL_TYPES;
+truncate table ICM_PK_AP.CUST_RISK_REASONS;
+truncate table ICM_PK_AP.UI_CONTACT_EXCEPTIONS;
+truncate table ICM_PK_AP.CUST_AUXILIARY_DETAILS;
+truncate table ICM_PK_AP.RECON_JOB_CONFIGS;
+truncate table ICM_PK_AP.CUST_EVENT_CONFIG_DETAILS;
+truncate table ICM_PK_AP.RDM_COUNTRY_SEC_ISD_CODES;
+truncate table ICM_PK_AP.CUST_CINFO_DETAILS;
+truncate table ICM_PK_AP.CUST_STAFF_CATEGORY;
+truncate table ICM_PK_AP.HOSTREF_CURRENCY_CODES;
+truncate table ICM_PK_AP.CUST_METRIC_CONFIG;
+truncate table ICM_PK_AP.UI_EXT_SYS_REFERENCES;
+truncate table ICM_PK_AP.CUST_BANK;
+truncate table ICM_PK_AP.UI_LIFE_STYLES;
+truncate table ICM_PK_AP.HCUST_REFERENCE_CODES;
+truncate table ICM_PK_AP.ICM_VGSS_RESPONSE;
+truncate table ICM_PK_AP.SYS_SYSTEM_SETUP;
+truncate table ICM_PK_AP.HOSTREF_ARM_SEGMENTS;
+truncate table ICM_PK_AP.CUST_POTENTIAL_CUCOS;
+truncate table ICM_PK_AP.HCUST_LIFE_STYLE_DETAILS;
+truncate table ICM_PK_AP.BATCH_PROCESS_STATUS;
+truncate table ICM_PK_AP.UI_DWN_EXTRACT_DETAILS;
+truncate table ICM_PK_AP.RARE_RECORDER;
+truncate table ICM_PK_AP.REPORT_SETUPS;
+truncate table ICM_PK_AP.CUST_MASS_UPLOAD_INTERIM_DET;
+truncate table ICM_PK_AP.RECON_EXTRACTION_SETUPS;
+truncate table ICM_PK_AP.CUST_ALERT_CATALOGUES;
+truncate table ICM_PK_AP.CUST_DWN_EXTRACT_DETAILS;
+truncate table ICM_PK_AP.UI_DRAFT_DATA;
+truncate table ICM_PK_AP.REPORT_CONTENT_DETAILS;
+truncate table ICM_PK_AP.CUST_ALERT_CATALOGUE_KEYS;
+truncate table ICM_PK_AP.ARCHIVING_PROFILES_LIST;
+truncate table ICM_PK_AP.PK_ARCHIVAL_DETAILS;
+truncate table ICM_PK_AP.IMFT_ALERTS;
+truncate table ICM_PK_AP.SMART_REPORT_CONFIGS;
+truncate table ICM_PK_AP.SMART_REPORT_PARAM_SETUPS;
+truncate table ICM_PK_AP.SMART_REPORT_FILE_SETUPS;
+truncate table ICM_PK_AP.JOB_TYPES;
+truncate table ICM_PK_AP.JOB_SCHEDULES;
+truncate table ICM_PK_AP.JOB_QUERIES;
+truncate table ICM_PK_AP.ENTITY_CONFIGURATIONS;
+truncate table ICM_PK_AP.SYS_INTERFACE_ERROR_MAPPING;
+truncate table ICM_PK_AP.CUST_PRODUCT_REFERENCES_BACKUP_PSS;
+truncate table ICM_PK_AP.SMART_REPORT_ACCESS_DETAILS;
+truncate table ICM_PK_AP.SMART_REPORT_ACCESS_PARAMS;
+truncate table ICM_PK_AP.CUST_EVENTS_LOG;
+truncate table ICM_PK_AP.SMART_REPORT_PARAM_OPTIONS;
+truncate table ICM_PK_AP.DEDUP_CATEGORY_CONFIG_DETAILS;
+truncate table ICM_PK_AP.DEDUP_CONFIG_DETAILS;
+truncate table ICM_PK_AP.DEDUP_CONFIG_MODE_DETAILS;
+truncate table ICM_PK_AP.ICM_SYS_REF_CODES;
+truncate table ICM_PK_AP.EDMP_PRODUCT_REFERENCES;
+truncate table ICM_PK_AP.CUST_PRODUCT_REF_MLR40_STG;
+truncate table ICM_PK_AP.CUST_PRODUCT_REFERENCES_EDMP_BKP;
+
+4. Resize and shrink the dbf of tablespace ICM_PK_AP_TS, use this query below to get max resize :
+set verify off
+column file_name format a50 word_wrapped
+column smallest format 999,990 heading "Smallest|Size|Poss."
+column currsize format 999,990 heading "Current|Size"
+column savings  format 999,990 heading "Poss.|Savings"
+break on report
+compute sum of savings on report
+column value new_val blksize
+select value from v$parameter where name = 'db_block_size';
+/
+select file_name,
+       ceil( (nvl(hwm,1)*&&blksize)/1024/1024 ) smallest,
+       ceil( blocks*&&blksize/1024/1024) currsize,
+       ceil( blocks*&&blksize/1024/1024) -
+       ceil( (nvl(hwm,1)*&&blksize)/1024/1024 ) savings
+from dba_data_files a,
+     ( select file_id, max(block_id+blocks-1) hwm
+         from dba_extents
+        group by file_id ) b
+where a.file_id = b.file_id(+)
+and a.tablespace_name = '&1'
+order by savings desc
+/
+
+
+5. impdp data back
+impdp schemas=ICM_PK_AP directory=ICM_DIR dumpfile=expbkp_ICM_PK_AP_ICM_PK_AP_TS_%U.dmp logfile=impdp_ICM_PK_AP.log TABLE_EXISTS_ACTION=truncate PARALLEL=4
+
+6. enable the R FK
+alter table ICM_PK_AP.CUST_EXT_SYS_REFERENCES enable constraint FK_PROF_EXTSYSREF;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS enable constraint FK_CURR_EMPLOY;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS enable constraint FK_PROF_EMPLOY;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS enable constraint FK_PROF_EMPLOYMENTS;
+alter table ICM_PK_AP.CUST_EMPLOYMENTS enable constraint FK_EMPL_EMP;
+alter table ICM_PK_AP.UI_DWN_EXTRACT_CRITERIAS enable constraint FK_UI_DWN_EXTRACT_CRITERIAS;
+alter table ICM_PK_AP.HHOSTREF_INFO_TYPES enable constraint FKHHOSTREF_INFO_TYPES;
+alter table ICM_PK_AP.HHOSTREF_SEGMENT_CUST_SEGMENTS enable constraint FKHHOSTREF_SEGMENT_CUST_SEG;
+alter table ICM_PK_AP.CUST_DWN_EXTRACT_DETAILS enable constraint FK_CUST_DWN_EXTRACT_DETAILS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS enable constraint FK_SER_PROFBUS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS enable constraint FK_HARM_PROFB;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS enable constraint FK_PROFILE_BUSINESS;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS enable constraint FK_REASON_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_BUSINESS enable constraint FK_HSEG_PROFB;
+alter table ICM_PK_AP.CUST_REFERENCE_CODE_DETAILS enable constraint FK_REFCODE_DETAILS;
+alter table ICM_PK_AP.HCOUNTRY_PARAM enable constraint FKHCOUNTRY_PARAM;
+alter table ICM_PK_AP.CUST_DWN_EXTRACT_CRITERIAS enable constraint FK_CUST_DWN_EXTRACT_CRITERIAS;
+alter table ICM_PK_AP.HCUST_SALUTATIONS enable constraint FKHCUST_SALUTATIONS;
+alter table ICM_PK_AP.HCUST_REMARK_TYPES enable constraint FKHCUST_REMARK_TYPES;
+alter table ICM_PK_AP.HCUST_PROFESSIONS enable constraint FKHCUST_PROFESSIONS;
+alter table ICM_PK_AP.CUST_RMAILS enable constraint FK_CURR_CRMAILS;
+alter table ICM_PK_AP.HCUST_REASONS enable constraint FKHCUST_REASONS;
+alter table ICM_PK_AP.HRULE_CONFIGS enable constraint FKHRULE_CONFIGS;
+alter table ICM_PK_AP.HRULE_PARAMS enable constraint FKHRULE_PARAMS;
+alter table ICM_PK_AP.CUST_DOCUMENTS enable constraint FK_PROF_DOCUMENTS;
+alter table ICM_PK_AP.CUST_DOCUMENTS enable constraint FK_DOCTYPE_DOCS;
+alter table ICM_PK_AP.CUST_DOCUMENTS enable constraint FK_RDM_DOCUMENTS;
+alter table ICM_PK_AP.CUST_DOCUMENTS enable constraint FK_REASON_DOCUMENTS;
+alter table ICM_PK_AP.CUST_RISK_REASONS enable constraint FK_PROF_REASONS;
+alter table ICM_PK_AP.CUST_RISK_REASONS enable constraint FK_REASON_RISK;
+alter table ICM_PK_AP.CUST_ADDRESS enable constraint FK_RDM_ADDRESS;
+alter table ICM_PK_AP.CUST_ADDRESS enable constraint FK_PROF_ADDRESS;
+alter table ICM_PK_AP.UI_FIELD_MASTER enable constraint FKUI_FIELD_MASTER;
+alter table ICM_PK_AP.CUST_ALIAS enable constraint FK_PROF_ALIAS;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES enable constraint FK_PROF_PROFTEMP;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES enable constraint FK_HARM_PROFT;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES enable constraint FK_SERIND_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES enable constraint FK_RDM_PROFT;
+alter table ICM_PK_AP.CUST_PROFILE_TEMPLATES enable constraint FK_EMP_PROF;
+alter table ICM_PK_AP.HCUST_CONTACT_TYPES enable constraint FKHCUST_CONTACT_TYPES;
+alter table ICM_PK_AP.HCUST_QUALIFICATIONS enable constraint FKHCUST_QUALIFICATIONS;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCES enable constraint FK_PROF_PRODUCT;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCES enable constraint FK_CURR_PROFREF;
+alter table ICM_PK_AP.CUST_CDD_DETAILS enable constraint FK_PROF_CDD_DETAILS;
+alter table ICM_PK_AP.CUST_FATCA_DETAILS enable constraint FK_PROF_FATCA;
+alter table ICM_PK_AP.CUST_PROFILE_GROUP_DETAILS enable constraint FK_RELTYP_PROF;
+alter table ICM_PK_AP.CUST_PROFILE_GROUP_DETAILS enable constraint FK_PROFGRP_DETAILS;
+alter table ICM_PK_AP.HHOSTREF_INFO_DETAILS enable constraint FKHHOSTREF_INFO_DETAILS;
+alter table ICM_PK_AP.JOB_SCHEDULES enable constraint FK_JOB_SCHEDULES;
+alter table ICM_PK_AP.JOB_QUERIES enable constraint FK_JOB_QUERIES;
+alter table ICM_PK_AP.CUST_DOCUMENT_TYPE_RISKS enable constraint FKCUST_DOCUMENT_TYPE_RISKS;
+alter table ICM_PK_AP.HHOSTREF_BRANCH_CODES enable constraint FKHHOSTREF_BRANCH_CODES;
+alter table ICM_PK_AP.HHOSTREF_RISK_CODES enable constraint FKHHOSTREF_RISK_CODES;
+alter table ICM_PK_AP.CUST_INFO_DETAILS enable constraint FK_HINFTYP_CINFO;
+alter table ICM_PK_AP.CUST_INFO_DETAILS enable constraint FK_PROF_INFO;
+alter table ICM_PK_AP.HCUST_STAFF_CATEGORY enable constraint FKHCUST_STAFF_CATEGORY;
+alter table ICM_PK_AP.CUST_RISK_INDICATORS enable constraint FK_PROF_RISK_IND;
+alter table ICM_PK_AP.CUST_RISK_INDICATORS enable constraint FK_RCODE_RIND;
+alter table ICM_PK_AP.CUST_INFO_DETAIL_TEMPLATES enable constraint FK_PROF_TEMPLATES;
+alter table ICM_PK_AP.CUST_ADDRESS_EXCEPTIONS enable constraint FK_PROF_ADD_EXCEPTIONS;
+alter table ICM_PK_AP.CUST_LINKS enable constraint FK_PROF_LINKS;
+alter table ICM_PK_AP.CUST_LINKS enable constraint FK_RELTYP_LINKS;
+alter table ICM_PK_AP.HHOSTREF_CONTENT_TYPES enable constraint FKHHOSTREF_CONTENT_TYPES;
+alter table ICM_PK_AP.UI_DWN_EXTRACT_DETAILS enable constraint FK_UI_DWN_EXTRACT_DETAILS;
+alter table ICM_PK_AP.HHOSTREF_CURRENCY_CODES enable constraint FKHHOSTREF_CURRENCY_CODES;
+alter table ICM_PK_AP.CUST_LIFE_STYLE_DETAILS enable constraint FK_LF_TYPE_DETAILS;
+alter table ICM_PK_AP.CUST_SI_COUNTRIES enable constraint FK_PROF_SI;
+alter table ICM_PK_AP.CUST_SI_COUNTRIES enable constraint FK_RDM_SI;
+alter table ICM_PK_AP.HHOSTREF_ISIC_CODES enable constraint FKHHOSTREF_ISIC_CODES;
+alter table ICM_PK_AP.HHOSTREF_SEGMENT_CODES enable constraint FKHHOSTREF_SEGMENT_CODES;
+alter table ICM_PK_AP.HOSTREF_INFO_DETAILS enable constraint FK_INFOTYPES_INFODETAILS;
+alter table ICM_PK_AP.HHOSTREF_ARM_CODES enable constraint FKHHOSTREF_ARM_CODES;
+alter table ICM_PK_AP.CUST_DEDUP_EXCEPTIONS enable constraint FK_REASON_DEDEXC;
+alter table ICM_PK_AP.HCUST_REL_TYPES enable constraint FKHCUST_REL_TYPES;
+alter table ICM_PK_AP.HCUST_REFERENCE_CODE_DETAILS enable constraint FKHCUST_REFERENCE_CODE_DETAILS;
+alter table ICM_PK_AP.UI_DOCUMENT_TYPE_RISKS enable constraint FKUI_DOCUMENT_TYPE_RISKS;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCE_LINKS enable constraint FK_CURR_PREFLINK;
+alter table ICM_PK_AP.CUST_PRODUCT_REFERENCE_LINKS enable constraint FK_PROF_REFLINK;
+alter table ICM_PK_AP.UI_LIFE_STYLE_DETAILS enable constraint FK_UI_LF_TYPE_DETAILS;
+alter table ICM_PK_AP.CUST_CONTACTS enable constraint FK_CONTYPE_CONTTYPE;
+alter table ICM_PK_AP.CUST_CONTACTS enable constraint FK_PROF_CONTACTS;
+alter table ICM_PK_AP.CUST_NATIONS enable constraint FK_PROF_NATIONS;
+alter table ICM_PK_AP.CUST_NATIONS enable constraint FK_RDM_NATIONS;
+alter table ICM_PK_AP.HHOSTREF_ARM_SEGMENTS enable constraint FKHHOSTREF_ARM_SEGMENTS;
+alter table ICM_PK_AP.HHOSTREF_CUST_SEGMENTS enable constraint FKHHOSTREF_CUST_SEGMENTS;
+alter table ICM_PK_AP.HCUST_EMPLOYERS enable constraint FKHCUST_EMPLOYERS;
+alter table ICM_PK_AP.CUST_REMARKS enable constraint FK_REMTYP_REMARK;
+alter table ICM_PK_AP.CUST_REMARKS enable constraint FK_PROF_REMARKS;
+alter table ICM_PK_AP.HCUST_SERVICE_INDICATORS enable constraint FKHCUST_SERVICE_INDICATORS;
+alter table ICM_PK_AP.CUST_PROFILES enable constraint FK_SALU_PROF;
+alter table ICM_PK_AP.CUST_PROFILES enable constraint FK_QUAL_PROF;
+alter table ICM_PK_AP.CUST_PROFILES enable constraint FK_RDM_PROFILES;
+alter table ICM_PK_AP.HCUST_DOCUMENT_TYPES enable constraint FKHCUST_DOCUMENT_TYPES;
+alter table ICM_PK_AP.HCUST_REFERENCE_CODES enable constraint FKHCUST_REFERENCE_CODES;
+
+
+move data from tablespace ICM_PK_AP_LOB_TS to ICM_PK_AP_TS.
+(step 1 below can be ignore due to already took at 1 step above )
+1 expdp ICM_PK_AP.INTE_IN_OUT_MESSAGES table
+expdp directory=ICM_DIR dumpfile=INTE_IN_OUT_MESSAGES_%U.dmp logfile=INTE_IN_OUT_MESSAGES.log schemas=ICM_PK_AP parallel=4 filesize=30g tables=INTE_IN_OUT_MESSAGES
+
+2. impdp directory=ICM_DIR dumpfile=INTE_IN_OUT_MESSAGES_%U.dmp logfile=INTE_IN_OUT_MESSAGES.log schemas=ICM_PK_AP parallel=4 filesize=30g tables=INTE_IN_OUT_MESSAGES emapt_tablespace=ICM_PK_AP_LOB_TS:ICM_PK_AP_TS
+
+3. Check objects on ICM_PK_AP_LOB_TS; once empty then
+
+4. drop tablespace ICM_PK_AP_LOB_TS including content and datafiles;
