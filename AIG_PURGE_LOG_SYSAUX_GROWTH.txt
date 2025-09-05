@@ -1,0 +1,31 @@
+Login to hklvdpapp091
+
+. oraenv ==> POHK1RCM
+
+sqlplus sys as sysdba
+
+alter session set container=PDBP_RCMSONLINE;
+
+Take the screenshot of sysaux tablespace usage size
+
+1.Check the count of entries before purging
+
+17:35:21 SYS @ POHK1RCM:CDB$ROOT:>select count(*) from dba_scheduler_job_log where log_date<sysdate -7;
+
+  COUNT(*)
+----------
+    217972
+
+2) Purge using procedure DBMS_SCHEDULER.PURGE_LOG
+
+exec DBMS_SCHEDULER.PURGE_LOG(7,which_log=>'JOB_LOG');
+
+3) Verify if records have been deleted
+
+SQL> select count(*) from dba_scheduler_job_log where log_date<sysdate -7;
+
+COUNT(*)
+----------
+0 >>>>>>>>>>>> Expected results
+
+Take the screenshot of sysaux tablespace usage size and make sure space is claimed.
