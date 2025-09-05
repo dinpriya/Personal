@@ -1,0 +1,125 @@
+Login to HKLPDPWEB001 and HKLPDSWEB001, perform below steps in both PROD and DR servers.
+
+> ps -ef|grep pmon
+grid      8936     1  0  2024 ?        00:22:32 asm_pmon_+ASM1
+grid     14051     1  0  2024 ?        00:14:13 mdb_pmon_-MGMTDB
+oracle   19268 18725  0 02:23 pts/0    00:00:00 grep --color=auto pmon
+oracle   24424     1  0 Mar25 ?        00:04:37 ora_pmon_POHK1WFX1
+
+oracle@HKLPDPWEB001:/home/oracle [POHK1WFX1]
+> srvctl status database -d POHK1WFX -v
+Instance POHK1WFX1 is running on node hklpdpweb001 with online services WFX_PRD.hk.standardchartered.com. Instance status: Open.
+Instance POHK1WFX2 is running on node hklpdpweb002 with online services WFX_PRD.hk.standardchartered.com. Instance status: Open.
+oracle@HKLPDPWEB001:/home/oracle [POHK1WFX1]
+> srvctl config service -d POHK1WFX
+Service name: WFX_PRD.hk.standardchartered.com
+Server pool:
+Cardinality: 2
+Disconnect: false
+Service role: PRIMARY
+Management policy: AUTOMATIC
+DTP transaction: false
+AQ HA notifications: false
+Global: false
+Commit Outcome: false
+Failover type:
+Failover method:
+TAF failover retries:
+TAF failover delay:
+Connection Load Balancing Goal: SHORT
+Runtime Load Balancing Goal: SERVICE_TIME
+TAF policy specification: NONE
+Edition:
+Pluggable database name:
+Maximum lag time: ANY
+SQL Translation Profile:
+Retention: 86400 seconds
+Replay Initiation Time: 300 seconds
+Session State Consistency:
+GSM Flags: 0
+Service is enabled
+Preferred instances: POHK
+
+
+set oraenv to POHK1WFX1and POHK1WFX_DG1
+
+SQL> show parameter spfil
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+spfile                               string      +DATA/POHK1WFX/PARAMETERFILE/s
+                                                 pfile.324.1145325569
+
+create pfile='/home/oracle/init<ORACLE_SID>.ora.bak' from spfile;
+
+SELECT INST_ID, RESOURCE_NAME, CURRENT_UTILIZATION, MAX_UTILIZATION, LIMIT_VALUE
+FROM GV$RESOURCE_LIMIT
+WHERE RESOURCE_NAME IN ( 'sessions', 'processes');
+
+   INST_ID RESOURCE_NAME                  CURRENT_UTILIZATION MAX_UTILIZATION LIMIT_VALUE
+---------- ------------------------------ ------------------- --------------- ----------------------------------------
+         2 processes                                      944             995       2000
+         2 sessions                                       973            1033       3024
+         1 processes                                      995            1187       2000
+         1 sessions                                      1018            1212       3024
+
+set lines 200
+column NAME format a40
+column VALUE format a50
+
+select INST_ID,NAME,VALUE from gv$parameter
+where NAME in ('processes','sessions')
+order by 2,1;SQL> SQL> SQL> SQL>   2    3
+
+   INST_ID NAME                                     VALUE
+---------- ---------------------------------------- --------------------------------------------------
+         1 processes                                2000
+         2 processes                                2000
+         1 sessions                                 3024
+         2 sessions                                 3024
+
+
+sqlplus / as sysdba
+ 
+alter system set processes=3000 scope=spfile sid='*';
+
+srvctl stop database -d POHK1WFX
+
+srvctl start database -d POHK1WFX
+
+Verification:
+=============
+
+sqlplus / as sysdba
+ 
+set lines 200
+column NAME format a40
+column VALUE format a50
+ 
+select INST_ID,NAME,VALUE from gv$parameter
+where NAME in ('processes','sessions')
+order by 2,1;
+
+Rollback Plan:
+==============
+
+srvctl stop database -d POHK1WFX
+
+sqlplus / as sysdba
+ 
+create spfile from pfile='/home/oracle/init<ORACLE_SID>.ora.bak';
+
+srvctl start database -d POHK1WFX
+
+Verification:
+=============
+
+sqlplus / as sysdba
+ 
+set lines 200
+column NAME format a40
+column VALUE format a50
+ 
+select INST_ID,NAME,VALUE from gv$parameter
+where NAME in ('processes','sessions')
+order by 2,1;

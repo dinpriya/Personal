@@ -1,0 +1,33 @@
+1) Withdraw the EID HKLVDSAPP131, HKLVDSAPP132 <== AO DBA and LINUX team
+2) Take a backup of /etc/sysctl.conf file.  <== AO LINUX
+3) Update the below parameter value.   <== AO Linux
+   On HKLVDPAPP131 server :-
+   Old ==> vm.nr_hugepages=38599
+   
+   New ==> vm.nr_hugepages=33536
+
+   On HKLVDPAPP132 server :-
+   old ==> vm.nr_hugepages=19245
+
+   New ==> vm.nr_hugepages=18176
+
+   Run the below command to take effect:-
+   #> sysctl -p
+
+4) Restart the DB and listener services. <== DBA team
+5) Provide the log to PSS <== DBA team
+6) PSS verification
+
+Rollback :-
+1) Revert the below values in /etc/sysctl.conf file. LINUX team
+   On HKLVDPAPP131 server :-
+   Old ==> vm.nr_hugepages=38599
+
+   On HKLVDPAPP132 server :-
+   old ==> vm.nr_hugepages=19245
+2) Restart the DB and listener services.  <== DBA team
+3) Provide the log to PSS <== DBA team
+4) PSS verification
+
+
+

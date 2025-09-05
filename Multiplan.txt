@@ -1,0 +1,69 @@
+set lines 500 pages 500
+WITH p AS
+        (
+                SELECT DISTINCT sql_id ,
+                        plan_hash_value,
+                        PARSING_SCHEMA_NAME
+                FROM    dba_hist_sqlstat s
+                        INNER JOIN DBA_HIST_SNAPSHOT SS
+                        ON      ss.snap_id            = s.snap_id
+                                AND s.dbid            = s.con_dbid
+                                AND s.instance_number = ss.instance_number
+                WHERE   ss.begin_interval_time       >=sysdate-1
+                        AND executions_total          > 0
+                        AND PARSING_SCHEMA_NAME      <> 'SYS'
+        )
+        ,
+        a AS
+        (
+                SELECT  sql_id                                                   ,
+                        plan_hash_value                                          ,
+                        SUM(elapsed_time_total)/SUM(executions_total) avg_et_secs,
+                        SUM(executions_total) AS executions_total
+                FROM    dba_hist_sqlstat s
+                        INNER JOIN DBA_HIST_SNAPSHOT SS
+                        ON      ss.snap_id            = s.snap_id
+                                AND s.dbid            = s.con_dbid
+                                AND s.instance_number = ss.instance_number
+                WHERE   ss.begin_interval_time       >=sysdate-8
+                        AND s.executions_total        > 0
+                GROUP BY sql_id,
+                        plan_hash_value
+        )
+SELECT  PARSING_SCHEMA_NAME                                                                                               ,
+        sql_id                                                                                                            ,
+        plan_hash_value                                                                                                   ,
+        ROUND(avg_et_secs/1e6, 3) AS avg_et_secs                                                                          ,
+        executions                                                                                                        ,
+        total_execution_time                                                                                              ,
+        ROUND((total_execution_time/(SUM(total_execution_time) over (partition BY sql_id)))*100,1) AS execution_percentage,
+        sum_executions                                                                                                    ,
+        ROUND(min_avg_et_secs   /1e6, 3)                AS min_avg_et_secs                                                                 ,
+        ROUND(max_avg_et_secs   /1e6, 3)                AS max_avg_et_secs                                                                 ,
+        ROUND(avg_avg_et_secs   /1e6, 3)                AS avg_avg_et_secs                                                                 ,
+        ROUND(sum_executions    *min_avg_et_secs/1e6, 3)AS total_min_execution_time                                                        ,
+        ROUND(sum_executions    *max_avg_et_secs/1e6, 3)AS total_max_execution_time                                                        ,
+        ROUND(((max_avg_et_secs)/(min_avg_et_secs)), 3) AS execution_time_factor
+FROM
+        (
+                SELECT  p.PARSING_SCHEMA_NAME                                                 ,
+                        p.sql_id                                                              ,
+                        p.plan_hash_value                                                     ,
+                        a.avg_et_secs avg_et_secs                                             ,
+                        a.executions_total                                  AS executions          ,
+                        ROUND(a.avg_et_secs*a.executions_total/1e6, 3)      AS total_execution_time,
+                        COUNT(1) over (partition BY p.sql_id)               AS total_count         ,
+                        SUM(a.executions_total) over (partition BY p.sql_id)AS sum_executions      ,
+                        MIN(a.avg_et_secs) over (partition BY p.sql_id)     AS min_avg_et_secs     ,
+                        MAX(a.avg_et_secs) over (partition BY p.sql_id)     AS max_avg_et_secs     ,
+                        AVG(a.avg_et_secs) over (partition BY p.sql_id)     AS avg_avg_et_secs
+                FROM    p,
+                        a
+                WHERE   p.plan_hash_value = a.plan_hash_value(+)
+                        AND p.sql_id      = a.sql_id(+)
+        )
+WHERE   total_count >1
+        AND ((max_avg_et_secs)/(min_avg_et_secs)) >=5   -- Factor difference between the min and max average execution time
+ORDER BY PARSING_SCHEMA_NAME,
+        sql_id              ,
+        avg_et_secs NULLS LAST;

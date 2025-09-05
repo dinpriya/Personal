@@ -1,0 +1,195 @@
+Steps to convert INTEGRATED to Classic:-
+
+1) Login to Non Prod Server hklpdtotp005
+2) Take a OGG processes status detail using below command :-
+   $> cd /u01/app/oracle/product/ogg/19c
+   $> ggsci
+   GGSCI (hklpdtotp005) 3> info all
+   GGSCI (hklpdtotp005) 3> info REPLICAT REP_O2D
+   GGSCI (hklpdtotp005) 3> info REPLICAT REP_O2D, detail
+   GGSCI (hklpdtotp005) 3> info REP_O2D , SHOWCH
+3) Stop replicat and take backup of param file
+   GGSCI (hklpdtotp005) 3> stop replicat REP_O2D
+   GGSCI (hklpdtotp005) 3> exit
+   cd /u01/app/oracle/product/ogg/19c/dirprm
+   cp rep_o2d.prm rep_o2d.prm_<Current_date>
+   cd /u01/app/oracle/product/oggdata
+   tar -czvf OGG_dir_bkp.tar.gz dirchk dircrd dirprm dirtmp dirwlt
+4) Create a checkpoint table in the target database for the non-integrated Replicat to use to store its recovery checkpoints. 
+   GGSCI (hklpdtotp005) 3> start replicat REP_O2D
+   GGSCI (hklpdtotp005) 3> DBLOGIN userid OGGADM@OTP_UAT_01, password ******** <== get the password from param file.
+   GGSCI (hklpdtotp005) 3> ADD CHECKPOINTTABLE OGGADM.CHKPTAB
+   GGSCI (hklpdtotp005) 3> stop replicat REP_O2D     
+5) Alter Replicat to non-integrated mode.
+   GGSCI (hklpdtotp005) 3> DBLOGIN userid OGGADM@OTP_UAT_01, password ******** <== get the password from param file.
+   GGSCI (hklpdtotp005) 3> ALTER REPLICAT REP_O2D, NONINTEGRATED, CHECKPOINTTABLE OGGADM.CHKPTAB
+   GGSCI (hklpdtotp005) 3> start replicat REP_O2D
+
+   Note: monitor the lag. Need to wait until there is some activity on the source database so that the switchover can be completed. (Replicat waits until its internal high-water mark is exceeded before removing the status of "switching from integrated mode.")
+
+6) Verify that Replicat switched to non-integrated mode.
+   GGSCI (hklpdtotp005) 3> info REPLICAT REP_O2D
+
+7) Follow the below steps to upgrade the OGG binaries.
+   1) Stop OGG processes
+      cd /u01/app/oracle/product/ogg/19c
+      ./ggsci
+      ggsci> info all
+      ggsci> stop rep *
+      ggsci> stop mgr
+      ggsci> info all
+
+   2) Take OGG home backup
+      cd /u01/app/oracle/product/ogg/
+      tar -cvf - 19c | gzip -c > /u01/app/oracle/local/19cOGGHomeBkp.tar.gz
+     
+   3) Apply the latest patch on OGG home
+      cd /u01/app/oracle/local/OGG_Jul2025
+      export ORACLE_HOME=/u01/app/oracle/product/ogg/19c
+      cd /u01/app/oracle/product/ogg/19c
+      mv OPatch OPatch_Bkp
+      cp /u01/app/oracle/local/OGG_Jul2025/p6880880_190000_Linux-x86-64_Jul2025.zip .
+      unzip p6880880_190000_Linux-x86-64_Jul2025.zip
+      export PATH=$PATH:$ORACLE_HOME/OPatch/
+      opatch version
+      opatch lspatches
+      opatch lsinventory
+
+      cd /u01/app/oracle/local/OGG_Jul2025
+      cd 38123345
+      ls -ltr
+      opatch apply
+
+      Verify the patch apply
+      opatch lspatches
+      opatch lsinventory
+
+      ----------------------------------------------------------------------------------------------------------------
+      ##sequence.sql
+      ----------------------------------------------------------------------------------------------------------------
+      If you are dealing with sequence replication (on replicat side) then take note of below
+ 
+      After any patching check sequence.sql in OGG_HOME. If it's modified then execute the script in the required PDBs.
+      Take backup of below procedures before executing the script
+ 
+      UPDATESEQUENCE
+      MOVETARGETHWM
+      GETSEQFLUSH
+      SEQTRACE
+      REPLICATESEQUENCE
+
+     1) Login to PDB
+        alter session set container=PDBT_RPT;
+     2) Take backup of procedure
+        set pages 200 lines 1000
+        col owner for a20
+        col object_name for a30
+        select owner,object_name,object_type,status from dba_objects 
+        where object_name    in('UPDATESEQUENCE','MOVETARGETHWM','GETSEQFLUSH','SEQTRACE','REPLICATESEQUENCE');
+    
+        spool Sequence_proce_backup.log
+        SET pages 999;
+        set long 10000000
+        set longchunksize 10000000
+        COLUMN DDL Format a2000
+        SET linesize 2000
+        SET heading off;
+        column txt format a131 word_wrapped
+        select 'SELECT DBMS_METADATA.GET_DDL ('''||OBJECT_TYPE||''','''||object_name||''','''||owner||''') from dual;' from dba_objects where object_name in('UPDATESEQUENCE','MOVETARGETHWM','GETSEQFLUSH','SEQTRACE','REPLICATESEQUENCE');
+
+        SELECT DBMS_METADATA.GET_DDL ('PROCEDURE','GETSEQFLUSH','OTP_GGATE_UAT_01') from dual;
+        SELECT DBMS_METADATA.GET_DDL ('PROCEDURE','REPLICATESEQUENCE','OTP_GGATE_UAT_01') from dual;
+        SELECT DBMS_METADATA.GET_DDL ('PROCEDURE','SEQTRACE','OTP_GGATE_UAT_01') from dual;
+        SELECT DBMS_METADATA.GET_DDL ('PROCEDURE','UPDATESEQUENCE','OTP_GGATE_UAT_01') from dual;
+        spool off
+
+      3) Run the below sql script
+         cd /u01/app/oracle/product/ogg/19c
+         sqlplus '/as sysdba'
+        alter session set container=PDBT_RPT;
+        @sequence.sql
+        set pages 200 lines 1000
+        col owner for a20
+        col object_name for a30
+        select owner,object_name,object_type,status from dba_objects 
+        where object_name    in('UPDATESEQUENCE','MOVETARGETHWM','GETSEQFLUSH','SEQTRACE','REPLICATESEQUENCE');
+----------------------------------------------------------------------------------------------------------------
+
+   4) Start the OGG processes
+      cd /u01/app/oracle/product/ogg/19c
+      ./ggsci
+      ggsci> info all
+      ggsci> start mgr
+      ggsci> start rep *
+      ggsci> info all
+
+   5) Monitor the lag
+
+8) Convert the replicat from classic to INTEGRATED
+   1) Stop replicat 
+   GGSCI (hklpdtotp005) 3> stop replicat REP_O2D
+   2) Alter Replicat to integrated mode.
+   GGSCI (hklpdtotp005) 3> DBLOGIN userid OGGADM@OTP_UAT_01, password ******** <== get the password from param file.
+   GGSCI (hklpdtotp005) 3> ALTER REPLICAT REP_O2D, INTEGRATED
+   3) Start Replicat.
+   GGSCI (hklpdtotp005) 3> start replicat REP_O2D
+
+   Note: Monitor the lag.
+
+   4) Verify that Replicat is in integrated mode.
+   GGSCI (hklpdtotp005) 3> info REPLICAT REP_O2D
+9) Provide the log to PSS
+10) PSS verification
+
+Rollback :-
+
+## ROLLBACK STEPS
+  
+1) Stop OGG
+   
+2) Rollback patch or restore the previous backup taken OGG home
+export ORACLE_HOME=/u01/app/oracle/product/ogg/19c
+echo $ORACLE_HOME
+$ORACLE_HOME/OPatch/opatch rollback -id 38123345
+
+OR
+cd /u01/app/oracle/product/ogg/
+mv 19c 19c_Old
+cd /u01/app/oracle/local
+gunzip 19cOGGHomeBkp.tar.gz
+cd /u01/app/oracle/product/ogg/
+tar -xvf /u01/app/oracle/local/19cOGGHomeBkp.tar
+ 
+##Rollback sequence.sql related change if done as part of patching.
+Run the below sql script
+         cd /u01/app/oracle/product/ogg/19c
+         sqlplus '/as sysdba'
+        alter session set container=PDBT_RPT;
+        @sequence.sql
+        set pages 200 lines 1000
+        col owner for a20
+        col object_name for a30
+        select owner,object_name,object_type,status from dba_objects 
+        where object_name    in('UPDATESEQUENCE','MOVETARGETHWM','GETSEQFLUSH','SEQTRACE','REPLICATESEQUENCE');
+
+ 
+3) Start OGG
+cd /u01/app/oracle/product/ogg/19c
+      ./ggsci
+      ggsci> info all
+      ggsci> start mgr
+      ggsci> start rep *
+      ggsci> info all
+
+
+===================================================================================================================
+
+
+
+
+
+
+  
+
+
+

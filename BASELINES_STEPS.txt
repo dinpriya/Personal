@@ -1,0 +1,32 @@
+Oracle DBA Tip: Fix bad execution plans using SQL Plan Baselines
+
+Ever had a query suddenly run slower even though no code changed?
+
+This often means the optimizer chose a new execution plan — and it’s worse.
+
+You can capture and fix the good plan using SQL Plan Baselines:
+
+-- 1. Find the SQL ID of the query:
+SELECT * FROM V$SQL WHERE SQL_TEXT LIKE '%part_of_your_query%';
+
+-- 2. Load the current (good) plan into a baseline:
+DECLARE
+ v_plans_loaded PLS_INTEGER;
+BEGIN
+ v_plans_loaded := DBMS_SPM.LOAD_PLANS_FROM_CURSOR_CACHE(
+ sql_id => 'your_sql_id',
+ plan_hash_value => your_plan_hash_value
+ );
+END;
+/
+
+-- 3. Check the baseline is accepted and fixed:
+SELECT SQL_HANDLE, PLAN_NAME, ENABLED, ACCEPTED
+FROM DBA_SQL_PLAN_BASELINES
+WHERE SQL_TEXT LIKE '%part_of_your_query%';
+
+This ensures Oracle sticks to the known good plan — even if stats or environment change.
+
+Tips:
+
+Baselines are safe and controlled — Oracle won't switch plans unless you allow it.

@@ -1,0 +1,2651 @@
+Dilli, Dinesh's bank id is 8188687, will start at 12/12/2022
+
+LAN ID	8188687	
+Password	WmaZ6&KuDMk3	---> Naninavanya@16
+		
+
+SCB ARI PROXY
+HONGKONG\A883794
+
+
+
+https://controlm-prod.hk.standardchartered.com/ControlM/
+ 
+-- OS Backup Details
+ 
+https://board.gdc.standardchartered.com:8483/static/login
+
+
+Bhanupriya@16 --> RDP 
+Dineshpriya@16 --> Proxy current
+Bhanupriya@16 --> Das
+
+Peoplestrong
+
+50041640
+
+Navanya123
+
+AWFPB1728F
+44000
+S1, JP CASTLE, SIVA GANAPATHY NAGAR, PONNIYAMMANMEDU, CHENNAI-600110
+BHARATHI 
+
+
+
+38848191760
+Troubleshooting Performance Issues (Doc ID 1377446.1)
+
+You have successfully completed your Re-KYC application
+Service request ID : 775303907
+
+UAN
+
+100949364672
+
+
+10.204.65.161
+
+Seshupriya@16
+
+Step 6:- Recover  emp table
+
+RMAN> recover table hari.emp until time "to_date('2019-05-16 02:21:27','yyyy-mm-dd:hh24:mi:ss')" auxiliary destination '/u01/ARC_BKP';
+
+
+SELECT DBMS_METADATA.GET_DDL('PACKAGE','PKG_DYNAMIC_QUERY','S2BV4IM_ADMIN') FROM DUAL;
+
+SELECT DBMS_METADATA.GET_DDL('VIEW','FCT_REGULATORY_REPORT','LC_ECMFCCM_PRD1') FROM DUAL;
+
+SCB temp id:  9111924417 (INDIA)
+
+
+PriyaNewPwd#2023
+
+Nanipriya@16
+
+PG672 --> Nanipriya@16
+
+To put files to prod from non-prod
+
+in prod,
+
+scp -r 10.23.211.243:/tmp/hygine_script .
+
+SCB ARI PROXY
+HONGKONG\A883794
+Navanyanani@16
+Navanya@123
+
+Nanipriya@123
+
+
+Banking ID
+8188687
+Seshupriya@16
+
+
+
+
+Vaccine MOM
+Navanyanani@16
+
+semasupp/Mnv_PkER@_12
+
+A883794
+
+
+3937
+
+8M
+
+DD20230919
+
+shailesh.dwivedi@oracle.com
+Oracle engineer
+
+Memory utilization
+
+ps aux | awk '{m[$11]+=$6}END{for(item in m){printf "%s %s MiB\n",item,m[item]/1024}}' | sort -nrk2 | head -n 30 | column -t
+
+677277
+
+srvctl config service -d pohk4ccd | egrep -h "Service name|instance"
+
+hklvdtapp061 | oracle | Scope#2022ora
+
+https://hkprodoem.gdc.standardchartered.com/em/faces/logon/core-uifwk-console-login
+
+ATOS OEM ALERTS
+
+https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fhkprodoem.gdc.standardchartered.com%2Fem%2Fpublic%2Freports%2Frender%3Faction%3Drestore%26versionID%3Dlatest_copy%26reportID%3D1BB21D3A505DB05DE06326D6150A80EF&data=05%7C02%7Ckian-heng%40atos.net%7C4e312b587f8d4bb8742808dd1b27e7ac%7C33440fc6b7c7412cbb730e70b0198d5a%7C0%7C0%7C638696580395162857%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3aK4JGNHw6YjxuHcKPKmSqljIQHWHHWI1Is5edBX2%2F8%3D&reserved=0
+
+consuming most of memory 
+
+========================
+ 
+SELECT a.username, a.osuser, a.program, b.spid,b.pga_used_mem/1024/1024 “PGA USED (MB)”, a.sid, a.serial# ,a.module,a.logon_time,a.terminal FROM v$session a, v$process b WHERE a.paddr = b.addr
+
+order by b.pga_used_mem desc;
+
+ 
+ps -eo pid,user,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+ 
+Password to verify 10.23.229.31 ==> oracle/Atos#1234567
+
+ Close notes from last task :- 
+Hello user,
+
+We have assigned VIVA user name & password as bellow.
+
+VIVA extension -4404033006
+
+Password -b4Ep1/pGrO]H
+
+Everyone - fyi for oraspd/spq new password
+ 
+hklvddapp051:
+User Id   Password
+oraspq    Sndi%&Sndi2k24pq
+oraspd    Sndi%&Sndi2k24pd
+
+SBI
+
+ddineshnani
+Priyanani@16
+Dineshpriya@16
+
+SCB In
+
+priyanani
+Priyanani@16
+
+rman target /@POHK1FNX_DG catalog  RCAT_P12/WN7Cm2zV5Dr_Jtu5nP5RX8c7u@RCAT12_PROD
+
+connect catalog RCAT_P19/Big_br0th3r@RCAT19_PROD
+
+ 
+$ORACLE_HOME/rdbms/admin/ashrpt.sql
+
+Oracle support IND BAU
+
+satheesh.gadapa@atos.net / Atosdba@123 Ravising123
+
+profile password: Navanya@123
+
+S2B WALLET PASSWORD: atos1234
+
+Nohup sqlplus
+
+nohup sqlplus '/as sysdba' @script.sql &
+
+
+==> Once after ensuring the cursor was purged. You can make use of below queries to validate the sql_profile usage:
+
+-- To verify the coe_profile creation :
+
+col NAME for a40
+col CREATED for a30
+col LAST_MODIFIED for a30
+select name,CREATED,LAST_MODIFIED,FORCE_MATCHING,TYPE,CATEGORY,sql_text from dba_sql_profiles where name='<Profile_Name>';
+
+-- Rerun the query and after that validate whether the query ran by using the sql_profile from v$sql;
+
+select SQL_ID,PLAN_HASH_VALUE,SQL_PROFILE from v$sql where sql_id='&sql_id';
+
+Peformance hub active report using command line instead of OEM
+
+select dbms_perf.report_perfhub( is_realtime=>0, outer_start_time=>to_date('15-JAN-2025 12:00:00','dd-MON-YYYY hh24:mi:ss'), 17:42:49 2 outer_end_time=>to_date('05-FEB-2025 13:00:00','dd-MON-YYYY hh24:mi:ss'), selected_start_time=>to_date('15-JAN-2025 12:00:00','dd-MON-YYYY hh24:mi:ss'), selected_end_time=>to_date('05-FEB-2025 13:00:00','dd-MON-YYYY hh24:mi:ss')) from dual;
+
+
+PSS team to transfer alert : S2B TRADE PROD TSO SUP
+PKI
+
+28162816
+
+EMAIL ID S2B
+M2 Pradeep - M2, Pradeep <Pradeep.M2@sc.com>
+Rajendiran Suseendran - Rajendran, Suseendran <Suseendran.Rajendran@sc.com>
+JP Ramesh - ramesh.jp@sc.com
+Govindarajan Srinivasan - Govindarajan, Srinivasan <Srinivasan.Govindarajan@sc.com>
+Uttarwar, Vilas Dinkarrao -  Vilasdinkarrao.Uttarwar@sc.com
+Raju, Sangeetha - Sangeetha.Raju@sc.com
+
+top directoriers in linux
+
+ du -a /oradump | sort -n -r | head -n 10
+
+
+user for for 071 Server - credentials...
+
+https://confluence.global.standardchartered.com/display/DBENG/Oracle+Database+19c+Standards
+
+PIM team
+
+STS-PIM-OPS <STS-PIM-OPS@sc.com>
+
+SCB Login:
+
+dineshnani
+Navanya@123
+
+Priya@123
+
+SCB credit
+
+dineshnani
+Navanya16
+
+EPID number
+	
+3275773978
+	
+unified auditing
+
+select event_timestamp, DBUSERNAME, action_name,SQL_TEXT,OS_USERNAME, CLIENT_PROGRAM_NAME, USERHOST from unified_audit_trail where UNIFIED_AUDIT_POLICIES like '%SCB_LOGON_LOGOFF_PRIVUSER%' and DBUSERNAME='SQLTXPLAIN';
+
+
+Seshu
+
+kumba
+
+pooratatham
+
+navanya
+
+anusham
+
+ARI01
+
+10.204.33.161
+
+ARI02
+
+10.204.65.161
+
+https://oracledbwr.com/oracle-rac-database-switchover-using-dataguard-broker/
+
+https://oracledbwr.com/oracle-19c-performing-dataguard-switchover-using-dgmgrl-utility/
+
+H2 PERF ATOS
+then in earch type career
+ 
+and click on HR application
+ 
+in HR application page select performance from HOME drop down list
+ 
+ 
+Oracle support
+dlsgo-tcc2-sg-dba-support@atos.net | Atosdba123#
+
+undo usage
+
+with free_sz as ( select tablespace_name, sum(f.bytes)/1048576/1024 free_gb from dba_free_space f group by tablespace_name ) , a as ( select tablespace_name , sum(case when status = 'EXPIRED' then blocks end)*8/1048576 reusable_space_gb , sum(case when status in ('ACTIVE', 'UNEXPIRED') then blocks end)*8/1048576 allocated_gb from dba_undo_extents where status in ('ACTIVE', 'EXPIRED', 'UNEXPIRED') group by tablespace_name ) , undo_sz as ( select tablespace_name, df.user_bytes/1048576/1024 user_sz_gb from dba_tablespaces ts join dba_data_files df using (tablespace_name) where ts.contents = 'UNDO' and ts.status = 'ONLINE' ) select tablespace_name, user_sz_gb, free_gb, reusable_space_gb, allocated_gb , free_gb + reusable_space_gb + allocated_gb total from undo_sz join free_sz using (tablespace_name) join a using (tablespace_name) ;
+
+History undo
+
+with t as (
+select ss.run_time,ts.name,round(su.tablespace_size*dt.block_size/1024/1024/1024,2) alloc_size_gb,
+round(su.tablespace_usedsize*dt.block_size/1024/1024/1024,2) used_size_gb
+from
+dba_hist_tbspc_space_usage su,
+(select trunc(BEGIN_INTERVAL_TIME) run_time,max(snap_id) snap_id from dba_hist_snapshot
+group by trunc(BEGIN_INTERVAL_TIME) ) ss,
+v$tablespace ts,
+dba_tablespaces dt
+where su.snap_id = ss.snap_id
+and su.tablespace_id = ts.ts#
+and ts.name in ('UNDOTBS1')
+and ts.name = dt.tablespace_name )
+select e.run_time,e.name,e.alloc_size_gb,e.used_size_gb curr_used_size_gb,b.used_size_gb prev_used_size_gb, (e.used_size_gb - b.used_size_gb) as variance
+from t e, t b
+where e.run_time = b.run_time + 1
+order by 1;
+
+
+
+SG-DBA email size INC1368725
+
+sqlplus CC_CCS_SRD_ADM/Fvcz1234#@HKLPDPS2B1A-SCAN.HK.STANDARDCHARTERED.COM:1622/svc_pohk1cat_ccs_gl_onl.hk.standardchartered.com
+
+sqlplus CC_PAY_SRD_ADM/Hlkx1234#@HKLPDPS2B1A-SCAN.HK.STANDARDCHARTERED.COM:1622/svc_pohk1cat_ccs_gl_onl.hk.standardchartered.com
+ 
+sqlplus CC_SRD_API_PAY_APP/J7eiWQo_VlYPgfAmQnjSfl0EF@HKLPDDS2B2A-SCAN.HK.STANDARDCHARTERED.COM:1622/svc_api_cat_pt.hk.standardchartered.com
+
+sqlplus CC_SRD_API_ADM/Gdcx1234#@HKLPDPS2B1A-SCAN.HK.STANDARDCHARTERED.COM:1622/svc_pohk1cat_api_gl_onl.hk.standardchartered.com
+
+S2B non-prod
+
+sqlplus CC_SRD_API_ADM/Upaz1234#@HKLPDDS2B2A-SCAN.HK.STANDARDCHARTERED.COM:1622/svc_api_cat_pt.hk.standardchartered.com
+
+./tfactl diagcollect -from "2023-03-01 13:00:00" -to "2023-03-01 17:00:00"
+
+I know how to copy
+
+HKLPDDS2B003 10.23.211.245
+
+oracle/
+
+
+date; ps aux | awk '{m[$11]+=$6}END{for(item in m){printf "%s %s MiB\n",item,m[item]/1024}}' | sort -nrk2 | head -n 30 | column -t | head -6 ; free -h;
+
+SCBs2b2021@#
+
+infra2 / abcd!@34
+
+infra2/bgt5VFR$cde3
+
+infra2@hklvddapp051[~] $
+
+infra2@hklvddapp051[~] $ sudo -u oracle -i
+
+ /u01/app/oracle/product/db/19.7.0.0.Apr2020/OPatch/datapatch -verbose
+
+ATOS URI
+
+ura-uk.it-solutions.atos.net/pulsesso
+ura-aa.it-solutions.atos.net/pulsesso
+
+APAC: ura-aa.it-solutions.atos.net/pulsepki
+APAC: ura-aa.it-solutions.atos.net/pulsesso
+
+unified audit table drop
+select * from UNIFIED_AUDIT_TRAIL where RETURN_CODE<>0 and sql_text like '%TCBSTAGE%' order by EVENT_TIMESTAMP desc
+
+Parallel hint
+
+update /*+parallel(6)*/
+
+export PATH=$PATH:$ORACLE_HOME/OPatch
+
+sudo /u01/app/grid/product/19c/bin/crsctl stop crs
+sudo /u01/app/grid/product/19c/bin/crsctl start crs
+sudo /u01/app/grid/product/19c/bin/crsctl check crs
+
+sudo /u01/app/grid/product/19c/bin/crsctl crsctl status resource -t
+
+sudo /u01/app/grid/product/11gR2/bin/crsctl stop crs
+
+sudo /u01/app/grid/product/11gR2/bin/crsctl start crs
+
+sudo /u01/app/grid/product/19c/bin/crsctl disable crs
+
+sudo /u01/app/grid/product/11gR2/bin/crsctl enable crs
+
+/u01/app/grid/product/11gR2/bin/crsctl check crs
+
+oracle@hklpdsedm01:/home/oracle [POHK1EDM_DG1]> /u01/app/grid/product/11gR2/bin/crsctl check crs
+CRS-4638: Oracle High Availability Services is online
+CRS-4537: Cluster Ready Services is online
+CRS-4529: Cluster Synchronization Services is online
+CRS-4533: Event Manager is online
+
+
+sudo /u01/app/grid/product/19c/bin/rootcrs.sh config crs
+
+sudo /u01/app/grid/product/19c/crs/install/rootcrs.pl -unlock
+
+$ORACLE_HOME/OPatch/opatch lsinv |grep -i applied | sort -n
+
+cd /u01/app/grid/product/19c/crs/install
+
+./rootcrs.sh -unlock
+
+cd /u01/app/grid/product/19c/bin
+
+./clscfg -localpatch
+
+./clscfg -patch
+
+cd /u01/app/grid/product/19c/crs/install
+
+./rootcrs.sh -lock
+
+Dinesh Dilli (ext) <dinesh.dilli.external@atos.net>
+Hendro Hartono <hendro.hartono@atos.net>
+
+9379274038
+
+9379274016
+
+94/2 ground floor
+konapppana aghahara
+electroccity
+
+736172
+736173
+
+9535479232
+mahesh==>
+
+9379274016
+
+08042430003
+4-10
+
+INC3664450
+
+
+find . -name "*.dmp*" -mtime +30 -exec rm -rf {} \;
+
+find . -name "*bin*" -mtime +14 -exec rm -rf {} \;
+
+find . -name "*.*" -mtime +240 -exec rm -rf {} \;
+
+find . -name "*.trc*" -mtime +14 -exec rm -rf {} \;
+
+find . -name "*.core*" -mtime +3 -exec rm -rf {} \;
+
+find . -name "*xml*" -mtime +14 -exec rm -rf {} \;
+
+find . -name "*.log*" -mtime +15 -exec rm -rf {} \;
+
+find . -name "*incdir*" -mtime +14 -exec rm -rf {} \;
+
+find -name "*.aud" -mtime +300 -exec gzip {} \;
+
+nohup sqlplus / as sysdba @purge_recyclebin.sql > purge1_output2.log 2>&1 &
+
+selvakumar
+9087846468
+
+9885300424
+
+GSM Sharding
+
+set gsm -i GSMCCS
+
+stale stats
+
+col owner for a30
+col table_name for a30
+column "STALE" format a5
+column "STAT_LOCKED" format a11
+select owner,table_name,NUM_ROWS,LAST_ANALYZED,STALE_STATS as "STALE",STATTYPE_LOCKED as "STAT_LOCKED" from dba_tab_statistics
+where (owner,table_name) in(select distinct OBJECT_OWNER,object_name from dba_hist_SQL_PLAN
+       where object_type='TABLE' and sql_id='&sqlid' and plan_hash_value=&plan_hash_value)
+   and object_type='TABLE'
+order by last_analyzed;
+
+sudo /u02/app/12.1.0.2/grid/bin/crsctl check crs
+sudo /u02/app/12.1.0.2/grid/bin/crsctl stop crs
+sudo /u02/app/12.1.0.2/grid/bin/crsctl start crs
+
+sudo /u01/app/grid/product/11gR2/bin/crsctl stop crs
+
+/u01/app/grid/product/11gR2
+
+/u01/app/grid/product/11gR2
+
+SELECT DISTINCT sql_id, plan_hash_value
+FROM dba_hist_sqlstat dhs,
+    (
+    SELECT /*+ NO_MERGE */ MIN(snap_id) min_snap, MAX(snap_id) max_snap
+    FROM dba_hist_snapshot ss
+    WHERE ss.begin_interval_time BETWEEN (SYSDATE - 7) AND SYSDATE
+    ) s
+WHERE dhs.snap_id BETWEEN s.min_snap AND s.max_snap
+  AND dhs.sql_id IN ( 'dzcfrt21ty5js');
+  
+  
+Audit
+
+col userhost for a15
+col terminal for a10
+col OS_USERNAME for a12
+col USERNAME for a14
+col RETURNCODE for a13
+col LOGON_TIME for a29
+col LOGOFF for a25
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff from dba_audit_session where (timestamp > (sysdate - 15)) order by logon_time desc,username,timestamp,logoff_time;  
+
+[?5/?9/?2019 9:01 PM]  
++91 7624919887.
+ 
+[?5/?9/?2019 9:01 PM]  Spatola, Eric:  
+919400-2446
+ 
+PMAY
+
+C0001537035
+total cursor open
+
+select a.value, s.username, s.sid, s.serial#
+from v$sesstat a, v$statname b, v$session s
+where a.statistic# = b.statistic#  and s.sid=a.sid
+and b.name = 'opened cursors current';
+
+https://stackoverflow.com/questions/1010898/how-to-find-current-open-cursors-in-oracle
+ 
+https://www.youtube.com/watch?v=HIYgtGB7CsI
+
+AMEX
+
+dineshnani16
+seshu123#
+
+citrix password
+
+radm_ddilli
+seshank#123456
+
+SYS/SYSTEM password change
+
+select db_name,server_name,version,site,systemtype,status,db_status,application from GDAS.GDAS_DATABASES_ORACLE
+where application like '%Argus%' and server_name not in (select distinct server_name from GDAS.GDAS_DATABASES_ORACLE where systemtype in ('DR Standby','Disaster Recovery'))
+
+nohup sh post_clone.sh &
+
+nohup sh post_clone_lsus3b1.sh &
+
+EB login details
+ddineshnani
+seshu@123
+
+find . -name "*incdir*" -mtime +30 -exec rm -rf {} \;
+
+find . -name "*dmp*" -mtime +60 -exec rm -rf {} \;
+
+find . -name "*xml*" -mtime +15 -exec rm -rf {} \;
+
+selvakumar
+9087846468
+
+9885300424
+
+Audit
+
+col userhost for a15
+col terminal for a10
+col OS_USERNAME for a12
+col USERNAME for a14
+col RETURNCODE for a13
+col LOGON_TIME for a29
+col LOGOFF for a25
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff from dba_audit_session where username='&username' and returncode=1017 and (timestamp > (sysdate - 2)) order by logon_time desc,username,timestamp,logoff_time;  
+
+[?5/?9/?2019 9:01 PM]  
++91 7624919887.
+ 
+[?5/?9/?2019 9:01 PM]  Spatola, Eric:  
+919400-2446
+ 
+PMAY
+
+C0001537035
+total cursor open
+
+select a.value, s.username, s.sid, s.serial#
+from v$sesstat a, v$statname b, v$session s
+where a.statistic# = b.statistic#  and s.sid=a.sid
+and b.name = 'opened cursors current';
+
+https://stackoverflow.com/questions/1010898/how-to-find-current-open-cursors-in-oracle
+ 
+https://www.youtube.com/watch?v=HIYgtGB7CsI
+
+AMEX
+
+dineshnani16
+seshu123#
+
+Port add to scan
+
+srvctl modify scan_listener -p "TCP:1545/TCP:1565"
+
+srvctl stop scan_listener
+
+srvctl modify listener -l LISTENER -p 1545,1565
+
+srvctl stop listener
+srvctl start listener
+
+
+SYS/SYSTEM password change
+
+select db_name,server_name,version,site,systemtype,status,db_status,application from GDAS.GDAS_DATABASES_ORACLE
+where application like '%Argus%' and server_name not in (select distinct server_name from GDAS.GDAS_DATABASES_ORACLE where systemtype in ('DR Standby','Disaster Recovery'))
+
+nohup sh post_clone.sh &
+
+post_clone_lsns1b1.shtem
+
+3005/148129321/01/B00
+
+#00 05 * * * /mounts/ilsps01_temp/Reports/Standby_report_safety.sh > /mounts/ilsps01_temp/Reports/standbylag_check_bms.log
+
+vi /u01/app/oracle/diag/crs/ca2ulsrac301q/crs/trace/al*
+
+select min(snap_id), max(snap_id) from dba_hist_snapshot ;
+
+exec dbms_workload_repository.drop_snapshot_range(,);
+
+T4bl3_T0p from Non BMS and
+
+C0zy_Sl1pper for BMS
+
+TEST DB SERVER FOR ATOS
+
+HKLVDTAPP022/10.23.229.31 ==> oracle/Atos#1234567
+
+=================================================
+alter user sys identified by C0zy_Sl1pper;
+
+alter user system identified by C0zy_Sl1pper;
+
+
+alter user sys identified by T4bl3_T0p;
+
+alter user system identified by T4bl3_T0p;
+=================================================
+alter user sys identified by En3rgy_bu1b3;
+
+alter user system identified by En3rgy_bu1b;
+
+
+alter user sys identified by M4ths_S3t;
+
+alter user system identified by M4ths_S3t;
+
+===================================================
+
+alter user sys identified by Ar34_d1ll0;
+
+alter user system identified by Ar34_d1ll0;
+
+alter user sys identified by P1a7y6_us;
+
+alter user system identified by P1a7y6_us;
+
+alter user sys identified by Ar34_d1ll0;
+
+alter user system identified by oracle;
+
+select min(snap_id), max(snap_id) from dba_hist_snapshot;
+
+exec dbms_workload_repository.drop_snapshot_range(,);
+
+exec dbms_workload_repository.modify_snapshot_settings(interval => 60, retention => 20160);
+
+Password to open excel is u5b_Micr0
+
+sudo /dist/oracle/scripts/ora-home-install.sh
+
+QGBL-SMTPRELAY.QUINTILES.COM
+
+5t4y_S4f3 for BMS
+
+and for non BMS L0ck_D03n
+i.e. Lock_Down
+ 
+ Ar34_d1ll0 - (Armadillo)
+Non BMS
+
+P1a7y6_us -  (Platypus)
+BMS
+
+
+RAC node
+
+lsdev1-scan oracle password k@DR3u0W
+
+lsprod2-scan oracle password 2020St1nks
+
+/u01/app/oracle/bin/flexclone/tmp/lcsrac/ent_reset.sql
+
+LCS - RITM11154891
+BMS   RITM11155003
+
+Qsync_prod19
+
+Parallel query
+
+col username for a9
+col sid for a8
+set lines 299
+select
+      s.inst_id,
+      decode(px.qcinst_id,NULL,s.username,
+            ' - '||lower(substr(s.program,length(s.program)-4,4) ) ) "Username",
+      decode(px.qcinst_id,NULL, 'QC', '(Slave)') "QC/Slave" ,
+      to_char( px.server_set) "Slave Set",
+      to_char(s.sid) "SID",
+      decode(px.qcinst_id, NULL ,to_char(s.sid) ,px.qcsid) "QC SID",
+      px.req_degree "Requested DOP",
+     px.degree "Actual DOP", p.spid
+   from
+     gv$px_session px,
+     gv$session s, gv$process p
+   where
+     px.sid=s.sid (+) and
+     px.serial#=s.serial# and
+     px.inst_id = s.inst_id
+     and p.inst_id = s.inst_id
+     and p.addr=s.paddr
+  order by 5 , 1 desc
+/
+
+OS wathcher: /u01/app/grid/local/oracle.ahf/data/repository/suptools/hklpdps2b001/oswbb/grid/archive/oswtop
+
+substr - Trim instance number
+
+ ps -ef | grep ora_pmon | grep -v grep | awk -F_ '{ print substr($3, 1, length($3)-1)}'
+ 
+t3SLA_m3
+b4n4n4_Y
+
+b0ndS_25
+l33dS_03
+
+u5b_Micr0
+sky_W4lk3r
+
+
+dr_W4011
+suP3r_5t4r
+
+biKE_tyr3
+riNG_t0ss
+
+Goodday_123
+safety_dba_apex
+
+
+Summer_123
+safety_dba_apex
+
+
+Unlimited use within QuintilesIMS.
+TOAD:
+B1WM3NAWYZHTPY136DHCPCURQ3B3QL5DZQQEW-137-126-431-C1
+Site Message: QUINTILESIMS
+
+
+perl clone.pl ORACLE_HOME="/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467" ORACLE_BASE="/u01/app/oracle" OSDBA_GROUP=dba OSOPER_GROUP=dba
+
+export PATH=$PATH:/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467/bin:/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467/OPatch
+
+export PATH=$PATH:/oracle/SPP/19/bin:/oracle/SPP/19/
+
+
+alter system set "_smu_debug_mode" = 4;
+select
+   'commit force '''||local_tran_id||''';'
+from
+   dba_2pc_pending;
+
+mv listener_sdbxp26_db.log listener_sdbxp26_db.log_20apr2020
+cat /dev/null > listener_sdbxp26_db.log
+ls -lrt
+gzip listener_scan3.log.06apr14
+
+Address:
+ThePanCard.com
+41, Fourth Floor, Tower I,
+Shakthi Towers,
+766, Anna Salai,
+Chennai-600002.
+
+gbroadband
+
+dinesh26061
+O97WPBHY
+
+https://docs.oracle.com/cd/E11882_01/server.112/e41573/perf_overview.htm#PFGRF025
+
+INC3414016
+
+7030380561
+
+08042046329
+
+Dinesh
+
+RITM4340099 Mobile Device request
+w
+RITM4413567     offer letter
+
+RITM4354281 Mobile Device - New or Change
+
+EIQ0022854
+EIQ0022855
+
+printer \\inblr-vssc01
+
+select * from dba_sys_privs where privilege like '%AUDIT%' or privilege like '%ALTER%' or privilege like '%LINK%' or privilege like '%ANY%'
+and grantee not in ('SYS','SYSTEM','DBA','IMP_FULL_DATABASE','EXP_FUL_DATABASE','%DATA_PUMP%','OEM_MONITOR', 'DBSNMP','XDB','SYSBACKUP','SYSDG',''SCHEDULER_ADMIN') ORDER BY 1;
+
+EIQ0023042
+
+Username:          s801379
+Password:           Welcome2020!
+
+DBLINK METADATA
+
+SELECT DBMS_METADATA.GET_DDL ( DB_LINK , a.db_link, a.owner) FROM dba_db_links a;
+
+TABLESPACE METADATA
+
+SET LONG 20000 LONGCHUNKSIZE 20000 PAGESIZE 0 LINESIZE 1000 FEEDBACK OFF VERIFY OFF TRIMSPOOL ON
+
+BEGIN
+   DBMS_METADATA.set_transform_param (DBMS_METADATA.session_transform, 'SQLTERMINATOR', true);
+   DBMS_METADATA.set_transform_param (DBMS_METADATA.session_transform, 'PRETTY', true);
+END;
+/
+
+SELECT DBMS_METADATA.get_ddl ('TABLESPACE', tablespace_name)
+FROM   dba_tablespaces
+WHERE  tablespace_name not in ('SYSTEM','TOOLS','TEMP','SYSAUX','UNDOTBS1') order by tablespace_name;
+
+
+SFTP:
+
+sftp -oIdentityFile=/home/q801379/q801379-id_rsa -oUSER=q801379 usadc-vsftpp03
+
+new request monitor RITM5465005 new one RITM5608526
+desk phone access RITM5669851
+desk phone RITM5465056
+locker key RITM5473210
+
+RITM4340259 Datacard request
+
+RITM4430610     Webex account
+
+RITM4340168 Laptop request
+
+RITM4386074     Data transfer
+
+INC3313525      skype name issue
+
+\\usadc-nas01a\sys\qdas  
+\\quintiles.net\Enterprise\Services\InstalMstr\InstallApps
+\\usrtp-nas01\pkgmaster\Global
+
+ select count(*),trunc(last_analyzed) from dba_tableS  where OWNER=TRIM(UPPER('&username')) GROUP BY TRUNC(LAST_ANALYZED)
+
+102015130440
+
+du76dz
+
+CDT bms mon01156
+
+water 08022945117
+
+Data Volume
+==============
+$ ssh usadc-zfs01b shares select db_prod_data_b select idfprd01_data snapshots list
+
+Snapshot name: idfprd01_save_20161014
+
+AIQ0002206 --> Global DBAs - Cloning Oracle Home from compressed archives
+
+AIQ0001873 orion
+
+AIQ0002353 --> Splunk
+
+[?3/?28/?2017 9:17 PM] Ismail Ozdemir:
+AIQ0002098 -  12c RAC installation
+
+7204785266
+
+sudo /dist/oracle/scripts/ora-home-install.sh
+
+http://www.oracle.com/technetwork/developermemools/sql-developer/downloads/index.html
+
+vnasd01 is Infosario prod
+vnasd03 is core prod
+vnasd05 is safety prod - not not big enough for BMS to move to it
+vnasd02 is infasario dev
+vnasd04 - doesn't exist
+vnasd06 is safety dev
+ 
+arun02ak31.ak@gmail.com
+sify@123
+
+http://wiki.quintiles.net/display/GDS/Migrate+to+PDB+with+TDE
+
+:%s/^/insert into argus_tables(table_name) values('/g
+:%s/$/');/g
+
+netstat -an | grep 389 | wc -l
+
+Username:          s801379
+Password:           Quintiles70776
+
+exec pkg_rls.set_context('admin', 4, 'argus_safety');
+
+sysman : Un1_c0rn
+
+sys@EM12PD> exec mgmt_admin.cleanup_agent('usadc-sdbxp28.quintiles.net:3872');
+
+PL/SQL procedure successfully completed.
+
+For example, the create_db script execute @/u01/app/oracle/bin/audit_enable.sql, but auditing doesn't seem to be enabled for o3pprd.
+ 
+select enterprise_id, count(*) from dlp_schema_owner.dlp_case_rev_master group by enterprise_id order by 1;
+
+ssh usadc-vnasd06-mgt volume snapshot restore-file -volume vol36d_vd01_clone38 -snapshot RITM3866748_ILSDS05_COLD -path  /vol/vol36d_vd01_clone38/lsps1b1r_data/oradata/lsps1b1r/dbfiles/
+
+Y0gurt_9
+
+Cz3ch_0ut
+
+Gl455eye
+
+Ic3ba1ll
+
+H4ck_saw
+
+Tw0_Ey3s
+
+Gl4ss_wip3
+
+Blu3_t4k
+
+E5h3r_D1a
+E4r_ph0ne
+
+D0ggy_b1cs
+
+Ex_put3x
+
+B1g_m0nitor
+
+C4lyp_s0
+
+F1ex_cl0ne
+
+For SID
+
+Welcome2
+
+Oracle password for BMS servers is G1adious_001
+
+sar 3 5
+
+export PATH=$PATH:$ORACLE_HOME/OPatch
+
+Caps G,one,a,d,I,zero,l,u,s,underscore,zero,zero,one
+
+stale stats
+
+select table_name, stale_stats, last_analyzed
+from dba_tab_statistics
+where owner= 'DLP_TEMP_TABLE_BI' and stale_stats='YES'
+order by last_analyzed desc
+/
+
+Lic
+
+dinpriya16
+goodday1
+
+Bluestrip
+
+http://usadc-vsset01.quintiles.net/bluestripe/index.cgi
+
+http://usadc-vsset01.quintiles.net/bluestripe/index.cgi/mx=2g
+
+AIQ0002229--> Tar oracle home
+AIQ0001936- Oracle Data Guard Physical standby setup for Release 11g 11.2.x
+AIQ0001977 - Oracle Data Guard Physical standby(Release 11g) - Switchover and Failover Steps 11.2.x
+AIQ0001991 - Oracle Data Guard Physical standby(Release 11g) - Standby Rebuild Steps 11.2.x  
+AIQ0002525 "Global DBAs - Oracle GoldenGate 12 1
+
+ssh usadc-vnasd06-mgt volume snapshot restore-file -volume vol36d_vd01_clone30 -snapshot CTASK0087374_Cold_LSUS2B1 -path /vol/vol36d_vd01_clone30/lsps1b1r_data/oradata/lsps1b1r/dbfiles/undotbs01_8.dbf
+for each file
+that was one that was done for lsus2b1
+
+conn sys/C4lyp_s0@&dbname as sysdba
+
+\\quintiles.net\Enterprise\Services\InstalMstr\InstallApps\Oracle\Oracle11gR2x64client.ENG\Source
+
+http://www.sakraworldhospital.com/request-appoinment.php
+
+table stats BMS
+
+exec dbms_stats.gather_table_stats('<schema_name>','<table_name>',estimate_percent=>100,cascade=>TRUE,degree=>16);
+
+https://www.practo.com/bangalore/doctor/dr-achi-ashok-gynecologist-obstetrician?subscription_id=0
+
+SQL to find sessions running longer than 15 minutes
+
+select
+   s.sid,s.serial#,s.sql_id, s.sql_exec_start, st.sql_text
+from V$session_wait w,v$session s, v$sqltext_with_newlines  st
+where
+    st.sql_id = s.sql_id and st.piece=0 and w.sid = s.sid  
+    and round((last_call_et)/60) > 15
+     and w.event not in
+    ('SQL*Net message from client', --'SQL*Net message to client',
+          'rdbms ipc message',
+         'gcs remote message', 'DIAG idle wait', 'ges remote message',
+         'pmon timer', 'smon timer',
+         'EMON idle wait',
+         'Streams AQ: qmn slave idle wait', 'Streams AQ: waiting for time management or cleanup tasks',
+         'Streams AQ: qmn coordinator idle wait', 'Streams AQ: waiting for messages in the queue'
+         --11g idle waits
+         ,'heartbeat monitor sleep', 'wait for unread message on broadcast channel',
+         'VKTM Logical Idle Wait', 'PING', 'Space Manager: slave idle wait', 'PX Deq: reap credit' ,
+         'GCR sleep', 'PX Deq: Execution Msg','VKRM Idle','jobq slave wait','JOX Jit Process Sleep',
+         'class slave wait','PX Deq: Execute Reply','EMON slave idle wait'
+         )
+order by s.sql_id
+
+
+
+[?5/?6/?2016 3:11 PM] Vijaya Bhaskar Kachana:
+Complete Checklist for Manual Upgrades to 11gR2 (Doc ID 837570.1)  
+This is for upgrade  Dinesh
+
+ alter user CMX_ORS account unlock;
+select os_username,username,terminal,owner,Action_name,action from dba_audit_trail where action_name='%grant%ADHOC_CHARGE%' and username like 'YSPLUNK_BMS_LCS' and action=1017;
+
+To perform a global search and replace in vi, use the search and replace command in command mode:
+
+  :%s/search_string/replacement_string/g
+
+select 'alter system kill session '||''''||sid||','||serial#||''''||' immediate;' from v$session
+where username in ('<TARGET_SCHEMA_NAME>') and machine not in ('usadc-vsoppiss01');
+
+
+BEGIN
+      DBMS_SCHEDULER.disable(name=>'"GENRPT"."REFRESH_MV_CASE_EVENT_ASSESS"', force => TRUE);
+END;
+
+select distinct a.sid,a.status,a.username,a.sql_id,b.hash_value from v$session a,v$sqltext b where a.sql_id=b.sql_id and a.status='ACTIVE' and a.username='SMART' and b.sql_text like '%SAWITH0%' order by b.hash_value
+
+PRB0044698
+
+Sp3ctr3_007
+
+K33p_f1t
+
+G1adi0lus_001
+
+Gladiolus
+
+db status:
+
+col platform_name format a30
+col open_mode format a20
+col host_name format a20
+col version format a10
+col status format a20
+col uptime format a30
+col name format a10
+set lines 300
+
+SELECT D.NAME,D.PLATFORM_NAME,D.CREATED, D.OPEN_MODE,I.HOST_NAME,I.VERSION, I.ARCHIVER,I.STATUS,
+   TO_DSINTERVAL( TO_CHAR(
+                                    TO_TIMESTAMP(SYSDATE)-I.STARTUP_TIME
+                                   )
+                      ) "UPTIME",
+                      (SELECT ROUND(SUM(BYTES)/1024/1024/1024) FROM DBA_DATA_FILES) "DB size GB",  
+                      ( SELECT ROUND(BYTES/1024/1024/1024) "mem GB" FROM V$SGAINFO WHERE NAME = 'Maximum SGA Size' ) "SGA max size GB"
+  FROM V$DATABASE D INNER JOIN V$INSTANCE I
+  ON UPPER(D.NAME) = UPPER(I.INSTANCE_NAME);
+
+
+AIQ0001859
+
+ select NAME,to_char(PTIME,'DD_MM_YYYY HH24:MI:SS') from sys.user$  where NAME in ('SYS','SYSTEM');
+
+set pages 20000
+set lines 9999
+set markup html on;
+spool output.xls
+<Query>
+spool off;
+set markup html off
+
+9845436898
+Q801379/LSPS1B1
+Banu123#
+
+mano sir
+
+ select resource_name, current_utilization, max_utilization, limit_value
+    from v$resource_limit
+    where resource_name in ('sessions', 'processes');
+
+sys@LSPX1X2>  select resource_name, current_utilization, max_utilization, limit_value
+    from gv$resource_limit
+    where resource_name in ('sessions', 'processes');
+  2    3
+RESOURCE_NAME                  CURRENT_UTILIZATION MAX_UTILIZATION LIMIT_VALUE
+------------------------------ ------------------- --------------- ----------------------------------------
+processes                                      373             378       2000
+sessions                                       202             204       3024
+processes                                      264             272       2000
+sessions                                        94             102       3024
+processes                                      265             273       2000
+sessions                                        96             103       3024
+
+ARXVIEW
+q801379
+Welcome01
+
+AIQ0003195 for Customer Extracts
+
+dtv140
+
+SELECT * from dba_ _trail where TIMESTAMP > sysdate -5 and OWNER='&username';
+
+Moderna Clone
+
+clones created and exported
+
+dccar2dnetvnasd06d-san1:/vol74d_vd05_clone2/lsps1f1_data (ca2uodb085vd)
+
+dccar2dnetvnasd06d-san1:/vol74d_vd05_clone3/lsps1f1_data (ca2ulsrac301q,ca2ulsrac302q and ca2ulsrac303q)
+
+AUDIT_INFOMATION
+
+SET ECHO OFF
+SET MARKUP HTML ON SPOOL ON
+SPOOL /u01/app/oracle/dba_folders/dinesh/ILSDRP11_audit.html
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where timestamp > (sysdate - 90) and action_name like '%LOGON%' and username not in('ORION_MONITOR','DBSNMP','QDBA_UTIL','SYS','LMS','YSPLUNK') and username not like '%ORION%'
+order by logon_time asc,username,timestamp,logoff_time;
+
+SPOOL OFF
+SET MARKUP HTML OFF
+SET ECHO ON
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where timestamp > (sysdate - 45) and action_name like '%LOGON%' and username not in('DBSNMP','QDBA_UTIL','SYS','ORION_MONITOR','LMS')
+order by logon_time asc,username,timestamp,logoff_time;
+
+http://usadc-vzdb22.quintiles.net:7777/pls/apex4prd/f?p=240:20:651480177874::NO
+
+exec dbms_java.grant_permission('GSK_204699_12L','SYS:java.io.FilePermission','</mounts/qecg_holter_data/GSK_204699_12L>','read');
+
+Technosoft Global Services Pvt Ltd
+Embassy tech Square, Signet Building, West Wing,
+3rd floor, Kadubeesanahalli, Sarjapur Marathalli Outer Ring Road, Bangalore - 560021
+
+The oracle password in MDC is Engl1sh_2.
+
+CCDB-FILER_CHECK
+
+http://usadc-vzdb42.quintiles.net:7777/pls/apex4dev/f?p=739:4:16391013758345
+
+https://orion.quintiles.com/Orion/APM/Admin/Applications/Default.aspx
+
+rm -rf `ls -l | grep "Apr 24" | awk '{print $9}'`
+
+ps -ef|grep lsps1b1e|grep LOCAL|grep Mar24|awk '{print $2}' | xargs kill -9
+
+manual MV refresh
+
+
+EXEC DBMS_MVIEW.refresh('DMSWUAT1.MV_DMSF_REPORT');
+
+Login Histroy
+
+select to_char(TIMESTAMP,'DD_MM_YYYY HH24:MI:SS') "TIMESTAMP",USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE" from dba_audit_session where USERNAME='YSPLUNK'  and TIMESTAMP > sysdate-1 and returncode=1017 order by TIMESTAMP;
+
+http://wiki.quintiles.net/display/GDS/Automated+Cloning?flashId=-1193683829
+
+ps -ef|grep lsps1b1e|grep LOCAL|wc
+
+]/]l-[p;.]-]=[yt
+
+Here you could find which database object is located in which datafile of it's tablespace and it's owner, object name, object type and it's respective size:
+
+SQL> select t.ts#, t.name as Tablespace_name, d.name as Datafile, s.owner, s.segment_name, s.segment_type, s.bytes/1024/1024 as "MB"
+from v$tablespace t, v$datafile d, dba_segments s
+where t.ts#=d.ts#
+and t.name=s.tablespace_name
+and s.owner='SCOTT';
+
+NFS ENABLE
+
+To enable:
+Close database(s) using OH
+cd $ORACLE_HOME/rdbms/lib
+make -f ins_rdbms.mk dnfs_on
+Start database(s)
+
+Akhila Vishwanath
++919620070081
+
+Monitoring the Undo tickets. As it' need time for the space to claim automatically.No impact on downgrading the ticket
+
+0utC0m3!
+
+K33p_f1t
+
+http://bashokan77.blogspot.in/
+
+INC1903459 --> Chnage to be created
+
+0raCl3!
+
+alter user GENRPT identified by values '4663F8529D0BFE4C';
+
+select username,account_status from dba_users where username='DBSNMP';
+alter user dbsnmp account unlock;
+alter user dbsnmp identified by W3ar3Watching;
+
+exec dbms_java_dev.enable;
+
+-invPtrLoc /u01/app/oraInventory/oraInst.loc
+
+http://www.dbas-oracle.com/2011/06/step-by-step-manual-database-upgrade-to.html
+
+select file_name,tablespace_name,AUTOEXTENSIBLE from _files where tablespace_name='&tablespace_name';
+
+select file_name,tablespace_name,AUTOEXTENSIBLE from dba_temp_files where tablespace_name='&tablespace_name';
+
+
+/usr/local/bin/sudo su - oracle
+
+/dist/rhel/scripts/ora_mem_use -d  t
+
+select 'grant '||PRIVILEGE||' on '||OWNER||'.'||TABLE_NAME||' to '||GRANTEE||';' from dba_tab_privs where GRANTEE='Q778609';
+
+Refresh tool:
+
+http://adcteamsites.quintiles.com/sites/DBA/library/KB%20Articles/Forms/AllItems.aspx
+
+@/home/oracle/scripts/killsess.sql
+
+W3ar3Watching
+
+http://www.netapp.com/us/media/tr-3858.pdf
+
+stty columns 120
+
+Goodday_123
+safety_dba_apex
+
+
+Summer_123
+safety_dba_apex
+
+
+How To Use DataPump Export (EXPDP) To Export From Physical Standby Database (Doc ID 1356592.1)
+
+
+select file_id,FILE_NAME,TABLESPACE_NAME,AUTOEXTENSIBLE,BYTES/1024/1024 "Used Size(MB)", MAXBYTES/1024/1024 "Max Size(MB)" from dba_data_files
+where TABLESPACE_NAME like '&tabname' order by file_id;
+
+size 1g autoextend on next 100M maxsize unlimited;
+
+
+size 200M autoextend on next 100M maxsize unlimited;
+
+CM PROJECT CODE
+CMENHC18  
+
+
+IRCTC
+
+dineshnani16
+Seshu@123
+
+Extract
+
+create table ALKEM_DP.argus_tables
+
+create table ALKEM_DP.esm_tables
+
+TMB
+
+209100050302686
+dineshnani
+seshu@123
+
+[?1/?28/?2019 2:34 PM]  G, RamSanthosh:  
+SQL> alter user APEX_SAFETY identified by Goodlife_19 account unlock;
+
+User altered.
+ 
+Application ID AA008NZ8GG
+
+TIER1730189345273
+
+Amex
+
+dineshnani16
+seshu123#
+
+qamr-accounts\qid
+
+Enable Partition
+
+Go to ORACLE_HOME/rdbms/lib
+
+1) make -f ins_rdbms.mk part_on  (To turn partitioning on)
+2) shutdown the database running on the home.  (not really reqd but better as we need to relink oracle binaries in next step)
+3) make -f ins_rdbms.mk ioracle    (To relink oracle binaries)
+
+
+extension no ; 918071318122
+
+$ tfactl diagcollect -from "Sep/4/2018 01:00:00" -to "Sep/4/2018 11:00:00"
+
+
+tar
+
+tar --exclude='./log' --exclude='./*log' --exclude='./rdbms/log/*' --exclude='./rdbms/audit/*' --exclude='./network/log/*' --exclude='./inventory/backup/*' --exclude='./dbs/*' --exclude='./aaa.tar' --exclude='./p*zip' . -zcvf /u01/app/oracle/dba_folders/dinesh/soft_home/12.1.0.2.170117_qpatchset02_a.tar >  /u01/app/oracle/dba_folders/dinesh/soft_home/12.1.0.2.170117_qpatchset02_a.out
+
+untar
+
+tar -xvf /tmp/<tar file name>
+
+Best wishes on this wonderful journey, as you build your new lives together
+
+From: Thanga, Dinesh & Shakeel
+
+Faber
+18002093484
+
+Thank you for your message. I am currently out of the office  with no email access and will be back on May 06 2019.
+For Argus/BMS/LCS/SANTEN/8.1 reach out to Linda(GMT)/Ramsanthosh(IST)/Shakeel Jameel(EST)
+For immediate assistance please log a ticket with Service Desk to Global DBA Services - Oracle - OpB for any assistance
+Otherwise, I will respond to your emails as soon as possible upon my return.
+Thanks,
+
+
+
+EXEC DBMS_STATS.gather_TABLE_stats('QSYNC_APP','Q_MESSAGES', estimate_percent =>DBMS_STATS.AUTO_SAMPLE_SIZE, cascade => TRUE);
+
+Object growth
+
+set feedback on
+column object_name for a30
+select * from (select c.TABLESPACE_NAME,c.segment_name "Object_Name",b.object_type,
+sum(space_used_delta) / 1024 / 1024 "Growth (MB)"
+from dba_hist_snapshot sn,
+dba_hist_seg_stat a,
+dba_objects b,
+dba_segments c
+where begin_interval_time > trunc(sysdate) - &days_back
+and sn.snap_id = a.snap_id
+and b.object_id = a.obj#
+and b.owner = c.owner
+and b.object_name = c.segment_name
+and c.owner = 'EEF_PRDA1'
+and b.object_name in ('EVENT_TRANSACTION_STORE$AUDIT','LOG_ALERT_DETAILS')
+group by c.TABLESPACE_NAME,c.segment_name,b.object_type)
+order by 3 asc;
+
+Undo tablespace is reclaimed.Also there are many undo sessions in expired , so it will be reuse automatically.
+select count(status) from dba_undo_extents where status = 'EXPIRED';
+
+/u01/app/oracle/bin/maintain_dbdirs_arch_thresh.par
+
+
+select name,open_mode from v$database;
+
+alter database recover managed standby database disconnect from session using current logfile;
+
+alter database recover managed standby database disconnect from session noparallel;
+
+SELECT   a.thread#,  b. last_seq, a.applied_seq, a. last_app_timestamp, b.last_seq-a.applied_seq   ARC_DIFF FROM (SELECT  thread#, MAX(sequence#) applied_seq, MAX(next_time) last_app_timestamp FROM gv$archived_log WHERE applied = 'YES' GROUP BY thread#) a, (SELECT  thread#, MAX (sequence#) last_seq FROM gv$archived_log GROUP BY thread#) b WHERE a.thread# = b.thread#;
+
+https://usadc-vsslwp01/Orion/APM/Admin/ApplicationTemplates.aspx
+
+12:27:21 SYS @ TOHK1TST:CDB$ROOT:>create user flash_test identified by Flashtestflashtest_flash16 default tablespace users;
+
+User created.
+
+12:34:35 SYS @ TOHK1TST:CDB$ROOT:>select sysdate from dual;
+
+SYSDATE
+-----------------------------
+19 May 2025 12:34:40
+
+
+15:59:33 FLASH_TEST @ TOHK1TST:PDBT_TEST:>delete from employee where FIRST_NAME='PUBLIC';
+
+75 rows deleted.
+
+15:59:42 FLASH_TEST @ TOHK1TST:PDBT_TEST:>select count(*) from employee;
+
+  COUNT(*)
+----------
+        25
+
+15:59:51 FLASH_TEST @ TOHK1TST:PDBT_TEST:>commit;
+
+Commit complete.
+
+15:59:54 FLASH_TEST @ TOHK1TST:PDBT_TEST:>select sysdate from dual;
+
+SYSDATE
+-----------------------------
+19 May 2025 16:00:22
+
+
+
+to raise change
+Service- Infra - Database TS
+Service offering- INFRA - DATABASE ATOS PROD TSO
+Configuration item- INFRA - DATABASE ATOS PROD AS
+
+
+set lines 200 pages 100 long 20000000
+col MEMBER for a75 tru
+
+select * from v$log;
+
+select * from v$logfile;
+
+srvctl modify scan_listener -endpoints "TCP:1545/TCP:1565"
+
+Passport Login
+
+SESHANKDINESH
+
+Seshu@123
+
+NAVANYADINESH
+
+Navanya@123
+
+LICHFL LOAN
+
+511500003239
+
+dinesh.dilli@quintiles.com
+
+qamr-accounts\qid
+
+cd /u01/app/oracle/admin/
+s
+select process,status,sequence# from v$managed_standby;
+
+
+ssh ieedc-vnasd01-mgt snapshot delete -volume vol5d_vd01 -snapshot  CTASK0070532_ILSPS01ER_COLD_BEFORE_REBUILD
+
+ssh usadc-vnasd01-mgt snapshot delete -vserver usadc-vnasd01 -volume vol16d_vd01 -snapshot cold_easprda_dgbuild -foreground true
+
+SQL> execute sys.dbms_support.start_trace_in_session(599,45131, waits=>true, binds=>true);
+ 
+PL/SQL procedure successfully completed.
+
+SQL> execute sys.d_support.stop_trace_in_session(599,45131);
+ 
+PL/SQL procedure successfully completed.
+
+
+CDRMSPRD
+
+full export on source
+create empty 12c database
+disable audit... audit_trail=none
+import full dump into 12c
+
+Rebuild standby
+https://shivanandarao-oracle.com/2012/03/10/creating-physical-standby-database-on-oracle-11g/
+ 
+
+
+http://oracle11ggotchas.com/articles/ConfiguringActivePassive.htm
+
+temp usage
+
+select sql_id,max(TEMP_SPACE_ALLOCATED)/(1024*1024*1024) gig
+from DBA_HIST_ACTIVE_SESS_HISTORY
+where
+sample_time > sysdate-30 and
+TEMP_SPACE_ALLOCATED > (50*1024*1024*1024)
+group by sql_id order by sql_id;
+
+ 
+  select sql_id,max(TEMP_SPACE_ALLOCATED)/(1024*1024*1024) gig
+from DBA_HIST_ACTIVE_SESS_HISTORY
+where
+sample_time > sysdate-10 and
+TEMP_SPACE_ALLOCATED > (1*1024*1024*1024)
+group by sql_id order by sql_id;
+
+CLOUD DBA
+There are 3 exams
+1z0-160
+1z0-337
+
+1z0-932
+
+Sandhiya home
+
+https://goo.gl/maps/anvAKAb6rpjZVC8U7
+
+'ALTERUSER'||NAME||'IDENTIFIEDBYVALUES'''||PASSWORD||''';'
+--------------------------------------------------------------------------------
+alter user CM_SETUP1 identified by values '2F5258A49D5BF6B0';
+alter user CM_TRANS1 identified by values '8E7AE6D18B298D2F';
+
+
+
+select 'alter user '||name||' identified by values '''||password||''';' from user$ where name in ('CC_PSS_VIEW ');
+
+
+   CREATE USER "CC_PSS_VIEW" IDENTIFIED BY VALUES 'S:B78193DEB6EFD1B7C7F0E355B997C1E6A3BFDE5720236F77AF5C8C0B5510;T:1D50D1555BC008906577F6EE4FFF837B848297F5388B3CDCBBE9C7523F36B0FFC6208DD2A3A8BAD7BD60D8D67CBC68897CFC508FF2009AB4A95D48D8555999DA1D0F126DA634D44672C50020CE336A0D'
+      DEFAULT TABLESPACE "TS_CC_NGO_GL_RAC"
+      TEMPORARY TABLESPACE "TEMP"
+      PROFILE "SCB_STATIC_APP_PSS"
+
+
+SQL> select 'alter user '||name||' identified by values '''||password||''';' from user$ where name like '%WHO%';
+
+'ALTERUSER'||NAME||'IDENTIFIEDBYVALUES'''||PASSWORD||''';'
+--------------------------------------------------------------------------------
+alter user WHO_OWNER_MAR2020 identified by values '64B452CF95F0395E';
+alter user WHO_ROLE_MAR2020 identified by values '';
+
+SQL>  select 'alter user '||name||' identified by values '''||password||''';' from user$ where name like '%MED%;l
+  2
+SQL>
+SQL> select 'alter user '||name||' identified by values '''||password||''';' from user$ where name like '%MED%;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL>  select 'alter user '||name||' identified by values '''||password||''';' from user$ where name like '%MED%';
+
+'ALTERUSER'||NAME||'IDENTIFIEDBYVALUES'''||PASSWORD||''';'
+--------------------------------------------------------------------------------
+alter user MEDDRA_OWNER_230 identified by values '4CF682DC4F7B0A32';
+alter user MEDDRA_ROLE_230 identified by values '';
+
+
+
+
+SITEID RITM7034707
+
+TRANSFORM=oid:n
+
+nohup ./scp.sh > scp.out > scp.err < /dev/null &
+
+nohup ./cp.sh > cp.out > cp.err < /dev/null &
+
+USADC-SINDBT01
+
+39253332
+
+7madhuganesh6#
+
+7900
+
+Dear Friend,
+
+Finally I am getting hooked for life. I thereby invite you all to the engagement ceremony with the chick who finally hooked me down. I would eagerly await your presence, with gifts of course
+
+Date : 20-Aug-2015
+
+Time : 5.30PM onwards
+
+Place :
+
+9791670243
+
+Selvi
+
+Sync:
+
+
+set line 300
+select  NAME,  VALUE,  UNIT   from v$dataguard_stats   union    select null,null,' ' from dual union    select null,null,'Time Computed: '||MIN(TIME_COMPUTED)  from v$dataguard_stats;
+
+
+
+Thanks Lewis for the clarification.
+
+Please clone the 04-JULY-2015 (first week of July) snap mirror for ILSPS01 database to USADC-SDBXT60 server.
+
+I will use that mount to create a test database.
+
+Also mount the archivelog for the same date. I will get required logs from that read only snap and will confirm once recovery test is completed to destroy.
+
+Regards
+
+
+AUDIT
+
+select OS_USERNAME,action_name,USERNAME,to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where username ='&user'
+AND (timestamp > (sysdate - 45))
+order by logon_time,username,timestamp,logoff_time desc;
+
+
+yes.  Just don't share it with anyone....just have them ask me directly...that helps ensure this info doesn't get outside of the DBA team.
+DBA Suite
+License key: C36VAB7ZSENV73T50XT4XYF0ZX6K83CAQ7BAW-130-404-898-BC
+Site Message: QUINTILES INC
+Number of Seats: 2
+
+License Number: 130-404-898
+Account ID: 1-5YRR6A
+
+Dear Dinesh Dilli,
+Thank you for registering with moneyonlineinvestment.com.
+Your username: ddineshnani@gmail.com
+Your password: goodday1
+Please save this information for future use.
+You may login into your account using your username and password at:
+http://www.moneyonlineinvestment.com/login.php
+In a short time you have to receive a confirmation email with the same information.
+Make your new business happy and rich!
+Sincerely,
+moneyonlineinvestment.com team.
+
+
+If anyone is tasked to perform manual backups, during the SDH release this weekend (or in the future), the new backup commands will be:
+
+# list snapshots of idfprd01:
+ssh usadc-vsdxiop01 'show-snapshots ancestor-vol-id="idfprd01_data"'
+
+# create snapshot for idfprd01:
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["idfprd01_data"] snapshot-type="readonly" snap-suffix="manual_snap_<date/ticket>"'
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="idfprd01_data.manual_snap_<date/ticket>"" tag-id="/Volume/ora-snapshots"'
+
+
+
+# list snapshots of idfmap01:
+ssh usadc-vsdxiop01 'show-snapshots ancestor-vol-id="idfmap01_data"'
+
+# create snapshot for idfmap01:
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["idfmap01_data"] snapshot-type="readonly" snap-suffix="manual_snap_<date/ticket>""'
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="idfmap01_data.manual_snap_<date/ticket>"" tag-id="/Volume/ora-snapshots"'
+
+
+             Put a database in backup mode
+              And run below command to take a backup
+ 
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["dfprd_data"] snapshot-type="readonly" snap-suffix=".manual_snap_yyyymmdd"'
+ 
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="dfprd_data.manual_snap_yyyymmdd" tag-id="/Volume/ora-snapshots"'
+ 
+              Don t change the date format while taking the snapshot
+              Take database out of backup of mode
+
+DOB
+
+MOM 1-7-65
+
+DAD 17-5-62
+
+Thanks for your mail.
+
+I will be Out of office on 12th & 13th JUN and will be back on 14th JUN.
+I will have limited access to emails, so expect delay in response.
+For any Oracle related issues, please raise an SR to "Global DBA Services - Oracle - Opb",
+which will be addressed at the earliest. Please feel free to reach on phone at emrgency.
+
+Thanks,
+
+
+
+3005/148129321/01/B00
+
+#00 05 * * * /mounts/ilsps01_temp/Reports/Standby_report_safety.sh > /mounts/ilsps01_temp/Reports/standbylag_check_bms.log
+
+vi /u01/app/oracle/diag/crs/ca2ulsrac301q/crs/trace/al*
+
+select min(snap_id), max(snap_id) from dba_hist_snapshot ;
+
+exec dbms_workload_repository.drop_snapshot_range(,);
+
+alter user sys identified by Ar34_d1ll0;
+
+alter user system identified by Ar34_d1ll0;
+
+
+alter user sys identified by P1a7y6_us;
+
+alter user system identified by P1a7y6_us;
+
+alter user sys identified by Ar34_d1ll0;
+
+alter user system identified by oracle;
+
+select min(snap_id), max(snap_id) from dba_hist_snapshot;
+
+exec dbms_workload_repository.drop_snapshot_range(,);
+
+exec dbms_workload_repository.modify_snapshot_settings(interval => 60, retention => 20160);
+
+Password to open excel is u5b_Micr0
+
+sudo /dist/oracle/scripts/ora-home-install.sh
+
+QGBL-SMTPRELAY.QUINTILES.COM
+
+5t4y_S4f3 for BMS
+
+and for non BMS L0ck_D03n
+i.e. Lock_Down
+ 
+ Ar34_d1ll0 - (Armadillo)
+Non BMS
+
+P1a7y6_us -  (Platypus)
+BMS
+
+
+RAC node
+
+lsdev1-scan oracle password k@DR3u0W
+
+lsprod2-scan oracle password 2020St1nks
+
+/u01/app/oracle/bin/flexclone/tmp/lcsrac/ent_reset.sql
+
+LCS - RITM11154891
+BMS   RITM11155003
+
+Qsync_prod19
+
+Parallel query
+
+col username for a9
+col sid for a8
+set lines 299
+select
+      s.inst_id,
+      decode(px.qcinst_id,NULL,s.username,
+            ' - '||lower(substr(s.program,length(s.program)-4,4) ) ) "Username",
+      decode(px.qcinst_id,NULL, 'QC', '(Slave)') "QC/Slave" ,
+      to_char( px.server_set) "Slave Set",
+      to_char(s.sid) "SID",
+      decode(px.qcinst_id, NULL ,to_char(s.sid) ,px.qcsid) "QC SID",
+      px.req_degree "Requested DOP",
+     px.degree "Actual DOP", p.spid
+   from
+     gv$px_session px,
+     gv$session s, gv$process p
+   where
+     px.sid=s.sid (+) and
+     px.serial#=s.serial# and
+     px.inst_id = s.inst_id
+     and p.inst_id = s.inst_id
+     and p.addr=s.paddr
+  order by 5 , 1 desc
+/
+
+substr - Trim instance number
+
+ ps -ef | grep ora_pmon | grep -v grep | awk -F_ '{ print substr($3, 1, length($3)-1)}'
+ 
+t3SLA_m3
+b4n4n4_Y
+
+b0ndS_25
+l33dS_03
+
+u5b_Micr0
+sky_W4lk3r
+
+
+dr_W4011
+suP3r_5t4r
+
+biKE_tyr3
+riNG_t0ss
+
+Goodday_123
+safety_dba_apex
+
+
+Summer_123
+safety_dba_apex
+
+
+Unlimited use within QuintilesIMS.
+TOAD:
+B1WM3NAWYZHTPY136DHCPCURQ3B3QL5DZQQEW-137-126-431-C1
+Site Message: QUINTILESIMS
+
+
+perl clone.pl ORACLE_HOME="/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467" ORACLE_BASE="/u01/app/oracle" OSDBA_GROUP=dba OSOPER_GROUP=dba
+
+export PATH=$PATH:/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467/bin:/mounts/ora_home_master/app/oracle/product/11.2.0.3.15_21391467/OPatch
+
+
+alter system set "_smu_debug_mode" = 4;
+select
+   'commit force '''||local_tran_id||''';'
+from
+   dba_2pc_pending;
+
+mv listener_sdbxp26_db.log listener_sdbxp26_db.log_20apr2020
+cat /dev/null > listener_sdbxp26_db.log
+ls -lrt
+gzip listener_scan3.log.06apr14
+
+Address:
+ThePanCard.com
+41, Fourth Floor, Tower I,
+Shakthi Towers,
+766, Anna Salai,
+Chennai-600002.
+
+gbroadband
+
+dinesh26061
+O97WPBHY
+
+HDFC LOAN LAND
+
+DINESHDPRIYA
+Priyanani@16
+Nanipriya@16
+
+
+https://docs.oracle.com/cd/E11882_01/server.112/e41573/perf_overview.htm#PFGRF025
+
+INC3414016
+
+7030380561
+
+08042046329
+
+Dinesh
+
+RITM4340099 Mobile Device request
+w
+RITM4413567     offer letter
+
+RITM4354281 Mobile Device - New or Change
+
+EIQ0022854
+EIQ0022855
+
+printer \\inblr-vssc01
+
+EIQ0023042
+
+Username:          s801379
+Password:           Welcome2020!
+
+DBLINK METADATA
+
+SELECT DBMS_METADATA.GET_DDL ( DB_LINK , a.db_link, a.owner) FROM dba_db_links a;
+
+TABLESPACE METADATA
+
+SET LONG 20000 LONGCHUNKSIZE 20000 PAGESIZE 0 LINESIZE 1000 FEEDBACK OFF VERIFY OFF TRIMSPOOL ON
+
+BEGIN
+   DBMS_METADATA.set_transform_param (DBMS_METADATA.session_transform, 'SQLTERMINATOR', true);
+   DBMS_METADATA.set_transform_param (DBMS_METADATA.session_transform, 'PRETTY', true);
+END;
+/
+
+SELECT DBMS_METADATA.get_ddl ('TABLESPACE', tablespace_name)
+FROM   dba_tablespaces
+WHERE  tablespace_name not in ('SYSTEM','TOOLS','TEMP','SYSAUX','UNDOTBS1') order by tablespace_name;
+
+
+SFTP:
+
+sftp -oIdentityFile=/home/q801379/q801379-id_rsa -oUSER=q801379 usadc-vsftpp03
+
+new request monitor RITM5465005 new one RITM5608526
+desk phone access RITM5669851
+desk phone RITM5465056
+locker key RITM5473210
+
+RITM4340259 Datacard request
+
+RITM4430610     Webex account
+
+RITM4340168 Laptop request
+
+RITM4386074     Data transfer
+
+INC3313525      skype name issue
+
+\\usadc-nas01a\sys\qdas  
+\\quintiles.net\Enterprise\Services\InstalMstr\InstallApps
+\\usrtp-nas01\pkgmaster\Global
+
+ select count(*),trunc(last_analyzed) from dba_tableS  where OWNER=TRIM(UPPER('&username')) GROUP BY TRUNC(LAST_ANALYZED)
+
+102015130440
+
+du76dz
+
+CDT bms mon01156
+
+water 08022945117
+
+Data Volume
+==============
+$ ssh usadc-zfs01b shares select db_prod_data_b select idfprd01_data snapshots list
+
+Snapshot name: idfprd01_save_20161014
+
+AIQ0002206 --> Global DBAs - Cloning Oracle Home from compressed archives
+
+AIQ0001873 orion
+
+AIQ0002353 --> Splunk
+
+[?3/?28/?2017 9:17 PM] Ismail Ozdemir:
+AIQ0002098 -  12c RAC installation
+
+7204785266
+
+sudo /dist/oracle/scripts/ora-home-install.sh
+
+http://www.oracle.com/technetwork/developermemools/sql-developer/downloads/index.html
+
+vnasd01 is Infosario prod
+vnasd03 is core prod
+vnasd05 is safety prod - not not big enough for BMS to move to it
+vnasd02 is infasario dev
+vnasd04 - doesn't exist
+vnasd06 is safety dev
+ 
+arun02ak31.ak@gmail.com
+sify@123
+
+http://wiki.quintiles.net/display/GDS/Migrate+to+PDB+with+TDE
+
+:%s/^/insert into argus_tables(table_name) values('/g
+:%s/$/');/g
+
+netstat -an | grep 389 | wc -l
+
+Username:          s801379
+Password:           Quintiles70776
+
+exec pkg_rls.set_context('admin', 4, 'argus_safety');
+
+sysman : Un1_c0rn
+
+sys@EM12PD> exec mgmt_admin.cleanup_agent('usadc-sdbxp28.quintiles.net:3872');
+
+PL/SQL procedure successfully completed.
+
+For example, the create_db script execute @/u01/app/oracle/bin/audit_enable.sql, but auditing doesn't seem to be enabled for o3pprd.
+ 
+select enterprise_id, count(*) from dlp_schema_owner.dlp_case_rev_master group by enterprise_id order by 1;
+
+ssh usadc-vnasd06-mgt volume snapshot restore-file -volume vol36d_vd01_clone38 -snapshot RITM3866748_ILSDS05_COLD -path  /vol/vol36d_vd01_clone38/lsps1b1r_data/oradata/lsps1b1r/dbfiles/
+
+Y0gurt_9
+
+Cz3ch_0ut
+
+Gl455eye
+
+Ic3ba1ll
+
+H4ck_saw
+
+Tw0_Ey3s
+
+Gl4ss_wip3
+
+Blu3_t4k
+
+E5h3r_D1a
+E4r_ph0ne
+
+D0ggy_b1cs
+
+Ex_put3x
+
+B1g_m0nitor
+
+C4lyp_s0
+
+F1ex_cl0ne
+
+For SID
+
+Welcome2
+
+Oracle password for BMS servers is G1adious_001
+
+sar 3 5
+
+export PATH=$PATH:$ _HOME/OPatch
+
+Caps G,one,a,d,I,zero,l,u,s,underscore,zero,zero,one
+
+stale stats
+
+select table_name, stale_stats, last_analyzed
+from dba_tab_statistics
+where owner= 'DLP_TEMP_TABLE_BI' and stale_stats='YES'
+order by last_analyzed desc
+/
+
+Lic
+
+dinpriya16
+goodday1
+
+Bluestrip
+
+http://usadc-vsset01.quintiles.net/bluestripe/index.cgi
+
+http://usadc-vsset01.quintiles.net/bluestripe/index.cgi/mx=2g
+
+AIQ0002229--> Tar oracle home
+AIQ0001936- Oracle Data Guard Physical standby setup for Release 11g 11.2.x
+AIQ0001977 - Oracle Data Guard Physical standby(Release 11g) - Switchover and Failover Steps 11.2.x
+AIQ0001991 - Oracle Data Guard Physical standby(Release 11g) - Standby Rebuild Steps 11.2.x  
+AIQ0002525 "Global DBAs - Oracle GoldenGate 12 1
+
+ssh usadc-vnasd06-mgt volume snapshot restore-file -volume vol36d_vd01_clone30 -snapshot CTASK0087374_Cold_LSUS2B1 -path /vol/vol36d_vd01_clone30/lsps1b1r_data/oradata/lsps1b1r/dbfiles/undotbs01_8.dbf
+for each file
+that was one that was done for lsus2b1
+
+conn sys/C4lyp_s0@&dbname as sysdba
+
+\\quintiles.net\Enterprise\Services\InstalMstr\InstallApps\Oracle\Oracle11gR2x64client.ENG\Source
+
+http://www.sakraworldhospital.com/request-appoinment.php
+
+table stats BMS
+
+exec dbms_stats.gather_table_stats('<schema_name>','<table_name>',estimate_percent=>100,cascade=>TRUE,degree=>16);
+
+https://www.practo.com/bangalore/doctor/dr-achi-ashok-gynecologist-obstetrician?subscription_id=0
+
+SQL to find sessions running longer than 15 minutes
+
+select
+   s.sid,s.serial#,s.sql_id, s.sql_exec_start, st.sql_text
+from V$session_wait w,v$session s, v$sqltext_with_newlines  st
+where
+    st.sql_id = s.sql_id and st.piece=0 and w.sid = s.sid  
+    and round((last_call_et)/60) > 15
+     and w.event not in
+    ('SQL*Net message from client', --'SQL*Net message to client',
+          'rdbms ipc message',
+         'gcs remote message', 'DIAG idle wait', 'ges remote message',
+         'pmon timer', 'smon timer',
+         'EMON idle wait',
+         'Streams AQ: qmn slave idle wait', 'Streams AQ: waiting for time management or cleanup tasks',
+         'Streams AQ: qmn coordinator idle wait', 'Streams AQ: waiting for messages in the queue'
+         --11g idle waits
+         ,'heartbeat monitor sleep', 'wait for unread message on broadcast channel',
+         'VKTM Logical Idle Wait', 'PING', 'Space Manager: slave idle wait', 'PX Deq: reap credit' ,
+         'GCR sleep', 'PX Deq: Execution Msg','VKRM Idle','jobq slave wait','JOX Jit Process Sleep',
+         'class slave wait','PX Deq: Execute Reply','EMON slave idle wait'
+         )
+order by s.sql_id
+
+
+
+[?5/?6/?2016 3:11 PM] Vijaya Bhaskar Kachana:
+Complete Checklist for Manual Upgrades to 11gR2 (Doc ID 837570.1)  
+This is for upgrade  Dinesh
+
+ alter user CMX_ORS account unlock;
+select os_username,username,terminal,owner,Action_name,action from dba_audit_trail where action_name='%ALTER%' and username like '%CYCLONE%' and action=1017;
+
+To perform a global search and replace in vi, use the search and replace command in command mode:
+
+  :%s/search_string/replacement_string/g
+
+select 'alter system kill session '||''''||sid||','||serial#||''''||' immediate;' from v$session
+where username in ('<TARGET_SCHEMA_NAME>') and machine not in ('usadc-vsoppiss01');
+
+
+BEGIN
+      DBMS_SCHEDULER.disable(name=>'"GENRPT"."REFRESH_MV_CASE_EVENT_ASSESS"', force => TRUE);
+END;
+
+select distinct a.sid,a.status,a.username,a.sql_id,b.hash_value from v$session a,v$sqltext b where a.sql_id=b.sql_id and a.status='ACTIVE' and a.username='SMART' and b.sql_text like '%SAWITH0%' order by b.hash_value
+
+PRB0044698
+
+Sp3ctr3_007
+
+K33p_f1t
+
+G1adi0lus_001
+
+Gladiolus
+
+db status:
+
+col platform_name format a30
+col open_mode format a20
+col host_name format a20
+col version format a10
+col status format a20
+col uptime format a30
+col name format a10
+set lines 300
+
+SELECT D.NAME,D.PLATFORM_NAME,D.CREATED, D.OPEN_MODE,I.HOST_NAME,I.VERSION, I.ARCHIVER,I.STATUS,
+   TO_DSINTERVAL( TO_CHAR(
+                                    TO_TIMESTAMP(SYSDATE)-I.STARTUP_TIME
+                                   )
+                      ) "UPTIME",
+                      (SELECT ROUND(SUM(BYTES)/1024/1024/1024) FROM DBA_DATA_FILES) "DB size GB",  
+                      ( SELECT ROUND(BYTES/1024/1024/1024) "mem GB" FROM V$SGAINFO WHERE NAME = 'Maximum SGA Size' ) "SGA max size GB"
+  FROM V$DATABASE D INNER JOIN V$INSTANCE I
+  ON UPPER(D.NAME) = UPPER(I.INSTANCE_NAME);
+
+select EVENT_TIMESTAMP, CLIENT_PROGRAM_NAME, ACTION_NAME,DBUSERNAME,SQL_TEXT from unified_audit_trail where SQL_TEXT like '%truncate%SCMSX_EAR_REP_OVD_VIEW%';
+
+
+elect count(1) from unified_audit_trail where sql_text like '%truncate%' and EVENT_TIMESTAMP>sysdate-2;
+
+AIQ0001859
+
+ select NAME,to_char(PTIME,'DD_MM_YYYY HH24:MI:SS') from sys.user$  where NAME in ('SYS','SYSTEM');
+
+set pages 20000
+set lines 9999
+set markup html on;
+spool output.xls
+<Query>
+spool off;
+set markup html off
+
+9845436898
+Q801379/LSPS1B1
+Banu123#
+
+mano sir
+
+ select resource_name, current_utilization, max_utilization, limit_value
+    from gv$resource_limit
+    where resource_name in ('sessions', 'processes');
+
+sys@LSPX1X2>  select resource_name, current_utilization, max_utilization, limit_value
+    from gv$resource_limit
+    where resource_name in ('sessions', 'processes');
+  2    3
+RESOURCE_NAME                  CURRENT_UTILIZATION MAX_UTILIZATION LIMIT_VALUE
+------------------------------ ------------------- --------------- ----------------------------------------
+processes                                      373             378       2000
+sessions                                       202             204       3024
+processes                                      264             272       2000
+sessions                                        94             102       3024
+processes                                      265             273       2000
+sessions                                        96             103       3024
+
+
+
+AIQ0003195 for Customer Extracts
+
+dtv140
+
+SELECT * from dba_ _trail where TIMESTAMP > sysdate -5 and OWNER='&username';
+
+AUDIT_INFOMATION
+
+SET ECHO OFF
+SET MARKUP HTML ON SPOOL ON
+SPOOL /u01/app/oracle/dba_folders/dinesh/ILSDRP11_audit.html
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where timestamp > (sysdate - 90) and action_name like '%LOGON%' and username not in('ORION_MONITOR','DBSNMP','QDBA_UTIL','SYS','LMS','YSPLUNK') and username not like '%ORION%'
+order by logon_time asc,username,timestamp,logoff_time;
+
+SPOOL OFF
+SET MARKUP HTML OFF
+SET ECHO ON
+
+select USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE",to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where timestamp > (sysdate - 45) and action_name like '%LOGON%' and username not in('DBSNMP','QDBA_UTIL','SYS','ORION_MONITOR','LMS')
+order by logon_time asc,username,timestamp,logoff_time;
+
+http://usadc-vzdb22.quintiles.net:7777/pls/apex4prd/f?p=240:20:651480177874::NO
+
+exec dbms_java.grant_permission('GSK_204699_12L','SYS:java.io.FilePermission','</mounts/qecg_holter_data/GSK_204699_12L>','read');
+
+Technosoft Global Services Pvt Ltd
+Embassy tech Square, Signet Building, West Wing,
+3rd floor, Kadubeesanahalli, Sarjapur Marathalli Outer Ring Road, Bangalore - 560021
+
+The oracle password in MDC is Engl1sh_2.
+
+CCDB-FILER_CHECK
+
+http://usadc-vzdb42.quintiles.net:7777/pls/apex4dev/f?p=739:4:16391013758345
+
+https://orion.quintiles.com/Orion/APM/Admin/Applications/Default.aspx
+
+rm -rf `ls -l | grep "Apr 24" | awk '{print $9}'`
+
+ps -ef|grep lsps1b1e|grep LOCAL|grep Mar24|awk '{print $2}' | xargs kill -9
+
+manual MV refresh
+
+
+EXEC DBMS_MVIEW.refresh('DMSWUAT1.MV_DMSF_REPORT');
+
+Login Histroy
+
+select to_char(TIMESTAMP,'DD_MM_YYYY HH24:MI:SS') "TIMESTAMP",USERHOST,TERMINAL,OS_USERNAME,USERNAME,ACTION_NAME,to_char(RETURNCODE) "RETURNCODE" from dba_audit_session where USERNAME='AN_V111_REP'  and TIMESTAMP > sysdate-1 and returncode=1017 order by TIMESTAMP;
+
+http://wiki.quintiles.net/display/GDS/Automated+Cloning?flashId=-1193683829
+
+ps -ef|grep lsps1b1e|grep LOCAL|wc
+
+]/]l-[p;.]-]=[yt
+
+Here you could find which database object is located in which datafile of it's tablespace and it's owner, object name, object type and it's respective size:
+
+SQL> select t.ts#, t.name as Tablespace_name, d.name as Datafile, s.owner, s.segment_name, s.segment_type, s.bytes/1024/1024 as "MB"
+from v$tablespace t, v$datafile d, dba_segments s
+where t.ts#=d.ts#
+and t.name=s.tablespace_name
+and s.owner='SCOTT';
+
+NFS ENABLE
+
+To enable:
+Close database(s) using OH
+cd $ORACLE_HOME/rdbms/lib
+make -f ins_rdbms.mk dnfs_on
+Start database(s)
+
+Akhila Vishwanath
++919620070081
+
+Monitoring the Undo tickets. As it' need time for the space to claim automatically.No impact on downgrading the ticket
+
+0utC0m3!
+
+K33p_f1t
+
+http://bashokan77.blogspot.in/
+
+INC1903459 --> Chnage to be created
+
+0raCl3!
+
+alter user GENRPT identified by values '4663F8529D0BFE4C';
+
+select username,account_status from dba_users where username='DBSNMP';
+alter user dbsnmp account unlock;
+alter user dbsnmp identified by W3ar3Watching;
+
+exec dbms_java_dev.enable;
+
+-invPtrLoc /u01/app/oraInventory/oraInst.loc
+
+http://www.dbas-oracle.com/2011/06/step-by-step-manual-database-upgrade-to.html
+
+select file_name,tablespace_name,AUTOEXTENSIBLE from _files where tablespace_name='&tablespace_name';
+
+select file_name,tablespace_name,AUTOEXTENSIBLE from dba_temp_files where tablespace_name='&tablespace_name';
+
+
+/usr/local/bin/sudo su - oracle
+
+/dist/rhel/scripts/ora_mem_use -d  t
+
+select 'grant '||PRIVILEGE||' on '||OWNER||'.'||TABLE_NAME||' to '||GRANTEE||';' from dba_tab_privs where GRANTEE='Q778609';
+
+Refresh tool:
+
+http://adcteamsites.quintiles.com/sites/DBA/library/KB%20Articles/Forms/AllItems.aspx
+
+@/home/oracle/scripts/killsess.sql
+
+W3ar3Watching
+
+http://www.netapp.com/us/media/tr-3858.pdf
+
+stty columns 120
+
+
+select file_id,FILE_NAME,TABLESPACE_NAME,AUTOEXTENSIBLE,BYTES/1024/1024 "Used Size(MB)", MAXBYTES/1024/1024 "Max Size(MB)" from dba_data_files
+where TABLESPACE_NAME like '&tabname' order by file_id;
+
+size 1g autoextend on next 100M maxsize unlimited;
+
+
+size 200M autoextend on next 100M maxsize unlimited;
+
+CM PROJECT CODE
+CMENHC18  
+
+
+IRCTC
+
+dineshnani16
+Seshu@123
+
+Extract
+
+create table ALKEM_DP.argus_tables
+
+create table ALKEM_DP.esm_tables
+
+TMB
+
+209100050302686
+dineshnani
+seshu@123
+
+[?1/?28/?2019 2:34 PM]  G, RamSanthosh:  
+SQL> alter user APEX_SAFETY identified by Goodlife_19 account unlock;
+
+User altered.
+ 
+Application ID AA008NZ8GG
+
+TIER1730189345273
+
+Amex
+
+dineshnani16
+seshu123#
+
+qamr-accounts\qid
+
+Enable Partition
+
+Go to ORACLE_HOME/rdbms/lib
+
+1) make -f ins_rdbms.mk part_on  (To turn partitioning on)
+2) shutdown the database running on the home.  (not really reqd but better as we need to relink oracle binaries in next step)
+3) make -f ins_rdbms.mk ioracle    (To relink oracle binaries)
+
+
+19c clone
+
+https://rene-ace.com/how-to-clone-an-oracle-home-in-19c/
+
+oracle >export TEMP=/u01/app/oracle/dba_folders/dinesh/soft_home/19.9
+oracle >$ORACLE_HOME/runInstaller -silent  -createGoldImage -destinationLocation /u01/app/oracle/dba_folders/dinesh/soft_home/19.9
+Launching Oracle Database Setup Wizard...
+
+Successfully Setup Software.
+Gold Image location: /u01/app/oracle/dba_folders/dinesh/soft_home/db_home_2020-09-25_08-59-28AM.zip
+
+19C VM ca2uodb027vd
+
+extension no ; 918071318122
+
+$ tfactl diagcollect -from "Sep/4/2018 01:00:00" -to "Sep/4/2018 11:00:00"
+
+
+tar
+
+tar --exclude='./log' --exclude='./*log' --exclude='./rdbms/log/*' --exclude='./rdbms/audit/*' --exclude='./network/log/*' --exclude='./inventory/backup/*' --exclude='./dbs/*' --exclude='./aaa.tar' --exclude='./p*zip' . -zcvf /u01/app/oracle/dba_folders/dinesh/soft_home/12.1.0.2.170117_qpatchset02_a.tar >  /u01/app/oracle/dba_folders/dinesh/soft_home/12.1.0.2.170117_qpatchset02_a.out
+
+untar
+
+tar -xvf /tmp/<tar file name>
+
+Best wishes on this wonderful journey, as you build your new lives together
+
+From: Thanga, Dinesh & Shakeel
+
+Faber
+18002093484
+
+Thank you for your message. I am currently out of the office  with no email access and will be back on May 06 2019.
+For Argus/BMS/LCS/SANTEN/8.1 reach out to Linda(GMT)/Ramsanthosh(IST)/Shakeel Jameel(EST)
+For immediate assistance please log a ticket with Service Desk to Global DBA Services - Oracle - OpB for any assistance
+Otherwise, I will respond to your emails as soon as possible upon my return.
+Thanks,
+
+
+
+EXEC DBMS_STATS.gather_TABLE_stats('QSYNC_APP','Q_MESSAGES', estimate_percent =>DBMS_STATS.AUTO_SAMPLE_SIZE, cascade => TRUE);
+
+Object growth
+
+set feedback on
+column object_name for a30
+select * from (select c.TABLESPACE_NAME,c.segment_name "Object_Name",b.object_type,
+sum(space_used_delta) / 1024 / 1024 "Growth (MB)"
+from dba_hist_snapshot sn,
+dba_hist_seg_stat a,
+dba_objects b,
+dba_segments c
+where begin_interval_time > trunc(sysdate) - &days_back
+and sn.snap_id = a.snap_id
+and b.object_id = a.obj#
+and b.owner = c.owner
+and b.object_name = c.segment_name
+and c.owner = 'EEF_PRDA1'
+and b.object_name in ('EVENT_TRANSACTION_STORE$AUDIT','LOG_ALERT_DETAILS')
+group by c.TABLESPACE_NAME,c.segment_name,b.object_type)
+order by 3 asc;
+
+Undo tablespace is reclaimed.Also there are many undo sessions in expired , so it will be reuse automatically.
+select count(status) from dba_undo_extents where status = 'EXPIRED';
+
+/u01/app/oracle/bin/maintain_dbdirs_arch_thresh.par
+
+
+select name,open_mode from v$database;
+
+alter database recover managed standby database disconnect from session using current logfile;
+
+alter database recover managed standby database disconnect from session noparallel;
+
+SELECT   a.thread#,  b. last_seq, a.applied_seq, a. last_app_timestamp, b.last_seq-a.applied_seq   ARC_DIFF FROM (SELECT  thread#, MAX(sequence#) applied_seq, MAX(next_time) last_app_timestamp FROM gv$archived_log WHERE applied = 'YES' GROUP BY thread#) a, (SELECT  thread#, MAX (sequence#) last_seq FROM gv$archived_log GROUP BY thread#) b WHERE a.thread# = b.thread#;
+
+
+
+https://usadc-vsslwp01/Orion/APM/Admin/ApplicationTemplates.aspx
+
+srvctl modify scan_listener -endpoints "TCP:1545/TCP:1565"
+
+dinesh.dilli@quintiles.com
+
+qamr-accounts\qid
+
+cd /u01/app/oracle/admin/
+s
+select process,status,sequence# from v$managed_standby;
+
+
+ssh ieedc-vnasd01-mgt snapshot delete -volume vol5d_vd01 -snapshot  CTASK0070532_ILSPS01ER_COLD_BEFORE_REBUILD
+
+ssh usadc-vnasd01-mgt snapshot delete -vserver usadc-vnasd01 -volume vol16d_vd01 -snapshot cold_easprda_dgbuild -foreground true
+
+SQL> execute sys.dbms_support.start_trace_in_session(599,45131, waits=>true, binds=>true);
+ 
+PL/SQL procedure successfully completed.
+
+SQL> execute sys.d_support.stop_trace_in_session(599,45131);
+ 
+PL/SQL procedure successfully completed.
+
+
+CDRMSPRD
+
+full export on source
+create empty 12c database
+disable audit... audit_trail=none
+import full dump into 12c
+
+Rebuild standby
+https://shivanandarao-oracle.com/2012/03/10/creating-physical-standby-database-on-oracle-11g/
+ 
+
+
+http://oracle11ggotchas.com/articles/ConfiguringActivePassive.htm
+
+temp usage
+
+select sql_id,max(TEMP_SPACE_ALLOCATED)/(1024*1024*1024) gig
+from DBA_HIST_ACTIVE_SESS_HISTORY
+where
+sample_time > sysdate-60 and
+TEMP_SPACE_ALLOCATED > (50*1024*1024*1024)
+group by sql_id order by sql_id;
+
+ 
+  select sql_id,max(TEMP_SPACE_ALLOCATED)/(1024*1024*1024) gig
+from DBA_HIST_ACTIVE_SESS_HISTORY
+where
+sample_time > sysdate-10 and
+TEMP_SPACE_ALLOCATED > (1*1024*1024*1024)
+group by sql_id order by sql_id;
+
+CLOUD DBA
+There are 3 exams
+1z0-160
+1z0-337
+
+1z0-932
+
+Sandhiya home
+
+https://goo.gl/maps/anvAKAb6rpjZVC8U7
+
+'ALTERUSER'||NAME||'IDENTIFIEDBYVALUES'''||PASSWORD||''';'
+--------------------------------------------------------------------------------
+alter user CM_SETUP1 identified by values '2F5258A49D5BF6B0';
+alter user CM_TRANS1 identified by values '8E7AE6D18B298D2F';
+
+
+
+select 'alter user '||name||' identified by values '''||password||''';' from user$ where name in ('DBSNMP','LMS','BMS_MART_PROD','ORION_MONITOR','YSOCDBCHK','ETL_ORION_MONITOR','AM_DBA_USER');
+
+select 'alter user '||name||' identified by values '''||password||''';' from user$ where name='CUSTOM_AUTO_NARRATIVE';
+alter user CUSTOM_AUTO_NARRATIVE identified by values '1AA7366FFF4C8FD7';
+alter user CUSTOM_AUTO_NARRATIVE identified by Dev_custom3b;
+
+
+
+
+SITEID RITM7034707
+
+TRANSFORM=oid:n
+
+nohup ./scp.sh > scp.out > scp.err < /dev/null &
+
+nohup ./cp.sh > cp.out > cp.err < /dev/null &
+
+USADC-SINDBT01
+
+39253332
+
+7madhuganesh6#
+
+7900
+
+Dear Friend,
+
+Finally I am getting hooked for life. I thereby invite you all to the engagement ceremony with the chick who finally hooked me down. I would eagerly await your presence, with gifts of course
+
+Date : 20-Aug-2015
+
+Time : 5.30PM onwards
+
+Place :
+
+9791670243
+
+Selvi
+
+Sync:
+
+
+set line 300
+select  NAME,  VALUE,  UNIT   from v$dataguard_stats   union    select null,null,' ' from dual union    select null,null,'Time Computed: '||MIN(TIME_COMPUTED)  from v$dataguard_stats;
+
+
+
+Thanks Lewis for the clarification.
+
+Please clone the 04-JULY-2015 (first week of July) snap mirror for ILSPS01 database to USADC-SDBXT60 server.
+
+I will use that mount to create a test database.
+
+Also mount the archivelog for the same date. I will get required logs from that read only snap and will confirm once recovery test is completed to destroy.
+
+Regards
+
+
+AUDIT
+
+select OS_USERNAME,action_name,USERNAME,to_char(timestamp, 'DD MON YYYY hh24:mi') logon_time,
+to_char(logoff_time,'DD MON YYYY hh24:mi') logoff
+from dba_audit_session where username ='&user'
+AND (timestamp > (sysdate - 45))
+order by logon_time,username,timestamp,logoff_time desc;
+
+
+yes.  Just don't share it with anyone....just have them ask me directly...that helps ensure this info doesn't get outside of the DBA team.
+DBA Suite
+License key: C36VAB7ZSENV73T50XT4XYF0ZX6K83CAQ7BAW-130-404-898-BC
+Site Message: QUINTILES INC
+Number of Seats: 2
+
+License Number: 130-404-898
+Account ID: 1-5YRR6A
+
+Dear Dinesh Dilli,
+Thank you for registering with moneyonlineinvestment.com.
+Your username: ddineshnani@gmail.com
+Your password: goodday1
+Please save this information for future use.
+You may login into your account using your username and password at:
+http://www.moneyonlineinvestment.com/login.php
+In a short time you have to receive a confirmation email with the same information.
+Make your new business happy and rich!
+Sincerely,
+moneyonlineinvestment.com team.
+
+
+If anyone is tasked to perform manual backups, during the SDH release this weekend (or in the future), the new backup commands will be:
+
+# list snapshots of idfprd01:
+ssh usadc-vsdxiop01 'show-snapshots ancestor-vol-id="idfprd01_data"'
+
+# create snapshot for idfprd01:
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["idfprd01_data"] snapshot-type="readonly" snap-suffix="manual_snap_<date/ticket>"'
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="idfprd01_data.manual_snap_<date/ticket>"" tag-id="/Volume/ora-snapshots"'
+
+
+
+# list snapshots of idfmap01:
+ssh usadc-vsdxiop01 'show-snapshots ancestor-vol-id="idfmap01_data"'
+
+# create snapshot for idfmap01:
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["idfmap01_data"] snapshot-type="readonly" snap-suffix="manual_snap_<date/ticket>""'
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="idfmap01_data.manual_snap_<date/ticket>"" tag-id="/Volume/ora-snapshots"'
+
+
+             Put a database in backup mode
+              And run below command to take a backup
+ 
+ssh usadc-vsdxiop01 'create-snapshot volume-list=["dfprd_data"] snapshot-type="readonly" snap-suffix=".manual_snap_yyyymmdd"'
+ 
+ssh usadc-vsdxiop01 'tag-object entity="Volume" entity-details="dfprd_data.manual_snap_yyyymmdd" tag-id="/Volume/ora-snapshots"'
+ 
+              Don t change the date format while taking the snapshot
+              Take database out of backup of mode
+
+DOB
+
+MOM 1-7-65
+
+DAD 17-5-62
+
+Thanks for your mail.
+
+I will be Out of office on 12th & 13th JUN and will be back on 14th JUN.
+I will have limited access to emails, so expect delay in response.
+For any Oracle related issues, please raise an SR to "Global DBA Services - Oracle - Opb",
+which will be addressed at the earliest. Please feel free to reach on phone at emrgency.
+
+Thanks,

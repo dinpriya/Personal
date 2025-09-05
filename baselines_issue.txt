@@ -1,0 +1,56 @@
+SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='d1cqx3mpnyhb9');
+
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu23717cc2
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu37dbffda
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu3ee11058
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu6ea77bd3
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu738b61e9
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu7a341b65
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu8e95c164
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zu96a30774
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zua34719bc
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zub3343156
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zud68c09a3
+SQL_70f89ac09a838ffa           SQL_PLAN_71y4us2d873zudb386d96
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu23717cc2'); 3791613430
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu37dbffda'); 937164762
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu3ee11058');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu6ea77bd3');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu738b61e9');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu7a341b65');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu8e95c164');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zu96a30774');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zua34719bc');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zub3343156');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zud68c09a3');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_70f89ac09a838ffa','SQL_PLAN_71y4us2d873zudb386d96');
+
+
+SELECT sql_handle, plan_name FROM dba_sql_plan_baselines WHERE signature IN ( SELECT exact_matching_signature FROM gv$sql WHERE sql_id='4s0thm71zm95k');
+
+SQL_HANDLE                     PLAN_NAME
+------------------------------ --------------------------------------------------------------------------------------------------------------------------------
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcaf26050c3c
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcaf459b3b56
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcaf4cfe83b3
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcaf5f56e97a
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafb1c7174a
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafb459ec87
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafb812f190
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafc2536774
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafd98a102b
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcafe739ca8a
+SQL_d7ae22a901fe314e           SQL_PLAN_dgbj2p40zwcaffcb03059
+
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcaf26050c3c');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcaf459b3b56');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcaf4cfe83b3');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcaf5f56e97a');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafb1c7174a');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafb459ec87');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafb812f190');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafc2536774');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafd98a102b');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcafe739ca8a');
+select *from dbms_xplan.display_sql_plan_baseline('SQL_d7ae22a901fe314e','SQL_PLAN_dgbj2p40zwcaffcb03059');

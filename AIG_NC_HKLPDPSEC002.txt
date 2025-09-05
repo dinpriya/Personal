@@ -1,0 +1,61 @@
+Login to HKLPDSSEC002 and HKLPDPSEC002, perform below steps in both servers.
+
+set oraenv to POHK1STM_DG2 and POHK1STM2
+
+create pfile='/home/oracle/init<ORACLE_SID>.ora.bak' from spfile;
+
+23:29:23 SYS @ POHK1STM2:CDB$ROOT:>show parameter sec_proto
+
+NAME                                 TYPE                             VALUE
+------------------------------------ -------------------------------- ------------------------------
+sec_protocol_error_further_action    string                           CONTINUE
+sec_protocol_error_trace_action      string                           TRACE
+
+23:35:35 SYS @ POHK1STM2:CDB$ROOT:>SELECT A.USERNAME,CON_ID FROM CDB_USERS A WHERE A.PROFILE='DEFAULT' AND A.ACCOUNT_STATUS='OPEN' AND A.ORACLE_MAINTAINED = 'N' and CON_ID<>2;
+
+USERNAME                           CON_ID
+------------------------------ ----------
+D42ULADM                                3
+
+
+Status of the 'sec_protocol_error_trace_action' parameter setting
+
+Expected Result  : 
+
+(DROP,3)
+
+Status of the 'sec_protocol_error_trace_action' parameter setting
+
+Expected Result  : 
+LOG
+
+18:52:09 SYS @ POHK1STM2:CDB$ROOT:>
+
+Remediation
+============
+alter system set  "sec_protocol_error_further_action" = "(DROP,3)" scope=both SID='*';
+
+ALTER SYSTEM SET sec_protocol_error_trace_action=LOG  scope=both SID='*';
+
+alter session set container=PDBP_SSTM;
+
+alter user D42ULADM profile SCB_STATIC_APP;
+
+Bounce the DB
+
+shut immediate;
+startup
+
+Rollback Plan:
+==============
+alter system set sec_protocol_error_trace_action=TRACE scope=both SID='*';
+alter system set sec_protocol_error_further_action=CONTINUE scope=both SID='*';
+
+alter session set container=PDBP_SSTM;
+
+alter user D42ULADM profile DEFAULT;
+
+Bounce the DB
+
+shut immediate;
+startup
